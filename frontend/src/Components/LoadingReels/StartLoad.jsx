@@ -1,5 +1,6 @@
 import React from 'react'
 import logo from '../../assets/LogoFolder/instaLogo.png'
+import MidgenLogo from '../../assets/LogoFolder/midgenerationLogo.png'
 
 function StartLoad() {
     return (
@@ -10,7 +11,7 @@ function StartLoad() {
 
                 <div className='text-center from-afer-screen-text-color bottom-5 w-fit h-fit absolute'>
                     <h1>from</h1>
-                    <h2>Midgen</h2>
+                    <img src={MidgenLogo} alt="Midgeneration Logo" />
                 </div>
             </div>
         </div>

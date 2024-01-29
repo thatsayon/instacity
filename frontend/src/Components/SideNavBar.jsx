@@ -9,6 +9,7 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoCreateOutline } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoMenuSharp } from "react-icons/io5";
+import instacityLogo from '../assets/LogoFolder/instaLogo.png'
 
 function SideNavBar({ setCreate }) {
 
@@ -16,8 +17,9 @@ function SideNavBar({ setCreate }) {
 
     return (
         <nav className={`p-2 `}>
-            <div className='py-4 pl-4'>
-                <h1 className={`text-3xl italic text-gray-700 `}>InstaCity</h1>
+            <div className='lg:py-4 lg:pl-4'>
+                <h1 className={`text-3xl italic text-gray-700 lg:block hidden`}>InstaCity</h1>
+                <img src={instacityLogo} alt="Instacity logo" className='lg:hidden block' />
 
             </div>
 
@@ -30,7 +32,7 @@ function SideNavBar({ setCreate }) {
                             <div>
                                 <LuHome />
                             </div>
-                            <span> Home</span>
+                            <span className='lg:block hidden'> Home</span>
 
                         </Link>
                     </li>
@@ -42,7 +44,7 @@ function SideNavBar({ setCreate }) {
                             <div>
                                 <IoSearchSharp />
                             </div>
-                            <span>Search</span>
+                            <span className='lg:block hidden'>Search</span>
 
                         </Link>
                     </li>
@@ -52,7 +54,7 @@ function SideNavBar({ setCreate }) {
                             <div>
                                 <MdOutlineExplore />
                             </div>
-                            <span>Explore</span>
+                            <span className='lg:block hidden'>Explore</span>
                         </Link>
                     </li>
                     <li>
@@ -62,7 +64,7 @@ function SideNavBar({ setCreate }) {
                                 <BiMoviePlay />
                             </div>
 
-                            <span> Reels</span>
+                            <span className='lg:block hidden'> Reels</span>
 
                         </Link>
                     </li>
@@ -73,7 +75,7 @@ function SideNavBar({ setCreate }) {
                                 <AiOutlineMessage />
                             </div>
 
-                            <span> Messages</span>
+                            <span className='lg:block hidden'> Messages</span>
                         </Link>
                     </li>
                     <li>
@@ -85,7 +87,7 @@ function SideNavBar({ setCreate }) {
                             <div>
                                 <IoMdNotificationsOutline />
                             </div>
-                            <span> Notification</span>
+                            <span className='lg:block hidden'> Notification</span>
 
                         </Link>
                     </li>
@@ -98,7 +100,7 @@ function SideNavBar({ setCreate }) {
                                 <IoCreateOutline />
                             </div>
 
-                            <span>Create</span>
+                            <span className='lg:block hidden'>Create</span>
                         </button>
                     </li>
                     <li>
@@ -106,7 +108,7 @@ function SideNavBar({ setCreate }) {
                             <div>
                                 <FaRegUserCircle />
                             </div>
-                            <span>Profile</span>
+                            <span className='lg:block hidden'>Profile</span>
                         </Link>
                     </li>
                     <li>
@@ -114,12 +116,12 @@ function SideNavBar({ setCreate }) {
                             <div>
                                 <FaRegUserCircle />
                             </div>
-                            <span>Login
+                            <span className='lg:block hidden'>Login
                             </span>
                         </Link>
                     </li>
 
-                    <li className='mt-8'>
+                    <li className='mt-0'>
 
 
                         <Link to={'/More'}>
@@ -127,7 +129,7 @@ function SideNavBar({ setCreate }) {
                                 <IoMenuSharp />
                             </div>
 
-                            <span>More</span>
+                            <span className='lg:block hidden'>More</span>
                         </Link>
 
 

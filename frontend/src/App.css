@@ -186,10 +186,10 @@ body {
 }
 
 .from-afer-screen-text-color > h1 {
-  color: var(--gray-7--);
+  color: var(--black-10---);
   font-size: 1rem;
-  font-weight: var(--font-normal--);
-  padding-bottom: 5px;
+  font-weight: var(--font-noraml--);
+  padding-bottom: 4px;
 }
 
 .from-afer-screen-text-color > h2 {
