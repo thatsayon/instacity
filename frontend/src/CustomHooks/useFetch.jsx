@@ -11,6 +11,7 @@ const axiosFetch = axios.create({
 
 function useFetch() {
     return axiosFetch;
+    
 }
 
 export default useFetch
