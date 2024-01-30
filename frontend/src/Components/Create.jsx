@@ -43,7 +43,8 @@ function Create({ setCreate }) {
             </svg>
             <h3 className="font-normal text-base">Drop Photos & videos here</h3>
 
-            <button className="bg-[#0064e0] text-[#fff] mt-7 mx-auto w-fit font-normal py-2 px-4 rounded-md text-sm">Select from computer</button>
+            <button className="bg-[#0064e0] text-[#fff] mt-7 mx-auto w-fit font-normal py-2 px-4 rounded-md text-sm md:block hidden">Select from computer</button>
+            <button className="bg-[#0064e0] text-[#fff] mt-7 mx-auto w-fit font-normal py-2 px-4 rounded-md text-sm md:hidden block">Select from Gallery</button>
           </div>
         </div>
       </div>

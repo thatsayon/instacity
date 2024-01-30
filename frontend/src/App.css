@@ -143,6 +143,28 @@
   --system-font-family--: "Roboto", sans-serif, "Poppins", "Open Sans";
 }
 
+
+/* --scroll-bar-design-- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--button-primary--);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+  background: #555;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #635fc7;
+}
+
+
 body {
   margin: 0;
   padding: 0;
@@ -150,7 +172,7 @@ body {
   font-family: var(--system-font-family--);
   max-width: 100vw;
   background: var(--white-6--);
-  color: var(--black-6--);
+  color: var(--black-10--);
   line-height: 18px;
   overflow: hidden;
 }
@@ -206,41 +228,67 @@ body {
 
 /* ---SideNavBar-component-css-- */
 
-#sideBar-link > ul > li {
-  cursor: pointer;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  padding-left: 8px;
-  border-radius: 5px;
+#sidebar-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
 }
-#sideBar-link > ul > li > a,
-button {
+
+
+#sidebar-link > li {
+  width: 100%;
+}
+
+
+
+#sidebar-link > li > a {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 4px;
+  padding: 10px 0px;
+  border: 1px solid black;
+  width: 100%;
+ 
 }
+#sidebar-link > li > button{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 0px;
+  border: 1px solid black;
+  width: 100%;
+ 
+}
+
+
 #sideBar-link > ul > li > a,
 button > span {
   font-weight: var(--font-normal--);
   color: var(--black-1--);
+  
 }
-#sideBar-link > ul > li > button > span {
+#sidebar-link > li > button > span {
   font-weight: var(--font-normal--);
   color: var(--black-1--);
 }
 
-#sideBar-link > ul > li .active {
-  font-weight: var(--font-bold--);
+#sidebar-link > li > .active {
+  font-weight: var(--font-extra-bold--);
+  
+
 }
-#sideBar-link > ul > li:hover {
+
+#sidebar-link > li:hover {
   background: var(--hover-bg--);
 }
 
-#sideBar-link > ul > li > a > div {
+#sidebar-link > li > a > div {
   font-size: 24px;
 }
-#sideBar-link > ul > li > button > div {
+#sidebar-link > li > button > div {
   font-size: 24px;
+  margin: auto;
 }
 
 
@@ -276,3 +324,49 @@ button > span {
   border: 1px solid var(--link-color--);
 }
 
+/* ---more-page-css-- */
+
+#more-link {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+}
+
+
+
+#more-link > li > a {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 0px;
+  border: 1px solid black;
+  width: 100%;
+ 
+}
+#more-link > li > button{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 0px;
+  border: 1px solid black;
+  width: 100%;
+ 
+}
+
+
+
+
+
+
+@media only screen and (min-width: 280px) and (max-width: 900px) {
+
+  
+#sideBar-link > ul > li > .active > div {
+  color: var(--link-color--);
+  font-weight: var(--font-extra-bold--);
+  
+
+}
+
+}

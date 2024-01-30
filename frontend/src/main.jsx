@@ -47,11 +47,6 @@ const router = createBrowserRouter([
       {
         path: '/Profile',
         element: <Profile />
-      },
-      {
-        path: '/More',
-        element: <More />
-
       }
     ]
   },
