@@ -8,7 +8,7 @@ import { FaSun } from "react-icons/fa";
 import { VscReport } from "react-icons/vsc";
 import { Link } from 'react-router-dom';
 
-function More({ setClickMore }) {
+function More({ setClickMore, setDark , setSwitchaccount}) {
   return (
     <>
 
@@ -19,18 +19,18 @@ function More({ setClickMore }) {
           }
           setClickMore(false);
         }}
-        className="fixed right-0 top-0 px-2 py-4 overflow-hidden scrollbar-hide  z-50 lg:left-[-66%] left-[-25%] bottom-0 justify-center items-center flex dropdown"
+        className="fixed right-0 top-0 px-2 py-4 overflow-hidden scrollbar-hide  z-50 lg:left-[-600px] md:left-[-322px] bottom-0 justify-center items-center flex dropdown"
       >
-        <div className=" scrollbar-hide overflow-hidden max-h-[95vh]  my-auto  bg-[#ffffff] dark:bg-current text-[#000000] dark:text-white font-bold shadow-md shadow-[#364e7e1a] max-w-xs mx-auto  w-full p-4 rounded-sm ">
+        <div className=" scrollbar-hide overflow-hidden max-h-[95vh]  my-auto  bg-[#ffffff] text-[#000000] dark:bg-[#262626] dark:text-[#ffffff]   font-bold shadow-md shadow-[#364e7e1a] max-w-xs mx-auto  w-full p-4 rounded-md">
 
-          <div className='text-[#000000] font-normal'>
+          <div className='dark:bg-[#262626] dark:text-[#ffffff] text-[#000000] font-normal '>
             <ul id='more-link'>
-              <li>
+              <li className='dark:hover:bg-[#e0f1ff]'>
                 <Link to='/' >
                   <div>
                     <IoSettingsOutline />
                   </div>
-                  <span>settings</span>
+                  settings
                 </Link>
               </li>
 
@@ -39,7 +39,7 @@ function More({ setClickMore }) {
                   <div>
                     <LuActivitySquare />
                   </div>
-                  <span>your activity</span>
+                  your activity
                 </Link>
               </li>
 
@@ -48,16 +48,16 @@ function More({ setClickMore }) {
                   <div>
                     <CiBookmark />
                   </div>
-                  <span>Saved</span>
+                  Saved
                 </Link>
               </li>
 
-              <li>
-                <button>
+              <li >
+                <button onClick={() => { setDark(true), setClickMore(false) }} >
                   <div>
                     <FaSun />
                   </div>
-                  <span>Switch appearance</span>
+                  Switch appearance
                 </button>
               </li>
 
@@ -67,18 +67,18 @@ function More({ setClickMore }) {
                   <div>
                     <VscReport />
                   </div>
-                  <span>Report a problem</span>
+                  Report a problem
                 </button>
               </li>
 
               <li>
-                <button>
+                <button onClick={()=> {setSwitchaccount(true), setClickMore(false)}}>
                   <div>
 
                     <MdOutlineCameraswitch />
                   </div>
 
-                  <span>Switch account</span>
+                  Switch account
                 </button>
               </li>
 
@@ -88,7 +88,7 @@ function More({ setClickMore }) {
                     <IoLogOutOutline />
                   </div>
 
-                  <span>Log out </span>
+                  Log out
                 </button>
               </li>
 

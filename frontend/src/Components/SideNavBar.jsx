@@ -12,11 +12,11 @@ import { IoMenuSharp } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import instacityLogo from "../assets/LogoFolder/instaLogo.png";
 
-function SideNavBar({ setCreate, clickMore, setClickMore }) {
+function SideNavBar({ setCreate, clickMore, setClickMore}) {
   return (
-    <nav className={`lg:p-2 p-4 `}>
+    <nav className={`lg:p-2 p-4 dark:text-[#ffffff]  `}>
       <div className="py-4 lg:pl-4">
-        <h1 className={`text-3xl italic text-gray-700 lg:block hidden`}>
+        <h1 className={`text-3xl italic text-gray-700 lg:block hidden dark:text-[#ffffff] `}>
           InstaCity
         </h1>
         <img
@@ -27,14 +27,14 @@ function SideNavBar({ setCreate, clickMore, setClickMore }) {
         />
       </div>
 
-      <div >
-        <ul id="sidebar-link" className="flex flex-col justify-center lg:items-start items-stretch">
+      <div>
+        <ul id="sidebar-link"  >
           <li>
             <NavLink to={"/"}>
               <div>
                 <LuHome />
               </div>
-              <span className="lg:block hidden"> Home</span>
+              <p className="lg:block hidden"> Home</p>
             </NavLink>
           </li>
           <li>
@@ -42,7 +42,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore }) {
               <div>
                 <IoSearchSharp />
               </div>
-              <span className="lg:block hidden">Search</span>
+              <p className="lg:block hidden">Search</p>
             </NavLink>
           </li>
           <li>
@@ -50,7 +50,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore }) {
               <div>
                 <MdOutlineExplore />
               </div>
-              <span className="lg:block hidden">Explore</span>
+              <p className="lg:block hidden">Explore</p>
             </NavLink>
           </li>
           <li>
@@ -59,16 +59,17 @@ function SideNavBar({ setCreate, clickMore, setClickMore }) {
                 <BiMoviePlay />
               </div>
 
-              <span className="lg:block hidden"> Reels</span>
+              <p className="lg:block hidden"> Reels</p>
             </NavLink>
           </li>
           <li>
             <NavLink to={"/Message"}>
               <div>
                 <AiOutlineMessage />
+             
               </div>
 
-              <span className="lg:block hidden"> Messages</span>
+              <p className="lg:block hidden"> Messages</p>
             </NavLink>
           </li>
           <li>
@@ -76,16 +77,16 @@ function SideNavBar({ setCreate, clickMore, setClickMore }) {
               <div>
                 <IoMdNotificationsOutline />
               </div>
-              <span className="lg:block hidden"> Notification</span>
+              <p className="lg:block hidden"> Notification</p>
             </NavLink>
           </li>
           <li>
-            <button onClick={() => setCreate(true)}>
-              <div>
+            <button className=" text-[#323436]" onClick={() => setCreate(true)}>
+              <div className="dark:text-[#ffffff]">
                 <IoCreateOutline />
               </div>
 
-              <span className="lg:block hidden">Create</span>
+              <p className="lg:block hidden dark:text-[#ffffff]">Create</p>
             </button>
           </li>
           <li>
@@ -93,17 +94,17 @@ function SideNavBar({ setCreate, clickMore, setClickMore }) {
               <div>
                 <FaRegUserCircle />
               </div>
-              <span className="lg:block hidden">Profile</span>
+              <p className="lg:block hidden">Profile</p>
             </NavLink>
           </li>
 
-          <li className="lg:mt-12 md:block hidden">
+          <li className="absolute bottom-0 w-[15vw] md:block hidden">
             <button onClick={() => setClickMore(!clickMore)}>
-              <div>
+              <div  className="dark:text-[#ffffff]">
                 <IoMenuSharp />
               </div>
 
-              <span className="lg:block hidden">More</span>
+              <p className="lg:inline hidden dark:text-[#ffffff]">More</p>
             </button>
           </li>
           <li className="md:hidden block">
