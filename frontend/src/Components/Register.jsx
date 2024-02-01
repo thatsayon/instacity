@@ -55,11 +55,11 @@ function Register() {
             <div className="flex flex-col gap-2 ">
               <button className="button-primary w-full justify-center">
 
-                <span className="text-white text-xl"><FaFacebook /></span>Log in with facebook
+                <span className="text-white text-xl"><FaFacebook /></span>sign in with facebook
               </button>
               <button className="button-primary w-full justify-center">
 
-                <span className="text-white text-xl"><FaGoogle /></span>Log in with Google
+                <span className="text-white text-xl"><FaGoogle /></span>sign in with Google
               </button>
             </div>
 

@@ -13,11 +13,11 @@ function Create({ setCreate }) {
         }}
       >
         <div
-          className=" overflow-hidden max-h-[95vh] shadow-lg  bg-white dark:bg-white  text-black dark:text-black font-bold
+          className=" overflow-hidden max-h-[95vh] shadow-lg  bg-white dark:bg-[#262626]  dark:text-[#ffffff]  text-black font-bold
                       shadow-[#364e7e1a] max-w-sm mx-auto my-auto w-full  py-4 rounded-xl flex items-center justify-center flex-col gap-10"
         >
           <h1>Create new post</h1>
-          <div>
+          <div className="dark:bg-[#262626]  dark:text-[#ffffff]">
             <svg
               aria-label="Icon to represent media such as images or videos"
               fill="currentColor"
@@ -43,7 +43,8 @@ function Create({ setCreate }) {
             </svg>
             <h3 className="font-normal text-base">Drop Photos & videos here</h3>
 
-            <button className="bg-[#0064e0] text-[#fff] mt-7 mx-auto w-fit font-normal py-2 px-4 rounded-md text-sm">Select from computer</button>
+            <button className="bg-[#0064e0] text-[#fff] mt-7 mx-auto w-fit font-normal py-2 px-4 rounded-md text-sm md:block hidden">Select from computer</button>
+            <button className="bg-[#0064e0] text-[#fff] mt-7 mx-auto w-fit font-normal py-2 px-4 rounded-md text-sm md:hidden block">Select from Gallery</button>
           </div>
         </div>
       </div>

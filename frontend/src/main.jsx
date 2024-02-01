@@ -13,6 +13,7 @@ import More from './Components/More.jsx'
 import Notification from './Components/Notification.jsx'
 import Register from './Components/Register.jsx'
 import Login from './Components/Login.jsx'
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const router = createBrowserRouter([
   {
@@ -47,11 +48,6 @@ const router = createBrowserRouter([
       {
         path: '/Profile',
         element: <Profile />
-      },
-      {
-        path: '/More',
-        element: <More />
-
       }
     ]
   },
@@ -60,14 +56,17 @@ const router = createBrowserRouter([
     element: <Register />
   },
   {
-    path : '/Login',
-    element : <Login/>
+    path: '/Login',
+    element: <Login />
   }
 ])
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <GoogleOAuthProvider clientId="352995801995-5j6nt79h3f7fo7tgmmne1eafckb1ebiq.apps.googleusercontent.com">
+      <RouterProvider router={router} />
+
+    </GoogleOAuthProvider>
   </React.StrictMode>,
 )

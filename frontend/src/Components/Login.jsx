@@ -46,7 +46,7 @@ function Login() {
                   <input type="email" name="email" id="email" required placeholder="Enter your email " />
                 </label>
                 <label className="relative" htmlFor="password">
-                  <input type={`${showPass ? 'text' : 'password'}`} required name="password" id="password" placeholder="create a password " />
+                  <input type={`${showPass ? 'text' : 'password'}`} required name="password" id="password" placeholder="Enter your password " />
                   <button onClick={() => setShowpass(!showPass)} className="absolute top-[11px] left-[250px]">{showPass ? <FaEye /> : <FaEyeSlash />}</button>
                 </label>
 
@@ -66,11 +66,11 @@ function Login() {
             <div className="flex flex-col gap-2 ">
               <button className="button-primary w-full justify-center">
 
-                <span className="text-white text-xl"><FaFacebook /></span>Log in with facebook
+                <span className="text-white text-xl"><FaFacebook /></span>sign in with facebook
               </button>
               <button className="button-primary w-full justify-center">
 
-                <span className="text-white text-xl"><FaGoogle /></span>Log in with Google
+                <span className="text-white text-xl"><FaGoogle /></span>sign in with Google
               </button>
             </div>
 
