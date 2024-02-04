@@ -7,6 +7,8 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { FaSun } from "react-icons/fa";
 import { VscReport } from "react-icons/vsc";
 import { Link } from 'react-router-dom';
+import '../CustomStyles/More.css';
+
 
 function More({ setClickMore, setDark , setSwitchaccount}) {
   return (

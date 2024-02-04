@@ -8,7 +8,8 @@ import Create from "./Components/Create";
 import More from "./Components/More";
 import Mode from "./Components/Modals/Mode";
 import SwitchAccount from "./Components/Modals/SwitchAccount";
-import Post from "./Components/ShareComponent/Post";
+import './CustomStyles/App.css';
+import useShareobj from "./CustomHooks/useShareobj";
 
 function App() {
   const navigation = useNavigation();
@@ -18,6 +19,10 @@ function App() {
   const [clickMore, setClickMore] = useState(false);
   const [Dark, setDark] = useState(false);
   const [checked, setchecked] = useState(false);
+
+  const {user } = useShareobj();
+
+  console.log(user)
 
   useEffect(() => {
     setTimeout(() => {
@@ -60,7 +65,7 @@ function App() {
             <SideNavBar setCreate={setCreate} clickMore={clickMore} setClickMore={setClickMore} />
           </header>
           <main className="flex-1 overflow-y-scroll">
-            {navigation.state == "idle" ? <Outlet /> : <SystemLoading />}
+            {navigation.state == "idle" ? <Outlet setSwitchaccount={setSwitchaccount}/> : <SystemLoading />}
 
           </main>
         </div>
@@ -82,7 +87,7 @@ function App() {
         Dark && <Mode setDark={setDark} setClickMore={setClickMore} checked={checked} setchecked={setchecked} />
       }
       {
-        swithaccount && <SwitchAccount setSwitchaccount={setSwitchaccount} />
+        swithaccount && <SwitchAccount setSwitchaccount={setSwitchaccount} swithaccount={swithaccount} />
       }
     </>
   );

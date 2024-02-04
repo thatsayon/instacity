@@ -4,6 +4,7 @@ import { FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 // import { FaFacebook } from "react-icons/fa";
 // import { FaGoogle } from "react-icons/fa";
+import '../CustomStyles/Login.css'
 
 function Login() {
 

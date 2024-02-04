@@ -1,0 +1,25 @@
+.form > div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .form > div > label > input {
+    border: 1px solid var(--gray-23--);
+    width: 100%;
+    padding: 8px 4px;
+    border-radius: var(--radius-sm--);
+    font-weight: var(--font-normal--);
+    font-size: 14px;
+    background-color: var(--white-12--);
+    outline: none;
+    transition: all 0.5s;
+    text-overflow: ellipsis;
+  }
+  .register-form > div > label > input::placeholder {
+    color: var(--gray-17--);
+    font-size: 13px;
+  }
+  .register-form > div > label > input:focus {
+    border: 1px solid var(--link-color--);
+  }
+  

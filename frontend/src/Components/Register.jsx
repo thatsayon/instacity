@@ -4,6 +4,7 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 // import { FaFacebook } from "react-icons/fa";
 // import { FaGoogle } from "react-icons/fa";
+import '../CustomStyles/Register.css'
 
 function Register() {
   const [showPass, setShowpass] = useState(false);

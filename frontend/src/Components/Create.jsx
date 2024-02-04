@@ -21,10 +21,10 @@ function Create({ setCreate }) {
             <svg
               aria-label="Icon to represent media such as images or videos"
               fill="currentColor"
-              height="77"
+              height="77px"
               role="img"
               viewBox="0 0 97.6 77.3"
-              width="96"
+              width="96px"
               className="mx-auto"
             >
               <title>Icon to represent media such as images or videos</title>
