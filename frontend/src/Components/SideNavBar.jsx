@@ -15,7 +15,7 @@ import instacityLogo from "../assets/LogoFolder/instaLogo.png";
 function SideNavBar({ setCreate, clickMore, setClickMore}) {
   return (
     <nav className={`lg:p-2 p-4 dark:text-[#ffffff]  `}>
-      <div className="py-4 lg:pl-4">
+      <div className="pt-4 pb-10 lg:pl-4">
         <h1 className={`text-3xl italic text-gray-700 lg:block hidden dark:text-[#ffffff] `}>
           InstaCity
         </h1>
@@ -98,7 +98,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore}) {
             </NavLink>
           </li>
 
-          <li className="absolute bottom-0 w-[15vw] md:block hidden">
+          <li className="lg:mt-6 md:block hidden">
             <button onClick={() => setClickMore(!clickMore)}>
               <div  className="dark:text-[#ffffff]">
                 <IoMenuSharp />

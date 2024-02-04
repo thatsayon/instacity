@@ -8,6 +8,7 @@ import Create from "./Components/Create";
 import More from "./Components/More";
 import Mode from "./Components/Modals/Mode";
 import SwitchAccount from "./Components/Modals/SwitchAccount";
+import Post from "./Components/ShareComponent/Post";
 
 function App() {
   const navigation = useNavigation();
@@ -54,12 +55,13 @@ function App() {
       {StartonLoad ? (
         <StartLoad />
       ) : (
-        <div className="flex gap-2">
+        <div className="flex gap-2 h-screen">
           <header className="lg:w-[20vw] w-fit sidebar-header dark:border-[#262626]">
             <SideNavBar setCreate={setCreate} clickMore={clickMore} setClickMore={setClickMore} />
           </header>
-          <main className="w-full">
+          <main className="flex-1 overflow-y-scroll">
             {navigation.state == "idle" ? <Outlet /> : <SystemLoading />}
+
           </main>
         </div>
       )}
@@ -80,7 +82,7 @@ function App() {
         Dark && <Mode setDark={setDark} setClickMore={setClickMore} checked={checked} setchecked={setchecked} />
       }
       {
-        swithaccount && <SwitchAccount setSwitchaccount={setSwitchaccount}/>
+        swithaccount && <SwitchAccount setSwitchaccount={setSwitchaccount} />
       }
     </>
   );

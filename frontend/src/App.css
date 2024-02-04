@@ -184,6 +184,11 @@ body {
 /* ---global--style-- */
 .button-primary {
   background: var(--button-primary--);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   color: var(--white-3--);
   font-size: 14px;
   font-weight: var(--font-medium--);
@@ -235,7 +240,7 @@ body {
 #sidebar-link {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 14px;
 }
 
 

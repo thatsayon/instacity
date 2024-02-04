@@ -1,13 +1,67 @@
-import React, { useState } from "react";
-import { FaFacebook } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+// import { FaFacebook } from "react-icons/fa";
+// import { FaGoogle } from "react-icons/fa";
 
 function Register() {
   const [showPass, setShowpass] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState('');
+  const [image, setimage] = useState('');
+  const [ispass, setIspass] = useState('');
+  const [confrimPass, setConfirmPass] = useState('');
+  const [showRepass, setShowRepass] = useState(false)
+  const [isShowChoosefile, setShowChoosefile] = useState(false);
+
+
+
+  useEffect(() => {
+
+
+
+    if (ispass || confrimPass) {
+      if (!/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{6,}$/.test(ispass) && !/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{6,}$/.test(confrimPass)) {
+        setError('password should be at least 6 characters a-z or special characters? and the first character should be uppercase!')
+        setShowChoosefile(false)
+        return
+
+      }
+      if (ispass && confrimPass && ispass != confrimPass) {
+        setError("Password does not match!!")
+        setShowChoosefile(false)
+        return
+      }
+      else {
+        setError('')
+        setShowChoosefile(true);
+
+      }
+    }
+    else {
+      setError('')
+    }
+
+  }, [ispass, confrimPass])
+
+
+  const Handleimageupload = (e) => {
+    if (e?.target?.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = () => {
+        setimage(reader?.result);
+      }
+      reader.onerror = (error) => {
+        console.log(error);
+
+      }
+    }
+    else {
+      setimage('')
+    }
+
+  }
 
 
   const HandleSubmitForm = (e) => {
@@ -18,15 +72,24 @@ function Register() {
     const fullName = data.get('fullName');
     const userName = data.get('userName');
     const password = data.get('password');
+    const confrimPassword = data.get('re-password');
 
-    if (!/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{6,}$/.test(password)) {
-      setError(true)
+    if (!/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{6,}$/.test(password) || !/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{6,}$/.test(confrimPassword)) {
+      setError('password should be at least 6 characters a-z or special characters? and the first character should be uppercase!')
       setTimeout(() => {
-        setError(false)
+        setError('')
       }, 5000);
       return;
 
 
+    }
+
+    if (password != confrimPassword) {
+      setError("Password does not match!!")
+      setTimeout(() => {
+        setError('')
+      }, 5000);
+      return
     }
 
 
@@ -35,7 +98,9 @@ function Register() {
       "Email": email,
       "FullName": fullName,
       "UserName": userName,
-      "Password": password
+      "Password": password,
+      "confirmPassword": confrimPassword,
+      "image": image
     }
 
     console.log(userobj)
@@ -52,7 +117,10 @@ function Register() {
 
           <div className="flex flex-col gap-2 w-full">
             <p className="text-sm text-center">Sign up to see photos and videos from your friends.</p>
-            <div className="flex flex-col gap-2 ">
+
+            {/* ---social-sign-up-start--- */}
+
+            {/* <div className="flex flex-col gap-2 ">
               <button className="button-primary w-full justify-center">
 
                 <span className="text-white text-xl"><FaFacebook /></span>sign in with facebook
@@ -69,14 +137,19 @@ function Register() {
                 or
               </div>
               <div className="relative top-[0.5em] h-[1px] flex-1 shrink-[1] bg-[#dbdbdb]"></div>
-            </div>
+            </div> */}
+
+
+            {/* ---social-sign-up-end--- */}
+
 
             {
-              error && <p className="text-sm error-color">please create a strong password !</p>
+              error && <p className="text-xs error-color whitespace-normal">{error}</p>
             }
 
-            <form onSubmit={HandleSubmitForm} className="form">
+            <form onSubmit={HandleSubmitForm} className="form relative">
               <div>
+
                 <label htmlFor="email">
                   <input type="email" name="email" id="email" required placeholder="Enter your email " />
                 </label>
@@ -87,9 +160,21 @@ function Register() {
                   <input type="text" name="userName" id="userName" required placeholder="Enter your user name " />
                 </label>
                 <label className="relative" htmlFor="password">
-                  <input type={`${showPass ? 'text' : 'password'}`} required name="password" id="password" placeholder="create a password " />
-                  <button onClick={() => setShowpass(!showPass)} className="absolute top-[11px] left-[285px]">{showPass ? <FaEye /> : <FaEyeSlash />}</button>
+                  <input onChange={(e) => setIspass(e.target.value)} type={`${showPass ? 'text' : 'password'}`} required name="password" id="password" placeholder="create a password " />
+                  {ispass && <p onClick={() => setShowpass(!showPass)} className="absolute top-[11px] cursor-pointer md:left-[285px] left-[275px] ">{showPass ? <FaEye /> : <FaEyeSlash />}</p>}
                 </label>
+                <label className="relative" htmlFor="re-password">
+                  <input onChange={(e) => setConfirmPass(e.target.value)} type={`${showRepass ? 'text' : 'password'}`} required name="re-password" id="re-password" placeholder="Confirm password " />
+                  {confrimPass && <p onClick={() => setShowRepass(!showRepass)} className="absolute  top-[11px] cursor-pointer md:left-[285px] left-[275px] ">{showRepass ? <FaEye /> : <FaEyeSlash />}</p>}
+                </label>
+
+                {
+                  isShowChoosefile && <label htmlFor="image" className="flex flex-col items-start gap-3 text-xs text-black font-normal">
+                    optional - Upload your image
+                    <input type="file" id="image" accept="image/*" className=" bg-[#fafafa]" onChange={Handleimageupload} />
+
+                  </label>
+                }
 
               </div>
 

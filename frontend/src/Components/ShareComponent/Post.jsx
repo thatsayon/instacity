@@ -4,14 +4,14 @@ function Post() {
     return (
         <>
 
-            <div className="max-w-md ml-4 my-8 bg-white  rounded-sm dark:bg-[#000000] dark:text-[#ffffff] ">
+            <div className="md:max-w-md max-w-xs bg-white rounded-sm dark:bg-[#000000] dark:text-[#ffffff] dark:border-[#262626] border-[#dbdbdb] border-b-2 pb-4">
 
                 {/* User information */}
                 <div className="flex items-center py-4">
                     <img
                         src="https://media.istockphoto.com/id/1483473258/photo/smiling-young-woman-professional-in-formal-wear-with-arms-crossed-and-looking-at-camera.jpg?s=1024x1024&w=is&k=20&c=aA_psXlJflGGQ5q0dv7HALcX_K2LI9HeTEy6gMgTWMk="  // Replace with the actual user photo URL
                         alt="User Profile"
-                        className="w-10 h-10 rounded-full mr-1"
+                        className="w-10 h-10 rounded-full mr-1 "
                     />
                     <div>
                         <p className="font-semibold">Tabassum jakia</p>
@@ -22,10 +22,13 @@ function Post() {
                 </div>
 
                 {/* Post information */}
+                <div className='py-4'>
+                    <h1>Hello world how ae you</h1>
+                </div>
                 <img
                     src='https://plus.unsplash.com/premium_photo-1702910931506-c2c942c6612d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'  // Replace with the actual post image URL
                     alt="Post"
-                    className="w-full h-64 object-cover"
+                    className="w-full h-64 object-cover cursor-pointer"
                 />
 
                 {/* Post Actions */}
@@ -54,8 +57,6 @@ function Post() {
                     </button>
                 </div>
 
-                {/* Border */}
-                <div className="border-t border-solid border-gray-200"></div>
             </div>
 
 
