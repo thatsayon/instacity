@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import '../CustomStyles/More.css';
 
 
-function More({ setClickMore, setDark , setSwitchaccount}) {
+function More({ setClickMore, setDark, setSwitchaccount, setReport }) {
   return (
     <>
 
@@ -65,7 +65,7 @@ function More({ setClickMore, setDark , setSwitchaccount}) {
 
 
               <li>
-                <button>
+                <button onClick={() => { setReport(true), setClickMore(false) }}>
                   <div>
                     <VscReport />
                   </div>
@@ -74,7 +74,7 @@ function More({ setClickMore, setDark , setSwitchaccount}) {
               </li>
 
               <li>
-                <button onClick={()=> {setSwitchaccount(true), setClickMore(false)}}>
+                <button onClick={() => { setSwitchaccount(true), setClickMore(false) }}>
                   <div>
 
                     <MdOutlineCameraswitch />
@@ -119,3 +119,12 @@ function More({ setClickMore, setDark , setSwitchaccount}) {
 }
 
 export default More
+
+
+
+
+/**
+ * NOTES 
+ * setClickMore, setDark, setSwitchaccount, setReport - those state comes form app component.
+ *
+ */

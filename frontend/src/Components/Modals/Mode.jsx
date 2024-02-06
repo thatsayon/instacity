@@ -9,7 +9,7 @@ import { CiLight } from "react-icons/ci";
 
 function Mode({ setDark, setClickMore, checked, setchecked }) {
 
-   
+
 
 
 

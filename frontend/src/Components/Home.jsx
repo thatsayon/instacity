@@ -8,10 +8,12 @@ import '../CustomStyles/Home.css';
 
 
 
+
+
 function Home() {
 
   const [AccountSwitch, setAccountSwitch] = useState(false);
-  
+
 
 
 
@@ -19,7 +21,6 @@ function Home() {
     <div className="px-[3%] py-4 pb-6  flex flex-row dark:text-[#ffffff] text-[#000000]">
       <div className="lg:w-2/3 w-full lg:pl-14  ">
 
-        <Post />
         <Post />
         <Post />
         <Post />
@@ -48,7 +49,7 @@ function Home() {
             </div>
           </div>
           <div>
-            <button onClick={() => {setAccountSwitch(true)}} className=" link-color">switch</button>
+            <button onClick={() => { setAccountSwitch(true) }} className="follow-link-color">switch</button>
           </div>
         </div>
 
@@ -56,7 +57,7 @@ function Home() {
         <div className="mt-2 dark:text-[#ffffff]">
           <div className="flex items-center flex-row justify-between">
             <h1 className="gray-style">Suggestion for you</h1>
-            <p className="font-normal text-sm text-black cursor-pointer dark:text-[#ffffff]">
+            <p className="font-medium text-[12px] text-black cursor-pointer dark:text-[#ffffff]">
               see all
             </p>
           </div>
@@ -140,7 +141,7 @@ function Home() {
 
 
       {
-        AccountSwitch && <SwitchAccount setAccountSwitch={setAccountSwitch} AccountSwitch={AccountSwitch}/>
+        AccountSwitch && <SwitchAccount setAccountSwitch={setAccountSwitch} AccountSwitch={AccountSwitch} />
       }
     </div>
 

@@ -21,7 +21,7 @@ function SuggestionIds() {
                     </div>
                 </div>
                 <div>
-                    <button className=' link-color '>Follow</button>
+                    <button className='follow-link-color '>Follow</button>
                 </div>
 
 

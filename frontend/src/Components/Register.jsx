@@ -5,6 +5,9 @@ import { FaEyeSlash } from "react-icons/fa";
 // import { FaFacebook } from "react-icons/fa";
 // import { FaGoogle } from "react-icons/fa";
 import '../CustomStyles/Register.css'
+import useShareobj from "../CustomHooks/useShareobj";
+import '../CustomStyles/Register.css'
+
 
 function Register() {
   const [showPass, setShowpass] = useState(false);
@@ -14,6 +17,12 @@ function Register() {
   const [confrimPass, setConfirmPass] = useState('');
   const [showRepass, setShowRepass] = useState(false)
   const [isShowChoosefile, setShowChoosefile] = useState(false);
+
+  const { RegisterWithEmailandPassword } = useShareobj();
+
+
+
+
 
 
 
@@ -69,11 +78,11 @@ function Register() {
     e.preventDefault();
 
     const data = new FormData(e.currentTarget);
-    const email = data.get('email');
-    const fullName = data.get('fullName');
-    const userName = data.get('userName');
-    const password = data.get('password');
-    const confrimPassword = data.get('re-password');
+    const email = data.get('email').trim().replace(/\s+/g, ' ');
+    const fullName = data.get('fullName').trim().replace(/\s+/g, ' ');
+    const userName = data.get('userName').trim().replace(/\s+/g, ' ');
+    const password = data.get('password').trim().replace(/\s+/g, ' ');
+    const confrimPassword = data.get('re-password').trim().replace(/\s+/g, ' ');
 
     if (!/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{6,}$/.test(password) || !/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{6,}$/.test(confrimPassword)) {
       setError('password should be at least 6 characters a-z or special characters? and the first character should be uppercase!')
@@ -93,23 +102,30 @@ function Register() {
       return
     }
 
-
-
     const userobj = {
-      "Email": email,
-      "FullName": fullName,
-      "UserName": userName,
-      "Password": password,
-      "confirmPassword": confrimPassword,
-      "image": image
+      "username": userName,
+      "email": email,
+      "password": password,
+      "full_name": fullName
     }
 
-    console.log(userobj)
+    RegisterWithEmailandPassword(userobj)
+      .then(res => {
+        console.log(res?.data)
+      })
+      .catch(error => {
+        console.log(error);
+      })
+
+
+
+
 
   }
+  
   return (
     <>
-      <div className=" w-full min-h-screen bg-[#fff] justify-center items-center flex ">
+      <div className="fixed right-0 top-0 overflow-scroll z-50 left-0 bottom-0 justify-center items-center flex">
         <div
           className=" min-h-[70vh] shadow-md z-10 border-[1px]  border-[#dbdbdb]  bg-white dark:bg-white  text-black dark:text-black font-normal
                        max-w-sm mx-auto my-auto w-full px-8  py-4 rounded-md flex items-center justify-center flex-col gap-2"
@@ -181,7 +197,7 @@ function Register() {
 
               <button className="button-primary w-full justify-center text-base mt-3">Sign up</button>
 
-              <p className="pt-3 text-xs text-center">By signing up, you agree to our <span className="link-color">Terms , Privacy Policy</span> and <span className="link-color">Cookies Policy</span> .</p>
+              <p className="pt-3 text-xs text-center">By signing up, you agree to our <span className="link-color">Terms ,</span> <span className=" link-color"> Privacy Policy</span> and <span className="link-color">Cookies Policy</span> .</p>
               <p className="pt-4 text-center text-sm text-black">Already have an account ? <Link className="text-sm link-color underline " to={'/Login'}>sign in</Link></p>
             </form>
           </div>

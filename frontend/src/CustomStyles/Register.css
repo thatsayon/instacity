@@ -15,10 +15,10 @@
   transition: all 0.5s;
   text-overflow: ellipsis;
 }
-.register-form > div > label > input::placeholder {
+.form > div > label > input::placeholder {
   color: var(--gray-17--);
-  font-size: 13px;
+  font-size: 12px;
 }
-.register-form > div > label > input:focus {
-  border: 1px solid var(--link-color--);
+.form > div > label > input:focus {
+  border: 1px solid var(--dark-bg-link--);
 }

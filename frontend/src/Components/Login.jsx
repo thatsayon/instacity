@@ -1,16 +1,26 @@
 import React, { useState } from 'react'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import { FaFacebook } from "react-icons/fa";
 // import { FaGoogle } from "react-icons/fa";
 import '../CustomStyles/Login.css'
+import useShareobj from '../CustomHooks/useShareobj';
+
 
 function Login() {
 
   const [showPass, setShowpass] = useState(false);
   const [error, setError] = useState(false);
   const [ispass, setIspass] = useState('');
+  const { LoginWithEmailandPassword, setUser } = useShareobj();
+
+  const navigate = useNavigate();
+
+
+
+
+
 
 
   const HandleSubmitLoginForm = (e) => {
@@ -19,27 +29,47 @@ function Login() {
 
 
     const data = new FormData(e.currentTarget);
-    const email = data.get('email');
-    const password = data.get('password');
+    const email = data.get('email').trim().replace(/\s+/g, ' ');
+    const password = data.get('password').trim().replace(/\s+/g, ' ');
 
-    console.log(email, password)
+    const obj = {
+      "email": email,
+      "password": password
+    }
+
+    LoginWithEmailandPassword(obj)
+      .then(res => {
+        if (res?.data?.token) {
+          e.target.reset();
+          setUser(res?.data?.token)
+          localStorage.setItem('userToken', res?.data?.token)
+          navigate('/')
+        }
+      })
+      .catch(error => {
+        console.log(error)
+      })
 
   }
   return (
     <>
 
-      <div className=" w-full min-h-screen bg-[#fff] justify-center items-center flex ">
+      <div className=" fixed right-0 top-0 overflow-scroll z-50 left-0 bottom-0 justify-center items-center flex">
         <div
-          className=" min-h-[40vh] shadow-md z-10 border-[1px] border-[#dbdbdb]  bg-white dark:bg-white  text-black dark:text-black font-normal
+          className=" min-h-[50vh] shadow-md z-10 border-[1px] border-[#dbdbdb]  bg-white dark:bg-white  text-black dark:text-black font-normal
                        max-w-xs mx-auto my-auto w-full px-5  py-4 rounded-md flex items-center justify-center flex-col gap-2"
         >
-          <h1 className={`text-3xl italic text-gray-700 pb-4`}>InstaCity</h1>
+          <h1 className={`text-3xl italic text-gray-700 pb-1`}>InstaCity</h1>
+
+
 
           <div className="flex flex-col gap-2 w-full">
+          <p className="text-sm text-center pb-1">Sign in to see photos and videos from your friends.</p>
+
 
 
             {
-              error && <p className="text-sm error-color"></p>
+              error && <p className="text-sm error-color">{error}</p>
             }
 
             <form onSubmit={HandleSubmitLoginForm} className="form">
