@@ -7,6 +7,7 @@ from .managers import CustomAccountManager
 class UserAccount(AbstractBaseUser):
     email = models.EmailField(_("email address"), unique=True)
     username = models.CharField(_("username"), max_length=120, unique=True)
+    image = models.ImageField(_("image"), upload_to="profile_pics", blank=True, null=True)
     full_name = models.CharField(_("full name"), max_length=255)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
@@ -27,6 +28,7 @@ class UserAccount(AbstractBaseUser):
 
     def __str__(self):
         return self.email
+
 
 
 # Create your models here.

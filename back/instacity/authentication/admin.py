@@ -6,17 +6,17 @@ class CustomUserAdmin(UserAdmin):
     model = UserAccount
     fieldsets = (
         (None, {'fields': ('username', 'email', 'password')}),
-        ('Personal info', {'fields': ('full_name',)}),
+        ('Personal info', {'fields': ('full_name', 'image',)}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
         ('Important dates', {'fields': ('date_joined',)}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'email', 'full_name', 'password1', 'password2', 'is_active', 'is_staff', 'is_superuser')}
+            'fields': ('username', 'email', 'full_name', 'password1', 'password2', 'image', 'is_active', 'is_staff', 'is_superuser')}
         ),
     )
-    list_display = ('username', 'email', 'full_name', 'is_staff', 'is_active', 'date_joined')
+    list_display = ('username', 'email', 'full_name', 'image', 'is_staff', 'is_active', 'date_joined')
     list_filter = ('is_staff', 'is_active')
     search_fields = ('username', 'email', 'full_name')
     ordering = ('email',)
