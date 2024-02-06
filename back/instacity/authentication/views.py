@@ -47,3 +47,19 @@ class UserLogoutAPIView(APIView):
     def post(self, request):
         request.auth.delete()
         return Response({"message": "Logout successful"}, status=status.HTTP_200_OK)
+
+class UserInfoAPIView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user 
+        user_info = {
+            'username': user.username,
+            'email': user.email,
+            'full_name': user.full_name,
+        }
+        if user.image:
+            user_info.update({"profile_pic": user.image.url})
+        return Response(user_info)
+
