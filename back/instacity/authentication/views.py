@@ -20,6 +20,18 @@ class UserRegistrationAPIView(generics.CreateAPIView):
             }
             return Response(response_data, status=status.HTTP_201_CREATED)
         else:
+            if 'email' in serializer.errors:
+                error_response = {
+                    "error": "Email already exists"
+                }
+                return Response(error_response, status=status.HTTP_400_BAD_REQUEST)
+
+            if 'username' in serializer.errors:
+                error_response = {
+                    "error": "Username already exists"
+                }
+                return Response(error_response, status=status.HTTP_400_BAD_REQUEST)
+
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserAccountListCreateAPIView(generics.ListCreateAPIView):
