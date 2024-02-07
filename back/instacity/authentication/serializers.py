@@ -40,3 +40,8 @@ class UserLoginSerializer(serializers.Serializer):
 
         data['user'] = user
         return data
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)

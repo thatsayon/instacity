@@ -4,7 +4,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response  
 from rest_framework.authentication import TokenAuthentication 
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .serializers import UserRegistrationSerializer, UserAccountSerializer, UserLoginSerializer
+from django.contrib.auth.hashers import check_password
+from .serializers import UserRegistrationSerializer, UserAccountSerializer, UserLoginSerializer, ChangePasswordSerializer
 from .models import UserAccount
 
 class UserRegistrationAPIView(generics.CreateAPIView):
@@ -63,3 +64,22 @@ class UserInfoAPIView(APIView):
             user_info.update({"profile_pic": user.image.url})
         return Response(user_info)
 
+class ChangePasswordView(generics.UpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ChangePasswordSerializer
+
+    def update(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = request.user
+        old_password = serializer.validated_data.get('old_password')
+        new_password = serializer.validated_data.get('new_password')
+        
+        if check_password(new_password, user.password):
+            return Response({'new_password': ['New password must be different from the old password.']}, status=status.HTTP_400_BAD_REQUEST)
+        if not check_password(old_password, user.password):
+            return Response({'old_password': ['Wrong password.']}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.set_password(new_password)
+        user.save()
+        return Response({'message': 'Password successfully changed'}, status=status.HTTP_200_OK)
