@@ -9,7 +9,7 @@ import { CiLight } from "react-icons/ci";
 
 function Mode({ setDark, setClickMore, checked, setchecked }) {
 
-   
+
 
 
 
@@ -39,7 +39,7 @@ function Mode({ setDark, setClickMore, checked, setchecked }) {
                 className=" fixed right-0 top-0 z-50 left-0 bottom-0 justify-center items-center flex dropdown"
             >
 
-                <div className="scrollbar-hide max-h-[95vh]  my-auto bg-[#ffffff] dark:bg-[#262626]  dark:text-[#ffffff] text-[#000000] shadow-lg max-w-xs mx-auto py-4 w-full rounded-md ">
+                <div className="scrollbar-hide max-h-[95vh]  my-auto bg-[#ffffff] dark:bg-[#262626]  dark:text-[#ffffff] text-[#000000] shadow-lg z-50  dark:shadow-black max-w-xs mx-auto py-4 w-full rounded-md ">
 
                     <div className='text-[#000000] dark:text-[#ffffff] flex flex-row justify-between items-center border-b-2 dark:border-[#555555] px-2 pb-2 w-full'>
                         <div className='flex flex-row gap-2'>

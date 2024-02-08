@@ -4,7 +4,7 @@ function Create({ setCreate }) {
   return (
     <>
       <div
-        className="  fixed right-0 top-0 px-2 py-4 bg-[#00000080] overflow-hidden z-50 left-0 bottom-0 justify-center items-center flex "
+        className="  fixed right-0 top-0 px-2 py-4 overflow-scroll bg-[#00000080]  z-50 left-0 bottom-0 justify-center items-center flex "
         onClick={(e) => {
           if (e.target !== e.currentTarget) {
             return;
@@ -13,7 +13,7 @@ function Create({ setCreate }) {
         }}
       >
         <div
-          className=" overflow-hidden max-h-[95vh] shadow-lg  bg-white dark:bg-[#262626]  dark:text-[#ffffff]  text-black font-bold
+          className=" min-h-[40vh] shadow-lg  bg-white dark:bg-[#262626]  dark:text-[#ffffff]  text-black font-bold
                       shadow-[#364e7e1a] max-w-sm mx-auto my-auto w-full  py-4 rounded-xl flex items-center justify-center flex-col gap-10"
         >
           <h1>Create new post</h1>
@@ -21,10 +21,10 @@ function Create({ setCreate }) {
             <svg
               aria-label="Icon to represent media such as images or videos"
               fill="currentColor"
-              height="77"
+              height="77px"
               role="img"
               viewBox="0 0 97.6 77.3"
-              width="96"
+              width="96px"
               className="mx-auto"
             >
               <title>Icon to represent media such as images or videos</title>
@@ -41,7 +41,7 @@ function Create({ setCreate }) {
                 fill="currentColor"
               ></path>
             </svg>
-            <h3 className="font-normal text-base">Drop Photos & videos here</h3>
+            <h3 className="font-normal text-base inline">Drop Photos & videos here</h3>
 
             <button className="bg-[#0064e0] text-[#fff] mt-7 mx-auto w-fit font-normal py-2 px-4 rounded-md text-sm md:block hidden">Select from computer</button>
             <button className="bg-[#0064e0] text-[#fff] mt-7 mx-auto w-fit font-normal py-2 px-4 rounded-md text-sm md:hidden block">Select from Gallery</button>

@@ -1,72 +1,75 @@
-import React from 'react'
-import '../src/App.css'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import NotFound from './Components/NotFound.jsx'
-import Home from './Components/Home.jsx'
-import Explore from './Components/Explore.jsx'
-import Reels from './Components/Reels.jsx'
-import Search from './Components/Search.jsx'
-import Profile from './Components/Profile.jsx'
-import More from './Components/More.jsx'
-import Notification from './Components/Notification.jsx'
-import Register from './Components/Register.jsx'
-import Login from './Components/Login.jsx'
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import React from "react";
+import "../src/Global.css";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import NotFound from "./Components/NotFound.jsx";
+import Home from "./Components/Home.jsx";
+import Explore from "./Components/Explore.jsx";
+import Reels from "./Components/Reels.jsx";
+import Search from "./Components/Search.jsx";
+import Profile from "./Components/Profile.jsx";
+import Notification from "./Components/Notification.jsx";
+import Register from "./Components/Register.jsx";
+import Login from "./Components/Login.jsx";
+import ApiContext from "./ContextApis/ApiContext.jsx";
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <App />,
     errorElement: <NotFound />,
     children: [
       {
-        path: '/',
-        element: <Home />
+        path: "/",
+        element: <Home />,
       },
       {
-        path: '/Search',
-        element: <Search />
+        path: "/Search",
+        element: <Search />,
       },
       {
-        path: '/Explore',
-        element: <Explore />
+        path: "/Explore",
+        element: <Explore />,
       },
       {
-        path: '/Reels',
-        element: <Reels />
+        path: "/Reels",
+        element: <Reels />,
       },
       {
-        path: '/Message',
-        element: <Home />
+        path: "/Message",
+        element: <Home />,
       },
       {
-        path: '/Notification',
-        element: <Notification />
+        path: "/Notification",
+        element: <Notification />,
       },
       {
-        path: '/Profile',
-        element: <Profile />
-      }
-    ]
+        path: "/Profile",
+        element: <Profile />,
+      },
+    ],
   },
   {
-    path: '/Register',
-    element: <Register />
+    path: "/Register",
+    element: <Register />,
   },
   {
-    path: '/Login',
-    element: <Login />
-  }
-])
+    path: "/Login",
+    element: <Login />,
+  },
+  {
+    path: "/Notfound",
+    element: <NotFound />,
+  },
+]);
 
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="352995801995-5j6nt79h3f7fo7tgmmne1eafckb1ebiq.apps.googleusercontent.com">
+    <ApiContext>
       <RouterProvider router={router} />
-
-    </GoogleOAuthProvider>
-  </React.StrictMode>,
-)
+    </ApiContext>
+  </React.StrictMode>
+);

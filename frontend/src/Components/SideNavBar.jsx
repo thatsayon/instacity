@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { LuHome } from "react-icons/lu";
 import { IoSearchSharp } from "react-icons/io5";
 import { MdOutlineExplore } from "react-icons/md";
@@ -11,27 +11,30 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { IoMenuSharp } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import instacityLogo from "../assets/LogoFolder/instaLogo.png";
+import '../CustomStyles/Sidebar.css';
 
 function SideNavBar({ setCreate, clickMore, setClickMore}) {
+  const navigate = useNavigate();
+
   return (
     <nav className={`lg:p-2 p-4 dark:text-[#ffffff]  `}>
-      <div className="py-4 lg:pl-4">
+      <div onClick={()=>{navigate('/')}} className="pt-4 lg:pb-10 pb-5 lg:pl-4 cursor-pointer">
         <h1 className={`text-3xl italic text-gray-700 lg:block hidden dark:text-[#ffffff] `}>
           InstaCity
         </h1>
         <img
-          width={"35px"}
+          width="35px"
           src={instacityLogo}
           alt="Instacity logo"
-          className="lg:hidden block"
+          className="lg:hidden block "
         />
       </div>
-
+     
       <div>
         <ul id="sidebar-link"  >
           <li>
             <NavLink to={"/"}>
-              <div>
+              <div className="dark:text-white">
                 <LuHome />
               </div>
               <p className="lg:block hidden"> Home</p>
@@ -98,7 +101,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore}) {
             </NavLink>
           </li>
 
-          <li className="absolute bottom-0 w-[15vw] md:block hidden">
+          <li className="lg:mt-6 md:block hidden">
             <button onClick={() => setClickMore(!clickMore)}>
               <div  className="dark:text-[#ffffff]">
                 <IoMenuSharp />

@@ -1,0 +1,23 @@
+footer > #footer-ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+footer > #footer-ul > li {
+  font-size: 12px;
+  font-weight: var(--font-medium--);
+  font-style: normal;
+  color: var(--gray-17--);
+}
+footer > #footer-ul > li > a:hover {
+  border-bottom: 2px solid var(--dark-hover-bg--);
+}
+footer > .copy-write {
+  font-size: 14px;
+  font-weight: var(--font-medium--);
+  font-style: normal;
+  color: var(--gray-17--);
+  text-transform: uppercase;
+}

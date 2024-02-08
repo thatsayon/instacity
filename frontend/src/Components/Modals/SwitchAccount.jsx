@@ -2,8 +2,23 @@ import React, { useState } from 'react'
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 
-function SwitchAccount({ setSwitchaccount }) {
+
+
+// --NOTE---
+
+/**
+ * setAccountSwitch, AccountSwitch---this props comes to home component.
+ * setSwitchaccount, swithaccount ====this props comes to App component.
+ * 
+ *  **/
+
+
+
+
+function SwitchAccount({ setSwitchaccount, swithaccount, setAccountSwitch, AccountSwitch }) {
     const [showPass, setShowpass] = useState(false);
+
+    const [isPass, setIspass] = useState('');
 
 
     const HandleSwitchAccount = (e) => {
@@ -25,17 +40,20 @@ function SwitchAccount({ setSwitchaccount }) {
                     if (e.target !== e.currentTarget) {
                         return;
                     }
+                    if (AccountSwitch) {
+                        setAccountSwitch(false)
 
-                    setSwitchaccount(false)
-
-
+                    }
+                    if (swithaccount) {
+                        setSwitchaccount(false)
+                    }
                 }}
-                className=" fixed right-0 top-0 z-50 left-0 bg-[#00000080] bottom-0 justify-center items-center flex dropdown"
+                className=" fixed right-0 top-0 overflow-scroll z-50 left-0 bg-[#00000080] bottom-0 justify-center items-center flex dropdown"
             >
 
-                <div className="scrollbar-hide max-h-[95vh]  my-auto bg-[#ffffff] dark:bg-[#262626]  dark:text-[#ffffff] text-[#000000] shadow-lg max-w-sm mx-auto py-4 w-full rounded-md ">
+                <div className="scrollbar-hide min-h-[40vh]  my-auto bg-[#ffffff] dark:bg-[#262626]  dark:text-[#ffffff] text-[#000000] shadow-lg max-w-sm mx-auto py-4 w-full rounded-md ">
 
-                <p className={`text-3xl italic text-gray-700 pb-4 text-center dark:text-[#ffffff]   `}>InstaCity</p>
+                    <p className={`text-3xl italic text-gray-700 pb-4 text-center dark:text-[#ffffff]   `}>InstaCity</p>
 
                     <form onSubmit={HandleSwitchAccount} className="form max-w-[260px] mx-auto">
                         <div>
@@ -43,8 +61,10 @@ function SwitchAccount({ setSwitchaccount }) {
                                 <input className='dark:bg-[#1a1a1a] dark:border-[#262626] ' type="email" name="email" id="email" required placeholder="Enter your email " />
                             </label>
                             <label className="relative" htmlFor="password">
-                                <input className='dark:bg-[#1a1a1a] dark:border-[#262626]' type={`${showPass ? 'text' : 'password'}`} required name="password" id="password" placeholder="Enter your password " />
-                                <button onClick={() => setShowpass(!showPass)} className="absolute top-[11px] left-[235px]">{showPass ? <FaEye /> : <FaEyeSlash />}</button>
+                                <input onChange={(e) => setIspass(e.target.value)} className='dark:bg-[#1a1a1a] dark:border-[#262626]' type={`${showPass ? 'text' : 'password'}`} required name="password" id="password" placeholder="Enter your password " />
+                                {
+                                    isPass && <p onClick={() => setShowpass(!showPass)} className="absolute top-[11px] left-[235px]">{showPass ? <FaEye /> : <FaEyeSlash />}</p>
+                                }
                             </label>
 
                         </div>

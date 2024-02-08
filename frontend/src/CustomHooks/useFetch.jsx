@@ -3,9 +3,9 @@ import axios from 'axios'
 
 
 const axiosFetch = axios.create({
-    baseURL: '/',
-    withCredentials: true,
-    method: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+    baseURL: 'http://127.0.0.1:8000/api/',
+    withCredentials : true ,
+    method : ['GET','POST', 'PUT', 'PATCH', 'DELETE']
 
 })
 

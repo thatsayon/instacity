@@ -1,0 +1,46 @@
+
+#more-link {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  #more-link > li > a > div {
+    font-size: 20px;
+  }
+  #more-link > li > button > div {
+    font-size: 20px;
+  }
+  
+  #more-link > li:hover {
+    background-color: var(--hover-bg--);
+  }
+  .dark #more-link > li:hover {
+    background: var(--dark-hover-bg--);
+  }
+  
+  #more-link > li {
+    border-radius: var(--radius-md--);
+  }
+  #more-link > li > a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 0px;
+    font-size: 16px;
+    text-transform: lowercase;
+    padding-left: 5px;
+    width: 100%;
+  }
+  #more-link > li > button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 0px;
+    font-size: 16px;
+    text-transform: lowercase;
+    padding-left: 5px;
+    width: 100%;
+  }
+  
+  
