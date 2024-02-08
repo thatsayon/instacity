@@ -5,8 +5,18 @@ from rest_framework.response import Response
 from rest_framework.authentication import TokenAuthentication 
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth import get_user_model
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.urls import reverse
+from django.shortcuts import redirect
+from django.template.loader import render_to_string 
+from django.core.mail import EmailMultiAlternatives
 from .serializers import UserRegistrationSerializer, UserAccountSerializer, UserLoginSerializer, ChangePasswordSerializer
 from .models import UserAccount
+
+User = get_user_model()
 
 class UserRegistrationAPIView(generics.CreateAPIView):
     serializer_class = UserRegistrationSerializer
@@ -14,9 +24,19 @@ class UserRegistrationAPIView(generics.CreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            self.perform_create(serializer)
+            user = serializer.save()
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            confirm_link = f"http://127.0.0.1:8000/api/active/{uid}/{token}/"
+
+            email_subject = "Confirm Your Email"
+            email_body = render_to_string('confirm_email.html', {'confirm_link': confirm_link})
+            email = EmailMultiAlternatives(email_subject, '', to=[user.email])
+            email.attach_alternative(email_body, "text/html")
+            email.send()
+
             response_data = {
-                "message": "User registered successfully",
+                "message": "Verification mail sended",
             }
             return Response(response_data, status=status.HTTP_201_CREATED)
         else:
@@ -33,6 +53,23 @@ class UserRegistrationAPIView(generics.CreateAPIView):
                 return Response(error_response, status=status.HTTP_400_BAD_REQUEST)
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+def active(request, uid64, token):
+    try:
+        uid = urlsafe_base64_decode(uid64).decode()
+        user = User._default_manager.get(pk=uid)
+    except (User.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        return redirect('http://localhost:5173/Login')
+    else:
+        return Response({"error": "wrong activation url"}, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class UserAccountListCreateAPIView(generics.ListCreateAPIView):
     authentication_classes = [TokenAuthentication]

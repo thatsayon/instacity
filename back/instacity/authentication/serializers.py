@@ -26,6 +26,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'password', 'full_name', 'image')
 
     def create(self, validated_data):
+        validated_data['is_active'] = False
         user = User.objects.create_user(**validated_data)
         return user
 
