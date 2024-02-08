@@ -1,4 +1,8 @@
 from django.contrib import admin
-from .models import Post 
+from .models import Post, Comment
 
-admin.site.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('id', 'author', 'caption', 'created_at')
+
+admin.site.register(Post, PostAdmin)
+admin.site.register(Comment)
