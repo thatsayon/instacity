@@ -2,15 +2,32 @@ import React from 'react';
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineCameraswitch } from "react-icons/md";
 import { LuActivitySquare } from "react-icons/lu";
-import { CiBookmark } from "react-icons/ci";
+import { CiBookmark, CiBowlNoodles } from "react-icons/ci";
 import { IoLogOutOutline } from "react-icons/io5";
 import { FaSun } from "react-icons/fa";
 import { VscReport } from "react-icons/vsc";
 import { Link } from 'react-router-dom';
 import '../CustomStyles/More.css';
+import useShareobj from '../CustomHooks/useShareobj';
 
 
-function More({ setClickMore, setDark, setSwitchaccount, setReport }) {
+function More({ setClickMore, setDark, setSwitchaccount, setReport, setLogoutLoading }) {
+
+
+  const { Logout } = useShareobj();
+
+
+  const HandleLogout = () => {
+    setClickMore(false)
+    setLogoutLoading(true)
+
+    setTimeout(() => {
+      setLogoutLoading(false)
+      Logout()
+    }, 3000);
+  }
+
+
   return (
     <>
 
@@ -85,7 +102,7 @@ function More({ setClickMore, setDark, setSwitchaccount, setReport }) {
               </li>
 
               <li>
-                <button>
+                <button onClick={HandleLogout}>
                   <div>
                     <IoLogOutOutline />
                   </div>
@@ -125,6 +142,6 @@ export default More
 
 /**
  * NOTES 
- * setClickMore, setDark, setSwitchaccount, setReport - those state comes form app component.
+ * setClickMore, setDark, setSwitchaccount, setReport , setLogoutLoading - those state comes form app component.
  *
  */

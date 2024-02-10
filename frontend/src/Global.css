@@ -227,6 +227,9 @@ body {
 .error-color {
   color: var(--red-3--);
 }
+.success-color{
+  color: var(--green-1--);
+}
 
 .gray-style {
   font-size: 12px;

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Post() {
+function SinglePost() {
     return (
         <>
             <div className="md:max-w-md max-w-xs lg:mx-0 mx-auto  bg-white rounded-sm dark:bg-[#000000] dark:text-[#ffffff] dark:border-[#262626] border-[#dbdbdb] border-b-[2px] pb-4">
@@ -127,4 +127,4 @@ function Post() {
     );
 }
 
-export default Post;
+export default SinglePost;

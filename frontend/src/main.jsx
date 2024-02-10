@@ -13,6 +13,9 @@ import Notification from "./Components/Notification.jsx";
 import Register from "./Components/Register.jsx";
 import Login from "./Components/Login.jsx";
 import ApiContext from "./ContextApis/ApiContext.jsx";
+import Post from "./Components/Post.jsx";
+import Saved from "./Components/Saved.jsx";
+import Tagged from "./Components/Tagged.jsx";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +50,21 @@ const router = createBrowserRouter([
       {
         path: "/Profile",
         element: <Profile />,
+        children :[
+          {
+            path: '/Profile/Post',
+            element: <Post />
+          },
+          {
+            path: '/Profile/Saved',
+            element: <Saved />
+          },
+          {
+            path: '/Profile/Tagged',
+            element: <Tagged />
+          },
+
+        ]
       },
     ],
   },

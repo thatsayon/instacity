@@ -11,6 +11,7 @@ import useShareobj from "./CustomHooks/useShareobj";
 import ReportProblem from "./Components/Modals/ReportProblem";
 import Private from "./Components/Private";
 import LoadingOne from "./Components/LoadingReels/LoadingOne";
+import LogoutModal from "./Components/Modals/LogoutModal";
 
 function App() {
   const navigation = useNavigation();
@@ -21,10 +22,10 @@ function App() {
   const [Dark, setDark] = useState(false);
   const [Report, setReport] = useState(false);
   const [checked, setchecked] = useState(false);
+  const [LogoutLoading, setLogoutLoading] = useState(false);
 
-  const { user } = useShareobj();
+  // const { user } = useShareobj();
 
-  console.log(user)
 
   useEffect(() => {
     setTimeout(() => {
@@ -62,12 +63,12 @@ function App() {
       {StartonLoad ? (
         <StartLoad />
       ) : (
-        <div className="flex gap-2 h-screen">
-          <header className="lg:w-[20vw] w-fit sidebar-header dark:border-[#262626]">
+        <div className="flex gap-2 min-h-screen">
+          <header style={{ maxHeight: "calc(5vh + 12rem)" }} className="lg:w-[20vw]  overflow-y-auto w-fit sidebar-header dark:border-[#262626]">
             <SideNavBar setCreate={setCreate} clickMore={clickMore} setClickMore={setClickMore} />
           </header>
-          <main className="flex-1 overflow-y-scroll">
-            {navigation.state == "idle" ? <Private> <Outlet /> </Private> : <LoadingOne/>}
+          <main style={{ maxHeight: "calc(0vh + 15rem)" }} className="flex-1 overflow-y-scroll min-h-screen">
+            {navigation.state == "idle" ? <Private> <Outlet /> </Private> : <LoadingOne />}
 
           </main>
         </div>
@@ -83,7 +84,7 @@ function App() {
         isCreate && <Create setCreate={setCreate} />
       }
       {
-        clickMore && <More setClickMore={setClickMore} setDark={setDark} setSwitchaccount={setSwitchaccount} setReport={setReport} />
+        clickMore && <More setLogoutLoading={setLogoutLoading} setClickMore={setClickMore} setDark={setDark} setSwitchaccount={setSwitchaccount} setReport={setReport} />
       }
       {
         Dark && <Mode setDark={setDark} setClickMore={setClickMore} checked={checked} setchecked={setchecked} />
@@ -93,6 +94,9 @@ function App() {
       }
       {
         Report && <ReportProblem setReport={setReport} setClickMore={setClickMore} />
+      }
+      {
+        LogoutLoading && <LogoutModal />
       }
     </>
   );

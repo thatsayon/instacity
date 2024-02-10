@@ -1,7 +1,7 @@
 #sidebar-link {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px;
 }
 
 #sidebar-link > li {
@@ -11,7 +11,7 @@
 #sidebar-link > li > a {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 10px;
   padding: 10px 4px;
   border-radius: var(--radius-md--);
   width: 100%;
@@ -50,10 +50,10 @@
 }
 
 #sidebar-link > li > a > div {
-  font-size: 24px;
+  font-size: 28px;
 }
 #sidebar-link > li > button > div {
-  font-size: 24px;
+  font-size: 28px;
 }
 
 @media only screen and (min-width: 280px) and (max-width: 900px) {

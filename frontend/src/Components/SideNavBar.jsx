@@ -12,13 +12,16 @@ import { IoMenuSharp } from "react-icons/io5";
 import { IoSettingsOutline } from "react-icons/io5";
 import instacityLogo from "../assets/LogoFolder/instaLogo.png";
 import '../CustomStyles/Sidebar.css';
+import useShareobj from "../CustomHooks/useShareobj";
 
-function SideNavBar({ setCreate, clickMore, setClickMore}) {
+function SideNavBar({ setCreate, clickMore, setClickMore }) {
   const navigate = useNavigate();
+  const { user, image_url } = useShareobj();
+
 
   return (
-    <nav className={`lg:p-2 p-4 dark:text-[#ffffff]  `}>
-      <div onClick={()=>{navigate('/')}} className="pt-4 lg:pb-10 pb-5 lg:pl-4 cursor-pointer">
+    <nav  className={`lg:p-2 p-4 dark:text-[#ffffff] `}>
+      <div onClick={() => { navigate('/') }} className="pt-4 lg:pb-10 pb-5 lg:pl-4 cursor-pointer">
         <h1 className={`text-3xl italic text-gray-700 lg:block hidden dark:text-[#ffffff] `}>
           InstaCity
         </h1>
@@ -29,7 +32,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore}) {
           className="lg:hidden block "
         />
       </div>
-     
+
       <div>
         <ul id="sidebar-link"  >
           <li>
@@ -69,7 +72,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore}) {
             <NavLink to={"/Message"}>
               <div>
                 <AiOutlineMessage />
-             
+
               </div>
 
               <p className="lg:block hidden"> Messages</p>
@@ -94,16 +97,24 @@ function SideNavBar({ setCreate, clickMore, setClickMore}) {
           </li>
           <li>
             <NavLink to={"/Profile"}>
-              <div>
-                <FaRegUserCircle />
-              </div>
+              {
+                user?.profile_pic ?
+                  <img
+                    src={image_url + user?.profile_pic}
+                    alt="User Profile"
+                    className="w-7 h-7 rounded-full dark:border-2 border-white"
+                  />
+                  : <div>
+                    <FaRegUserCircle />
+                  </div>
+              }
               <p className="lg:block hidden">Profile</p>
             </NavLink>
           </li>
 
           <li className="lg:mt-6 md:block hidden">
             <button onClick={() => setClickMore(!clickMore)}>
-              <div  className="dark:text-[#ffffff]">
+              <div className="dark:text-[#ffffff]">
                 <IoMenuSharp />
               </div>
 
