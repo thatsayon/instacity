@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import SinglePost from "./ShareComponent/SinglePost";
 import { FaRegUserCircle } from "react-icons/fa";
 import SuggestionIds from "./ShareComponent/suggestionIds";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SwitchAccount from "./Modals/SwitchAccount";
 import "../CustomStyles/Home.css";
 import useShareobj from "../CustomHooks/useShareobj";
@@ -11,6 +11,8 @@ import LoadingOne from "./LoadingReels/LoadingOne";
 function Home() {
   const [AccountSwitch, setAccountSwitch] = useState(false);
   const { user, image_url } = useShareobj();
+
+  const navigate = useNavigate();
 
 
 
@@ -34,7 +36,7 @@ function Home() {
           </div>
           <div className="lg:block hidden h-screen flex-1 p-2">
             <div className="flex items-center justify-between border-b-[1px] pb-2 dark:border-[#262626] border-[#dbdbdb]">
-              <div className="flex items-center">
+              <div onClick={()=> {navigate('/Profile')}} className="flex items-center cursor-pointer">
                 {user.profile_pic ? <img
                   src={image_url + user?.profile_pic}
                   alt="User Profile"
@@ -100,28 +102,28 @@ function Home() {
             <footer className="pt-8">
               <ul id="footer-ul">
                 <li>
-                  <Link to={"/Notfound"}>About ,</Link>
+                  <Link to="/Notfound">About ,</Link>
                 </li>
                 <li>
-                  <Link to={"/Notfound"}>Help ,</Link>
+                  <Link to="/Notfound">Help ,</Link>
                 </li>
                 <li>
-                  <Link to={"/Notfound"}>press ,</Link>
+                  <Link to="/Notfound">press ,</Link>
                 </li>
                 <li>
-                  <Link to={"/Notfound"}>jobs ,</Link>
+                  <Link to="/Notfound">jobs ,</Link>
                 </li>
                 <li>
-                  <Link to={"/Notfound"}>privacy ,</Link>
+                  <Link to="/Notfound">privacy ,</Link>
                 </li>
                 <li>
-                  <Link to={"/Notfound"}>Terms ,</Link>
+                  <Link to="/Notfound">Terms ,</Link>
                 </li>
                 <li>
-                  <Link to={"/Notfound"}>Location ,</Link>
+                  <Link to="/Notfound">Location ,</Link>
                 </li>
                 <li>
-                  <Link to={"/Notfound"}>Midgen verified.</Link>
+                  <Link to="/Notfound">Midgen verified.</Link>
                 </li>
               </ul>
 

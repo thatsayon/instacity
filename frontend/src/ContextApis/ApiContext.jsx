@@ -12,6 +12,7 @@ function ApiContext({ children }) {
 
     const [Token, setToken] = useState(null);
     const [user, setUser] = useState(null);
+    const [LogoutLoading, setLogoutLoading] = useState(false);
 
 
     const RegisterWithEmailandPassword = (obj) => {
@@ -25,21 +26,29 @@ function ApiContext({ children }) {
     };
 
     const Logout = () => {
+        setLogoutLoading(true)
         const headers = {
             Authorization: `Token ${Token}`,
         };
-        axiosFetch.post("logout/", null, { headers })
-            .then(res => {
 
-                if (res?.data?.message == 'Logout successful' || res?.data) {
-                    setToken(null)
-                    localStorage.removeItem('userToken')
+        setTimeout(() => {
+            setLogoutLoading(false)
 
-                }
-            })
-            .catch(error => {
-                console.log(error)
-            })
+
+            axiosFetch.post("logout/", null, { headers })
+                .then(res => {
+
+                    if (res?.data?.message == 'Logout successful' || res?.data) {
+                        setToken(null)
+                        localStorage.removeItem('userToken')
+
+                    }
+                })
+                .catch(error => {
+                    console.log(error)
+                })
+        }, 2000);
+
     }
 
     useEffect(() => {
@@ -76,6 +85,8 @@ function ApiContext({ children }) {
         Token,
         user,
         image_url,
+        LogoutLoading,
+        setLogoutLoading,
         setToken,
         setUser,
         RegisterWithEmailandPassword,

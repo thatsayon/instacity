@@ -1,5 +1,5 @@
-import React from "react";
 import "../src/Global.css";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -16,6 +16,17 @@ import ApiContext from "./ContextApis/ApiContext.jsx";
 import Post from "./Components/Post.jsx";
 import Saved from "./Components/Saved.jsx";
 import Tagged from "./Components/Tagged.jsx";
+import Settings from "./Components/SettignsComponents/Settings.jsx";
+import EditProfile from "./Components/SettignsComponents/EditProfile.jsx";
+import Language from "./Components/SettignsComponents/Language.jsx";
+import ChangePassword from "./Components/SettignsComponents/ChangePassword.jsx";
+import AppAndWeb from "./Components/SettignsComponents/AppAndWeb.jsx";
+import EmailNotification from "./Components/SettignsComponents/EmailNotification.jsx";
+import EmailFromInstacity from "./Components/SettignsComponents/EmailFromInstacity.jsx";
+import PushNotification from "./Components/SettignsComponents/PushNotification.jsx";
+import Privacy from "./Components/SettignsComponents/Privacy.jsx";
+import LoginActivity from "./Components/SettignsComponents/LoginActivity.jsx";
+import Help from "./Components/SettignsComponents/Help.jsx";
 
 const router = createBrowserRouter([
   {
@@ -50,7 +61,7 @@ const router = createBrowserRouter([
       {
         path: "/Profile",
         element: <Profile />,
-        children :[
+        children: [
           {
             path: '/Profile/Post',
             element: <Post />
@@ -64,10 +75,58 @@ const router = createBrowserRouter([
             element: <Tagged />
           },
 
+
+        ]
+      },
+      {
+        path: '/Settings',
+        element: <Settings />,
+        children: [
+          {
+            path: '/Settings/EditProfile',
+            element: <EditProfile />
+          },
+          {
+            path: '/Settings/Language',
+            element: <Language />
+          },
+          {
+            path: '/Settings/ChangePassword',
+            element: <ChangePassword />,
+          },
+          {
+            path: '/Settings/AppsandWeb',
+            element: <AppAndWeb />
+          },
+          {
+            path: '/Settings/EmailNotification',
+            element: <EmailNotification />
+          },
+          {
+            path: '/Settings/PushNotification',
+            element: <PushNotification />
+          },
+          {
+            path: '/Settings/Privacy',
+            element: <Privacy />
+          },
+          {
+            path: '/Settings/LoginActivity',
+            element: <LoginActivity />
+          },
+          {
+            path: '/Settings/Email_Sent',
+            element: <EmailFromInstacity />
+          },
+          {
+            path: '/Settings/Help',
+            element: <Help />
+          }
         ]
       },
     ],
   },
+
   {
     path: "/Register",
     element: <Register />,

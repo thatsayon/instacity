@@ -1,0 +1,33 @@
+#settings-ul-style {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+#settings-ul-style > li > a,
+button {
+  display: block;
+  width: 100%;
+  padding-bottom: 10px;
+}
+#settings-ul-style > li {
+  border-bottom: 1px solid var(--gray-23--);
+  cursor: pointer;
+  font-size: 14px;
+}
+.dark #settings-ul-style > li {
+  border-bottom: 1px solid #545454;
+}
+
+.dark #settings-ul-style > .border-none {
+  border-bottom: none;
+}
+.dark #settings-ul-style > .border-none > button {
+  padding-bottom: 0px;
+}
+#settings-ul-style > .border-none {
+  border-bottom: none;
+}
+#settings-ul-style > .border-none > button {
+  padding-bottom: 0px;
+}

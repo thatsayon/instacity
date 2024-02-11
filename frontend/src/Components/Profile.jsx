@@ -7,7 +7,8 @@ import { Link, NavLink, Navigate, Outlet, useLocation, useNavigate } from "react
 import { FaRegBookmark } from "react-icons/fa";
 import { LuUserSquare2 } from "react-icons/lu";
 import { FaFacebook } from "react-icons/fa";
-import Settings from "./Modals/Settings";
+import SettingsModal from "./Modals/SettingsModal";
+
 
 function Profile() {
   const { user, image_url } = useShareobj();
@@ -37,7 +38,7 @@ function Profile() {
           <div className="flex flex-row gap-6 items-start text-black font-medium dark:text-white">
             <h1 className="py-[8px]">{user?.username || "anynomous"}</h1>
 
-            <button className="dark:bg-[#363636] bg-[#efefef] py-[8px] text-[#000000] dark:text-[#ffffff] px-[10px] rounded-md text-[14px] font-medium hover:opacity-90 ">Edit profile</button>
+            <button onClick={()=> {navigate('/Settings')}} className="dark:bg-[#363636] bg-[#efefef] py-[8px] text-[#000000] dark:text-[#ffffff] px-[10px] rounded-md text-[14px] font-medium hover:opacity-90 ">Edit profile</button>
             <button className="dark:bg-[#363636] bg-[#efefef] py-[8px] text-[#000000] dark:text-[#ffffff] px-[10px] rounded-md text-[14px] font-medium hover:opacity-90 ">view archive</button>
 
             <button onClick={() => { setSettings(true) }} className="py-[8px] dark:text-white text-xl">
@@ -155,7 +156,7 @@ function Profile() {
 
       </div>
       {
-        isSettings && <Settings setSettings={setSettings} />
+        isSettings && <SettingsModal setSettings={setSettings}/>
       }
     </section>
   );

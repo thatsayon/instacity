@@ -30,7 +30,7 @@ function SinglePost() {
                 />
 
                 {/* Post Actions */}
-                <div className="flex justify-between  py-4">
+                <div className="flex items-center justify-between  py-4">
                     <div className="flex space-x-4">
                         {/* ---love-icon--- */}
                         <button>
@@ -101,26 +101,28 @@ function SinglePost() {
                     </div>
 
                     {/* Bookmark icon */}
-                    <button>
-                        <svg
-                            aria-label="Save"
-                            fill="currentColor"
-                            height="24px"
-                            role="img"
-                            viewBox="0 0 24 24"
-                            width="24px"
-                        >
-                            <title>Save</title>
-                            <polygon
-                                fill="none"
-                                points="20 21 12 13.44 4 21 4 3 20 3 20 21"
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                            ></polygon>
-                        </svg>
-                    </button>
+                    <div>
+                        <button >
+                            <svg
+                                aria-label="Save"
+                                fill="currentColor"
+                                height="24px"
+                                role="img"
+                                viewBox="0 0 24 24"
+                                width="24px"
+                            >
+                                <title>Save</title>
+                                <polygon
+                                    fill="none"
+                                    points="20 21 12 13.44 4 21 4 3 20 3 20 21"
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                ></polygon>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </>

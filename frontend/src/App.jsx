@@ -22,9 +22,9 @@ function App() {
   const [Dark, setDark] = useState(false);
   const [Report, setReport] = useState(false);
   const [checked, setchecked] = useState(false);
-  const [LogoutLoading, setLogoutLoading] = useState(false);
 
-  // const { user } = useShareobj();
+
+  const { LogoutLoading } = useShareobj();
 
 
   useEffect(() => {
@@ -84,7 +84,7 @@ function App() {
         isCreate && <Create setCreate={setCreate} />
       }
       {
-        clickMore && <More setLogoutLoading={setLogoutLoading} setClickMore={setClickMore} setDark={setDark} setSwitchaccount={setSwitchaccount} setReport={setReport} />
+        clickMore && <More setClickMore={setClickMore} setDark={setDark} setSwitchaccount={setSwitchaccount} setReport={setReport} />
       }
       {
         Dark && <Mode setDark={setDark} setClickMore={setClickMore} checked={checked} setchecked={setchecked} />

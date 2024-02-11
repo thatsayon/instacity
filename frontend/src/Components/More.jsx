@@ -11,21 +11,13 @@ import '../CustomStyles/More.css';
 import useShareobj from '../CustomHooks/useShareobj';
 
 
-function More({ setClickMore, setDark, setSwitchaccount, setReport, setLogoutLoading }) {
+function More({ setClickMore, setDark, setSwitchaccount, setReport, }) {
 
 
   const { Logout } = useShareobj();
 
 
-  const HandleLogout = () => {
-    setClickMore(false)
-    setLogoutLoading(true)
 
-    setTimeout(() => {
-      setLogoutLoading(false)
-      Logout()
-    }, 3000);
-  }
 
 
   return (
@@ -45,7 +37,7 @@ function More({ setClickMore, setDark, setSwitchaccount, setReport, setLogoutLoa
           <div className='dark:bg-[#262626] dark:text-[#ffffff] text-[#000000] font-normal '>
             <ul id='more-link'>
               <li className='dark:hover:bg-[#e0f1ff]'>
-                <Link to='/' >
+                <Link to='/Settings' >
                   <div>
                     <IoSettingsOutline />
                   </div>
@@ -102,7 +94,7 @@ function More({ setClickMore, setDark, setSwitchaccount, setReport, setLogoutLoa
               </li>
 
               <li>
-                <button onClick={HandleLogout}>
+                <button onClick={() => { setClickMore(false), Logout() }}>
                   <div>
                     <IoLogOutOutline />
                   </div>
@@ -142,6 +134,6 @@ export default More
 
 /**
  * NOTES 
- * setClickMore, setDark, setSwitchaccount, setReport , setLogoutLoading - those state comes form app component.
+ * setClickMore, setDark, setSwitchaccount, setReport , - those state comes form app component.
  *
  */
