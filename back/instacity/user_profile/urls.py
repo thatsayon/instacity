@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import FollowerCreateAPIView
+from . import views
 
 urlpatterns = [
-    path('follow/', FollowerCreateAPIView.as_view(), name='follow-create'),
+    path('follow/', views.FollowerCreateAPIView.as_view(), name='follow-create'),
+    path('profiles/', views.ProfileCreateView.as_view(), name='profile'),
 ]

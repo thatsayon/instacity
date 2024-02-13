@@ -1,7 +1,12 @@
 from django.db import models
 from django.contrib.auth import get_user_model 
-
 User = get_user_model()
+
+GENDER_CHOICE = [
+    ('M', 'Male'),
+    ('F', 'Female'),
+    ('O', 'Other')
+]
 
 class Follower(models.Model):
     following_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="following")
@@ -17,3 +22,13 @@ class Follower(models.Model):
     @staticmethod
     def following_count(user):
         return Follower.objects.filter(follower_user=user).count()
+
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bio = models.CharField(max_length=256, blank=True)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICE, blank=True)
+    social_links = models.JSONField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Profile of {self.user.username}"
+
