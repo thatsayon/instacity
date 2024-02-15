@@ -15,6 +15,7 @@ from django.template.loader import render_to_string
 from django.core.mail import EmailMultiAlternatives
 from .serializers import UserRegistrationSerializer, UserAccountSerializer, UserLoginSerializer, ChangePasswordSerializer
 from .models import UserAccount
+from .authentication import token_expire_handler, expires_in
 
 User = get_user_model()
 
@@ -87,7 +88,8 @@ class UserLoginAPIView(APIView):
         if serializer.is_valid():
             user = serializer.validated_data['user']
             token, created = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key})
+            is_expired, token = token_expire_handler(token) 
+            return Response({'token': token.key, 'expires_in': expires_in(token),})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserLogoutAPIView(APIView):
