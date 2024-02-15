@@ -10,9 +10,20 @@ class FollowerCreateAPIView(generics.CreateAPIView):
     serializer_class = FollowerSerializer
 
 
-class ProfileCreateView(generics.CreateAPIView):
+class ProfileView(generics.CreateAPIView, generics.RetrieveUpdateAPIView):
     serializer_class = ProfileSerializer
     permission_classes = [IsAuthenticated]
 
+    def get_queryset(self):
+        return Profile.objects.filter(user=self.request.user)
+
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    
+    def get_object(self):
+        queryset = self.get_queryset()
+        obj = generics.get_object_or_404(queryset)
+        self.check_object_permissions(self.request, obj)
+        return obj
+

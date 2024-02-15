@@ -18,7 +18,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Profile 
-        fields = ['bio', 'gender', 'social_links']
+        fields = ['bio', 'gender', 'phone_number', 'social_links']
 
     def perform_create(self, serializer):
         serializer.save(user=self.context['request'].user)

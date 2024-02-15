@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model 
+from phonenumber_field.modelfields import PhoneNumberField
+
 User = get_user_model()
 
 GENDER_CHOICE = [
@@ -27,6 +29,7 @@ class Profile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     bio = models.CharField(max_length=256, blank=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICE, blank=True)
+    phone_number = PhoneNumberField(blank=True)
     social_links = models.JSONField(blank=True, null=True)
 
     def __str__(self):
