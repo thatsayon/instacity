@@ -37,7 +37,7 @@ function More({ setClickMore, setDark, setSwitchaccount, setReport, }) {
           <div className='dark:bg-[#262626] dark:text-[#ffffff] text-[#000000] font-normal '>
             <ul id='more-link'>
               <li className='dark:hover:bg-[#e0f1ff]'>
-                <Link to='/Settings' >
+                <Link to='/Settings/EditProfile' onClick={()=> setClickMore(false)}>
                   <div>
                     <IoSettingsOutline />
                   </div>

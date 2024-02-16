@@ -20,7 +20,6 @@ import Settings from "./Components/SettignsComponents/Settings.jsx";
 import EditProfile from "./Components/SettignsComponents/EditProfile.jsx";
 import Language from "./Components/SettignsComponents/Language.jsx";
 import ChangePassword from "./Components/SettignsComponents/ChangePassword.jsx";
-import AppAndWeb from "./Components/SettignsComponents/AppAndWeb.jsx";
 import EmailNotification from "./Components/SettignsComponents/EmailNotification.jsx";
 import EmailFromInstacity from "./Components/SettignsComponents/EmailFromInstacity.jsx";
 import PushNotification from "./Components/SettignsComponents/PushNotification.jsx";
@@ -93,10 +92,6 @@ const router = createBrowserRouter([
           {
             path: '/Settings/ChangePassword',
             element: <ChangePassword />,
-          },
-          {
-            path: '/Settings/AppsandWeb',
-            element: <AppAndWeb />
           },
           {
             path: '/Settings/EmailNotification',

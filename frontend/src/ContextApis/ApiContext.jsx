@@ -79,19 +79,58 @@ function ApiContext({ children }) {
 
     }, [localStorage.getItem("userToken")]);
 
-
+    const LanguageArray = [
+        'English',
+        'Spanish',
+        'French',
+        'German',
+        'Chinese',
+        'Japanese',
+        'Korean',
+        'Italian',
+        'Portuguese',
+        'Russian',
+        'Arabic',
+        'Hindi',
+        'Bengali',
+        'Urdu',
+        'Turkish',
+        'Dutch',
+        'Swedish',
+        'Norwegian',
+        'Danish',
+        'Finnish',
+        'Greek',
+        'Thai',
+        'Vietnamese',
+        'Polish',
+        'Czech',
+        'Hungarian',
+        'Romanian',
+        'Indonesian',
+        'Malay',
+        'Filipino',
+        'Hebrew',
+        'Farsi',
+        'Swahili',
+        'Yoruba',
+        'Zulu'
+      ];
+      
 
     const shareobj = {
         Token,
         user,
         image_url,
         LogoutLoading,
+        LanguageArray,
         setLogoutLoading,
         setToken,
         setUser,
         RegisterWithEmailandPassword,
         LoginWithEmailandPassword,
         Logout,
+        
 
     };
 

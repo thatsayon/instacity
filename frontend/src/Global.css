@@ -227,6 +227,9 @@ body {
 .error-color {
   color: var(--red-3--);
 }
+.hover-bg{
+  background-color: var(--hover-bg--);
+}
 .success-color{
   color: var(--green-1--);
 }

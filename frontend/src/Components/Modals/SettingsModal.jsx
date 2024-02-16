@@ -21,28 +21,28 @@ function SettingsModal({ setSettings }) {
 
                     <ul id="settings-ul-style">
                         <li>
-                            <Link to='/'>Change password</Link>
+                            <Link to='/Settings/ChangePassword'>Change password</Link>
                         </li>
                         <li>
-                            <Link to='/'>QR Code</Link>
+                            <Link to='/Settings/EditProfile'>QR Code</Link>
                         </li>
                         <li>
-                            <Link to='/'>Apps & Websites </Link>
+                            <Link to='/Settings/PushNotification'>Push Notification</Link>
                         </li>
                         <li>
-                            <Link to='/'>Notifications</Link>
+                            <Link to='/Settings/EmailNotification'>Email Notifications</Link>
                         </li>
                         <li>
-                            <Link to='/'>Privacy & Security</Link>
+                            <Link to='/Settings/Privacy'>Privacy & Security</Link>
                         </li>
                         <li>
-                            <Link to='/'>Midgen Verified</Link>
+                            <Link to='/Settings/Language'>website Languages</Link>
                         </li>
                         <li>
-                            <Link to='/'>Login Activity</Link>
+                            <Link to='/Settings/LoginActivity'>Login Activity</Link>
                         </li>
                         <li>
-                            <Link to='/'>Email from Instacity</Link>
+                            <Link to='/Settings/Email_Sent'>Email from Instacity</Link>
                         </li>
                         <li>
                             <button onClick={() => { setSettings(false), Logout() }}>Log out</button>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SinglePost from "./ShareComponent/SinglePost";
-import { FaRegUserCircle } from "react-icons/fa";
 import SuggestionIds from "./ShareComponent/suggestionIds";
 import { Link, useNavigate } from "react-router-dom";
 import SwitchAccount from "./Modals/SwitchAccount";
 import "../CustomStyles/Home.css";
 import useShareobj from "../CustomHooks/useShareobj";
 import LoadingOne from "./LoadingReels/LoadingOne";
+import anynomoususer from '../assets/Anynomous.webp';
 
 function Home() {
   const [AccountSwitch, setAccountSwitch] = useState(false);
@@ -36,13 +36,11 @@ function Home() {
           </div>
           <div className="lg:block hidden h-screen flex-1 p-2">
             <div className="flex items-center justify-between border-b-[1px] pb-2 dark:border-[#262626] border-[#dbdbdb]">
-              <div onClick={()=> {navigate('/Profile')}} className="flex items-center cursor-pointer">
-                {user.profile_pic ? <img
-                  src={image_url + user?.profile_pic}
-                  alt="User Profile"
-                  className="w-10 h-10 rounded-full mr-2 "
-                /> : <div className="text-[24px] mr-2"><FaRegUserCircle /></div>
-                }
+              <div onClick={() => { navigate('/Profile') }} className="flex items-center cursor-pointer">
+                <div className="mr-2">
+                  <img className="w-[40px] rounded-full" src={user?.profile_pic ? image_url + user.profile_pic : anynomoususer} alt={user?.username || userPhoto} />
+                </div>
+
                 <div className="flex items-start flex-col">
                   {/* ---user-name--- */}
                   <p className="black-style dark:text-[#ffffff] text-black ">

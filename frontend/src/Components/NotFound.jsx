@@ -1,16 +1,22 @@
 import React from 'react';
 import '../CustomStyles/Notfound.css';
-import { Link } from 'react-router-dom';
+
 import { FaArrowLeft } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 
 function NotFound() {
+
+  const navigate = useNavigate();
+
   return (
     <>
       <div className='not-found-bg'>
         <div className='not-found-link md:px-[40px] md:py-[35px] px-[20px] py-[20px]'>
-          <Link to={'/'} className="logo">
+          <button onClick={() => {navigate(-1)}} className="logo">
             <FaArrowLeft />
-          </Link>
+          </button>
+
+
 
         </div>
 
