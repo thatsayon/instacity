@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model
+from django.contrib.auth import login as django_login
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.urls import reverse
@@ -89,6 +90,7 @@ class UserLoginAPIView(APIView):
             user = serializer.validated_data['user']
             token, created = Token.objects.get_or_create(user=user)
             is_expired, token = token_expire_handler(token) 
+            django_login(request, user)
             return Response({'token': token.key, 'expires_in': expires_in(token),})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
