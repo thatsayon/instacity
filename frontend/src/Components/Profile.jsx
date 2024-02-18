@@ -25,7 +25,7 @@ function Profile() {
   }, [location.pathname == '/Profile'])
 
   return (
-    <section className="min-h-screen py-8 px-[4%]">
+    <section className="min-h-screen py-8 lg:px-[4%] px-[1%]">
       <div className="flex flex-row gap-14 items-center justify-center">
         <div>
         <img className="w-40 rounded-full" src={user?.profile_pic ? image_url + user.profile_pic : anynomoususer} alt={user?.username || "userPhoto"} />

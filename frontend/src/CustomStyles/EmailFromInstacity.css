@@ -1,0 +1,9 @@
+.email-from-instacity > div > .active {
+  color: var(--link-color--);
+  
+}
+
+
+.email-from-instacity > div > .active {
+  border-bottom: 1px solid black;
+}

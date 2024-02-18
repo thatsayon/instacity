@@ -9,7 +9,6 @@ import Explore from "./Components/Explore.jsx";
 import Reels from "./Components/Reels.jsx";
 import Search from "./Components/Search.jsx";
 import Profile from "./Components/Profile.jsx";
-import Notification from "./Components/Notification.jsx";
 import Register from "./Components/Register.jsx";
 import Login from "./Components/Login.jsx";
 import ApiContext from "./ContextApis/ApiContext.jsx";
@@ -26,6 +25,8 @@ import PushNotification from "./Components/SettignsComponents/PushNotification.j
 import Privacy from "./Components/SettignsComponents/Privacy.jsx";
 import LoginActivity from "./Components/SettignsComponents/LoginActivity.jsx";
 import Help from "./Components/SettignsComponents/Help.jsx";
+import Other from "./Components/SettignsComponents/EmailFromInstacity/Other.jsx";
+import Security from "./Components/SettignsComponents/EmailFromInstacity/Security.jsx";
 
 const router = createBrowserRouter([
   {
@@ -52,10 +53,6 @@ const router = createBrowserRouter([
       {
         path: "/Message",
         element: <Home />,
-      },
-      {
-        path: "/Notification",
-        element: <Notification />,
       },
       {
         path: "/Profile",
@@ -111,7 +108,18 @@ const router = createBrowserRouter([
           },
           {
             path: '/Settings/Email_Sent',
-            element: <EmailFromInstacity />
+            element: <EmailFromInstacity />,
+            children: [
+
+              {
+                path: '/Settings/Email_Sent/Other',
+                element: <Other />
+              },
+              {
+                path: '/Settings/Email_Sent/Security',
+                element: <Security />
+              }
+            ]
           },
           {
             path: '/Settings/Help',

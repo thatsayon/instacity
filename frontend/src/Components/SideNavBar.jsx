@@ -14,77 +14,84 @@ import instacityLogo from "../assets/LogoFolder/instaLogo.png";
 import '../CustomStyles/Sidebar.css';
 import useShareobj from "../CustomHooks/useShareobj";
 
-function SideNavBar({ setCreate, clickMore, setClickMore }) {
+function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNotification }) {
   const navigate = useNavigate();
   const { user, image_url } = useShareobj();
 
 
+  // ${isNotification ? "hidden" : 'hidden lg:block '}
+  // ${isNotification ? "block" : 'lg:hidden block'}
+  // ${isNotification ? "opacity-0 h-0 w-0" : 'opacity-0 h-0 w-0 lg:w-fit lg:h-fit lg:opacity-100'}
+  // ${isNotification ? "opacity-100 h-fit w-[35px]" : 'lg:opacity-0 lg:h-0 lg:w-0 opacity-100 h-fit w-[35px]'}
+
   return (
-    <nav  className={`lg:p-2 p-4 dark:text-[#ffffff] `}>
-      <div onClick={() => { navigate('/') }} className="pt-4 lg:pb-10 pb-5 lg:pl-4 cursor-pointer">
-        <h1 className={`text-3xl italic text-gray-700 lg:block hidden dark:text-[#ffffff] `}>
+    <nav className={`lg:p-2 p-4 dark:text-[#ffffff] `}>
+      <div onClick={() => { navigate('/') }} className=" py-4 cursor-pointer">
+        <h1 className={`text-3xl italic text-gray-700  dark:text-[#ffffff] transition-all duration-500 ${isNotification ? "hidden" : 'hidden lg:block '} `}>
           InstaCity
         </h1>
         <img
           width="35px"
           src={instacityLogo}
           alt="Instacity logo"
-          className="lg:hidden block "
+          className={` transition duration-300 ${isNotification ? "block" : 'lg:hidden block'}`}
         />
       </div>
 
       <div>
         <ul id="sidebar-link"  >
           <li>
-            <NavLink to={"/"}>
+            <NavLink id="Home" to={"/"}>
               <div className="dark:text-white">
                 <LuHome />
               </div>
-              <p className="lg:block hidden"> Home</p>
+              <p className={`${isNotification ? "hidden" : 'hidden lg:block'}`}> Home</p>
             </NavLink>
           </li>
+          {/* ${isNotification ? "hidden" : 'hidden lg:block'} */}
           <li>
-            <NavLink to={"/Search"}>
+            <NavLink id="Search" to={"/Search"}>
               <div>
                 <IoSearchSharp />
               </div>
-              <p className="lg:block hidden">Search</p>
+              <p className={`${isNotification ? "hidden" : 'hidden lg:block'}  `}>Search</p>
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/Explore"}>
+            <NavLink id="Explore" to={"/Explore"}>
               <div>
                 <MdOutlineExplore />
               </div>
-              <p className="lg:block hidden">Explore</p>
+              <p className={`${isNotification ? "hidden" : 'hidden lg:block'}  `}>Explore</p>
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/Reels"}>
+            <NavLink id="Reels" to={"/Reels"}>
               <div>
                 <BiMoviePlay />
               </div>
 
-              <p className="lg:block hidden"> Reels</p>
+              <p className={`${isNotification ? "hidden" : 'hidden lg:block'}  `}> Reels</p>
             </NavLink>
           </li>
           <li>
-            <NavLink to={"/Message"}>
+            <NavLink id="Message" to={"/Message"}>
               <div>
                 <AiOutlineMessage />
 
               </div>
 
-              <p className="lg:block hidden"> Messages</p>
+              <p className={`${isNotification ? "hidden" : 'hidden lg:block'}  `}> Messages</p>
             </NavLink>
           </li>
+
           <li>
-            <NavLink to={"/Notification"}>
-              <div>
+            <button onClick={() => { setNotification(!isNotification) }} className={`  ${isNotification && 'bg-[#0000000d] lg:bg-inherit  dark:bg-[#5555554d] lg:dark:bg-inherit'} dark:text-white`}>
+              <div id="Notification" className={`${isNotification && 'lg:text-[#0095f6] lg:dark:text-[#0095f6]'}  dark:text-white`} >
                 <IoMdNotificationsOutline />
               </div>
-              <p className="lg:block hidden"> Notification</p>
-            </NavLink>
+              <p className={`${isNotification ? "hidden" : 'hidden lg:block'} dark:text-white  `}> Notification</p>
+            </button>
           </li>
           <li>
             <button className=" text-[#323436]" onClick={() => setCreate(true)}>
@@ -92,11 +99,11 @@ function SideNavBar({ setCreate, clickMore, setClickMore }) {
                 <IoCreateOutline />
               </div>
 
-              <p className="lg:block hidden dark:text-[#ffffff]">Create</p>
+              <p className={`${isNotification ? "hidden" : 'hidden lg:block'} dark:text-white  `}>Create</p>
             </button>
           </li>
           <li>
-            <NavLink to={"/Profile"}>
+            <NavLink id="Profile" to={"/Profile"}>
               {
                 user?.profile_pic ?
                   <img
@@ -108,26 +115,20 @@ function SideNavBar({ setCreate, clickMore, setClickMore }) {
                     <FaRegUserCircle />
                   </div>
               }
-              <p className="lg:block hidden">Profile</p>
+              <p className={`${isNotification ? "hidden" : 'hidden lg:block'}  `}>Profile</p>
             </NavLink>
           </li>
 
-          <li className="lg:mt-6 md:block hidden">
+          <li className="lg:mt-6">
             <button onClick={() => setClickMore(!clickMore)}>
               <div className="dark:text-[#ffffff]">
                 <IoMenuSharp />
               </div>
 
-              <p className="lg:inline hidden dark:text-[#ffffff]">More</p>
+              <p className={`${isNotification ? "hidden" : 'hidden lg:block'} dark:text-white`}>More</p>
             </button>
           </li>
-          <li className="md:hidden block">
-            <button>
-              <div>
-                <IoSettingsOutline />
-              </div>
-            </button>
-          </li>
+
         </ul>
       </div>
     </nav>
@@ -135,3 +136,12 @@ function SideNavBar({ setCreate, clickMore, setClickMore }) {
 }
 
 export default SideNavBar;
+
+
+/**
+ * NOTES ,
+ * 
+ * setCreate, clickMore, setClickMore , setNotification , isNotification - they all props come from app component.
+ * 
+ * 
+ * **/

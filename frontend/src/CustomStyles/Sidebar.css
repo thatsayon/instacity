@@ -58,7 +58,7 @@
 
 @media only screen and (min-width: 280px) and (max-width: 900px) {
   #sidebar-link > li > .active > div {
-    color: var(--link-color-blue--);
+    color: var(--link-color--);
   }
 
   #sidebar-link > li > .active {

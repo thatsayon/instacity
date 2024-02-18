@@ -95,6 +95,7 @@ function Login() {
                     id="email"
                     required
                     placeholder="Enter your email "
+                    autoComplete="on"
                   />
                 </label>
                 <label className="relative" htmlFor="password">
@@ -105,6 +106,7 @@ function Login() {
                     name="password"
                     id="password"
                     placeholder="Enter your password "
+                    autoComplete="on"
                   />
                   <p className="text-right gray-style hover:cursor-pointer hover:underline">
                     forget password
