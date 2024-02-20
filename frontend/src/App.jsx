@@ -12,6 +12,7 @@ import ReportProblem from "./Components/Modals/ReportProblem";
 import Private from "./Components/Private";
 import LoadingOne from "./Components/LoadingReels/LoadingOne";
 import LogoutModal from "./Components/Modals/LogoutModal";
+import DiscardPost from "./Components/Modals/DiscardPost";
 
 function App() {
   const navigation = useNavigation();
@@ -23,6 +24,7 @@ function App() {
   const [Report, setReport] = useState(false);
   const [checked, setchecked] = useState(false);
   const [isNotification, setNotification] = useState(false);
+  const [isDicardPost, setDiscardPost] = useState(false);
 
   const { LogoutLoading } = useShareobj();
 
@@ -51,10 +53,8 @@ function App() {
       ) : (
         <div className="flex gap-2 min-h-screen">
           <header
-            style={{ maxHeight: "calc(5vh + 12rem)" , zIndex : '999999' }}
-            className={`${
-              isNotification ? "lg:max-w-[20vw] " : "lg:min-w-[20vw]  "
-            }   overflow-y-auto w-fit sidebar-header dark:border-[#262626] bg-white`}
+            style={{ maxHeight: "calc(5vh + 12rem)", zIndex: '999999' }}
+            className={`${isNotification ? "lg:max-w-[20vw]" : "lg:min-w-[20vw] "} dark:bg-black overflow-y-auto w-fit sidebar-header dark:border-[#262626] bg-white`}
           >
             <SideNavBar
               setCreate={setCreate}
@@ -70,8 +70,8 @@ function App() {
           >
             {navigation.state == "idle" ? (
               <Private>
-                {" "}
-                <Outlet />{" "}
+
+                <Outlet />
               </Private>
             ) : (
               <LoadingOne />
@@ -80,55 +80,25 @@ function App() {
         </div>
       )}
 
-      {isCreate && <Create setCreate={setCreate} />}
-      {clickMore && (
-        <More
-          setClickMore={setClickMore}
-          setDark={setDark}
-          setSwitchaccount={setSwitchaccount}
-          setReport={setReport}
-        />
-      )}
-      {Dark && (
-        <Mode
-          setDark={setDark}
-          setClickMore={setClickMore}
-          checked={checked}
-          setchecked={setchecked}
-        />
-      )}
-      {swithaccount && (
-        <SwitchAccount
-          setSwitchaccount={setSwitchaccount}
-          swithaccount={swithaccount}
-        />
-      )}
-      {Report && (
-        <ReportProblem setReport={setReport} setClickMore={setClickMore} />
-      )}
+      {isCreate && <Create setCreate={setCreate} setDiscardPost={setDiscardPost}/>}
+      {clickMore && <More setClickMore={setClickMore} setDark={setDark} setSwitchaccount={setSwitchaccount} setReport={setReport}/>}
+      {Dark && <Mode setDark={setDark} setClickMore={setClickMore} checked={checked} setchecked={setchecked}/>}
+      {swithaccount && <SwitchAccount setSwitchaccount={setSwitchaccount} swithaccount={swithaccount}/>}
+      {Report && <ReportProblem setReport={setReport} setClickMore={setClickMore} />}
       {LogoutLoading && <LogoutModal />}
+      {isDicardPost && <DiscardPost setDiscardPost={setDiscardPost} setCreate={setCreate}/>}
       {
         <div
           id="NotificationPopup"
-          className={`fixed min-h-screen right-0 top-0  bottom-0 justify-center items-center flex  max-w-md  transition-all duration-500 ${
-            isNotification ? "lg:left-[54px] left-[69px]" : "left-[-456px]"
-          } `}
+          className={`fixed min-h-screen right-0 top-0  bottom-0 justify-center items-center flex  max-w-md  transition-all duration-500 ${isNotification ? "lg:left-[54px] left-[69px]" : "left-[-456px]"
+            } `}
         >
           <div
             style={{ maxHeight: "calc(100vh - 10vh)" }}
-            className="min-h-screen overflow-y-scroll bg-[#ffffff] dark:bg-[#262626]  dark:text-[#ffffff] text-[#000000] shadow-lg   dark:shadow-black max-w-md mx-auto py-4 w-full px-1"
+            className="min-h-screen overflow-y-scroll bg-[#ffffff] dark:bg-black dark:text-[#ffffff] text-[#000000] max-w-md mx-auto py-4 w-full px-1"
           >
-            qui totam atque temporibus non sunt omnis optio sit quas
-            exercitationem eligendi incidunt nam sed velit aliquid quo iusto
+            <h1 className="text-2xl font-bold text-black dark:text-white">Notifications</h1>
 
-            ipsa. Illo et non nesciunt quisquam, nobis magnam obcaecati
-            reiciendis id, ducimus suscipit rerum iusto
-            qui totam atque temporibus non sunt omnis optio sit quas
-            exercitationem eligendi incidunt nam sed velit aliquid quo iusto
-            ipsam expedita fugiat. Odio nihil maxime expedita exercitationem
-            velit assumenda delectus placeat incidunt aperiam labore. Harum
-            consectetur magnam et eius possimus veniam fuga id officiis fugit
-           
           </div>
         </div>
       }

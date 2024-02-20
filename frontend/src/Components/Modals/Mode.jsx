@@ -42,13 +42,21 @@ function Mode({ setDark, setClickMore, checked, setchecked }) {
                 <div className="scrollbar-hide max-h-[95vh]  my-auto bg-[#ffffff] dark:bg-[#262626]  dark:text-[#ffffff] text-[#000000] shadow-lg z-50  dark:shadow-black max-w-xs mx-auto py-4 w-full rounded-md ">
 
                     <div className='text-[#000000] dark:text-[#ffffff] flex flex-row justify-between items-center border-b-2 dark:border-[#555555] px-2 pb-2 w-full'>
-                        <div className='flex flex-row gap-2'>
-                            <button onClick={() => { setClickMore(true), setDark(false) }} className='text-md'><MdOutlineKeyboardArrowLeft /></button>
+                        <div className='flex flex-row gap-4 items-center'>
 
-                            <h1>Switch appearance</h1>
+                            <div>
+                                <button onClick={() => { setClickMore(true), setDark(false) }} className='text-xl pb-0'><MdOutlineKeyboardArrowLeft /></button>
+                            </div>
+
+
+                           <div>
+                           <h1 className='text-black dark:text-white font-semibold'>Switch appearance</h1>
+                           </div>
                         </div>
 
-                        <p className='text-2xl dark:text-[#ffffff]'>{checked ? <CiDark /> : <CiLight />}</p>
+                        <div>
+                            <p className='text-2xl dark:text-[#ffffff]'>{checked ? <CiDark /> : <CiLight />}</p>
+                        </div>
                     </div>
                     <div className='mt-3 flex items-center justify-between dark:text-[#ffffff] text-[#000000] px-4'>
                         <p>{checked ? "Dark Mode" : "Light Mode"}</p>

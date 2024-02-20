@@ -205,13 +205,13 @@ body {
   font-size: 12px;
   font-weight: var(--font-medium--);
   cursor: pointer;
-  transition: all 0.1s;
+  transition: all 0.2s;
 }
 
 .follow-link-color {
   color: var(--link-color--);
-  font-size: 12px;
-  font-weight: var(--font-medium--);
+  font-size: 14px;
+  font-weight: var(--font-semibold--);
   cursor: pointer;
   transition: all 0.1s;
 }

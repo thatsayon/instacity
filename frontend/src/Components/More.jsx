@@ -30,7 +30,7 @@ function More({ setClickMore, setDark, setSwitchaccount, setReport, }) {
           }
           setClickMore(false);
         }}
-        className="fixed right-0 top-0 px-2 py-4 overflow-hidden scrollbar-hide  z-50 lg:left-[-600px] md:left-[-322px] bottom-0 justify-center items-center flex dropdown"
+        className="fixed right-0 top-0 px-2 py-4 overflow-hidden scrollbar-hide  z-[9999999] lg:left-[-600px] md:left-[-322px] bottom-0 justify-center items-center flex dropdown"
       >
         <div className=" scrollbar-hide overflow-hidden max-h-[95vh]  my-auto  bg-[#ffffff] text-[#000000] dark:bg-[#262626] dark:text-[#ffffff]   font-bold shadow-md shadow-[#364e7e1a] max-w-xs mx-auto  w-full p-4 rounded-md">
 

@@ -19,22 +19,18 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
   const { user, image_url } = useShareobj();
 
 
-  // ${isNotification ? "hidden" : 'hidden lg:block '}
-  // ${isNotification ? "block" : 'lg:hidden block'}
-  // ${isNotification ? "opacity-0 h-0 w-0" : 'opacity-0 h-0 w-0 lg:w-fit lg:h-fit lg:opacity-100'}
-  // ${isNotification ? "opacity-100 h-fit w-[35px]" : 'lg:opacity-0 lg:h-0 lg:w-0 opacity-100 h-fit w-[35px]'}
 
   return (
-    <nav className={`lg:p-2 p-4 dark:text-[#ffffff] `}>
-      <div onClick={() => { navigate('/') }} className=" py-4 cursor-pointer">
-        <h1 className={`text-3xl italic text-gray-700  dark:text-[#ffffff] transition-all duration-500 ${isNotification ? "hidden" : 'hidden lg:block '} `}>
+    <nav className={`lg:p-2 p-4 dark:text-[#ffffff] overflow-hidden`}>
+      <div onClick={() => { navigate('/') }} className=" py-4 cursor-pointer ">
+        <h1 className={`text-3xl italic text-gray-700 dark:text-[#ffffff] transition-all duration-500 ${isNotification ? "opacity-0 h-0 w-0" : 'opacity-0 h-0 w-0 lg:w-fit lg:h-fit lg:opacity-100'} `}>
           InstaCity
         </h1>
         <img
           width="35px"
           src={instacityLogo}
           alt="Instacity logo"
-          className={` transition duration-300 ${isNotification ? "block" : 'lg:hidden block'}`}
+          className={` transition-all  ${isNotification ? "opacity-100 h-fit w-[35px]" : 'lg:opacity-0 lg:h-0 lg:w-0 opacity-100 h-fit w-[35px]'} lg:duration-500`}
         />
       </div>
 
@@ -45,16 +41,16 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
               <div className="dark:text-white">
                 <LuHome />
               </div>
-              <p className={`${isNotification ? "hidden" : 'hidden lg:block'}`}> Home</p>
+              <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}> Home</p>
+        
             </NavLink>
           </li>
-          {/* ${isNotification ? "hidden" : 'hidden lg:block'} */}
           <li>
             <NavLink id="Search" to={"/Search"}>
               <div>
                 <IoSearchSharp />
               </div>
-              <p className={`${isNotification ? "hidden" : 'hidden lg:block'}  `}>Search</p>
+              <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>Search</p>
             </NavLink>
           </li>
           <li>
@@ -62,7 +58,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
               <div>
                 <MdOutlineExplore />
               </div>
-              <p className={`${isNotification ? "hidden" : 'hidden lg:block'}  `}>Explore</p>
+              <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>Explore</p>
             </NavLink>
           </li>
           <li>
@@ -71,7 +67,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
                 <BiMoviePlay />
               </div>
 
-              <p className={`${isNotification ? "hidden" : 'hidden lg:block'}  `}> Reels</p>
+              <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}> Reels</p>
             </NavLink>
           </li>
           <li>
@@ -81,7 +77,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
 
               </div>
 
-              <p className={`${isNotification ? "hidden" : 'hidden lg:block'}  `}> Messages</p>
+              <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}> Messages</p>
             </NavLink>
           </li>
 
@@ -90,7 +86,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
               <div id="Notification" className={`${isNotification && 'lg:text-[#0095f6] lg:dark:text-[#0095f6]'}  dark:text-white`} >
                 <IoMdNotificationsOutline />
               </div>
-              <p className={`${isNotification ? "hidden" : 'hidden lg:block'} dark:text-white  `}> Notification</p>
+              <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}> Notification</p>
             </button>
           </li>
           <li>
@@ -99,7 +95,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
                 <IoCreateOutline />
               </div>
 
-              <p className={`${isNotification ? "hidden" : 'hidden lg:block'} dark:text-white  `}>Create</p>
+              <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>Create</p>
             </button>
           </li>
           <li>
@@ -115,7 +111,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
                     <FaRegUserCircle />
                   </div>
               }
-              <p className={`${isNotification ? "hidden" : 'hidden lg:block'}  `}>Profile</p>
+              <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>Profile</p>
             </NavLink>
           </li>
 
@@ -125,7 +121,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
                 <IoMenuSharp />
               </div>
 
-              <p className={`${isNotification ? "hidden" : 'hidden lg:block'} dark:text-white`}>More</p>
+              <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>More</p>
             </button>
           </li>
 

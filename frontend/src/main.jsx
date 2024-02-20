@@ -27,6 +27,7 @@ import LoginActivity from "./Components/SettignsComponents/LoginActivity.jsx";
 import Help from "./Components/SettignsComponents/Help.jsx";
 import Other from "./Components/SettignsComponents/EmailFromInstacity/Other.jsx";
 import Security from "./Components/SettignsComponents/EmailFromInstacity/Security.jsx";
+import AspectRatioImageResizer from "./Components/AspectRatioImageResizer.jsx";
 
 const router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
 
 
         ]
+      },
+      {
+        path : '/image',
+        element : <AspectRatioImageResizer/>
       },
       {
         path: '/Settings',
