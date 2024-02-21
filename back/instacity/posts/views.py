@@ -3,6 +3,7 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated 
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.viewsets import ModelViewSet
 from .serializers import PostSerializer, CommentSerializer
 from .models import Post, Comment
 
@@ -14,18 +15,21 @@ class PostPublishView(generics.CreateAPIView):
         serializers.save(author=self.request.user)
     
 
-class PostListAPIView(generics.ListAPIView):
+class PostPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+class PostListAPIView(ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Post.objects.all().order_by('-id')
     serializer_class = PostSerializer
-    pagination_class = PageNumberPagination
+    pagination_class = PostPagination
 
-
-class UserPostListAPIView(generics.ListAPIView):
+class UserPostListAPIView(ModelViewSet):
     permission_classes = [IsAuthenticated]
-    serializer_class = PostSerializer
-    pagination_class = PageNumberPagination 
-    pagination_class.page_size = 20 
+    serializer_class = PostSerializer 
+    pagination_class = PostPagination
 
     def get_queryset(self):
         return Post.objects.filter(author=self.request.user)
