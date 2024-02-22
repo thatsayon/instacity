@@ -21,8 +21,8 @@ class PostSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True)
     class Meta:
         model = Post 
-        fields = ['author', 'images', 'caption', 'created_at']
-        read_only_fields = ['author', 'created_at']
+        fields = ['id', 'author', 'images', 'caption', 'created_at']
+        read_only_fields = ['id', 'author', 'created_at']
 
     def create(self, validated_data):
         images_data = validated_data.pop('images', [])
@@ -31,6 +31,19 @@ class PostSerializer(serializers.ModelSerializer):
             Image.objects.create(post=post, order=idx, **image_data)
         return post
 
+    def update(self, instance, validated_data):
+        images_data = validated_data.pop('images', [])
+    
+        instance.caption = validated_data.get('caption', instance.caption)
+        instance.save()
+
+        instance.images.all().delete()
+
+        for idx, image_data in enumerate(images_data, start=1):
+            Image.objects.create(post=instance, order=idx, **image_data)
+
+        return instance
+       
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment 

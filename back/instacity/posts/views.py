@@ -4,6 +4,9 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated 
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.views import APIView
+from rest_framework.exceptions import NotFound
+from django.shortcuts import get_object_or_404
 from .serializers import PostSerializer, CommentSerializer
 from .models import Post, Comment
 
@@ -14,7 +17,6 @@ class PostPublishView(generics.CreateAPIView):
     def perform_create(self, serializers):
         serializers.save(author=self.request.user)
     
-
 class PostPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
@@ -33,6 +35,31 @@ class UserPostListAPIView(ModelViewSet):
 
     def get_queryset(self):
         return Post.objects.filter(author=self.request.user)
+
+class PostDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        post = get_object_or_404(Post, id=pk)
+        serializer = PostSerializer(post)
+        return Response(serializer.data)
+    
+    def put(self, request, pk):
+        post = get_object_or_404(Post, id=pk)
+        serializer = PostSerializer(post, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class PostDeleteView(generics.DestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    queryset = Post.objects.all()
+    
+    def delete(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class CommentCreateAPIView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
