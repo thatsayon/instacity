@@ -35,3 +35,9 @@ class Profile(models.Model):
     def __str__(self):
         return f"Profile of {self.user.username}"
 
+class Report(models.Model):
+    reporter = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reporter')
+    report = models.TextField()
+
+    def __str__(self):
+        return f"{self.reporter.username}: {self.report}"

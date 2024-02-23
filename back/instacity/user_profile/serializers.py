@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Follower, Profile
+from .models import Follower, Profile, Report
 from django.contrib.auth import get_user_model 
 
 User = get_user_model()
@@ -22,3 +22,9 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def perform_create(self, serializer):
         serializer.save(user=self.context['request'].user)
+
+class ReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Report 
+        fields = ['reporter', 'report']
+        read_only_fields = ['reporter']
