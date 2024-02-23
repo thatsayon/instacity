@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics, status
+from rest_framework import generics, status, filters
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated 
 from rest_framework.pagination import PageNumberPagination
@@ -27,6 +27,8 @@ class PostListAPIView(ModelViewSet):
     queryset = Post.objects.all().order_by('-id')
     serializer_class = PostSerializer
     pagination_class = PostPagination
+    search_fields = ['caption']
+    filter_backends = (filters.SearchFilter,)
 
 class UserPostListAPIView(ModelViewSet):
     permission_classes = [IsAuthenticated]

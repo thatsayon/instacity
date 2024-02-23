@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'posts',
     'user_profile',
     'activity',
+    'track',
 ]
 
 MIDDLEWARE = [
