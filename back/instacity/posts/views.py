@@ -7,6 +7,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 from django.shortcuts import get_object_or_404
+from track.models import SearchHistory
 from .serializers import PostSerializer, CommentSerializer
 from .models import Post, Comment
 
@@ -22,6 +23,7 @@ class PostPagination(PageNumberPagination):
     page_size_query_param = 'page_size'
     max_page_size = 100
 
+# this view is working to give a list of all post and some other logics
 class PostListAPIView(ModelViewSet):
     permission_classes = [IsAuthenticated]
     queryset = Post.objects.all().order_by('-id')
@@ -29,6 +31,15 @@ class PostListAPIView(ModelViewSet):
     pagination_class = PostPagination
     search_fields = ['caption']
     filter_backends = (filters.SearchFilter,)
+
+    def list(self, request, *args, **kwargs):
+        search_text = self.request.GET.get('search')
+        if search_text:
+            instance = SearchHistory.get_or_create_user(request.user)
+
+            instance.add_keyword(search_text)
+            print(instance.search_list)
+        return super().list(request, *args, **kwargs)
 
 class UserPostListAPIView(ModelViewSet):
     permission_classes = [IsAuthenticated]
