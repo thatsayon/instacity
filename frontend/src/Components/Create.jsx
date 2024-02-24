@@ -145,17 +145,16 @@ function Create({ setCreate, setDiscardPost }) {
       const scaledWidth = image.width * zoom;
       const scaledHeight = image.height * zoom;
        console.log(scaledHeight, scaledWidth)
-      // Set canvas dimensions
+   
       canvas.width = scaledWidth;
       canvas.height = scaledHeight;
 
-      // Draw the scaled image on the canvas
+   
       canvasContext.drawImage(image, 0, 0, scaledWidth, scaledHeight);
 
-      // Get the resized image data URL
       const resizedImageUrl = canvas.toDataURL("image/jpeg");
 
-      // Update the imageArray state with the resized image
+
       setImageArray(prevImageArray => {
         const newArray = [...prevImageArray];
         newArray[index] = resizedImageUrl;
@@ -163,7 +162,6 @@ function Create({ setCreate, setDiscardPost }) {
       });
     };
 
-    // Set the src of the image
     image.src = imageArray[index];
   };
 
