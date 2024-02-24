@@ -19,3 +19,5 @@ class SearchHistory(models.Model):
             self.search_list[keyword] = 1
         self.save()
 
+    def __str__(self):
+        return f"Search Keywords of: {self.user.username}"
