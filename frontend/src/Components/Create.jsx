@@ -14,7 +14,7 @@ import "swiper/css/scrollbar";
 
 function Create({ setCreate, setDiscardPost }) {
   const clickFile = useRef();
-  const [zoomLevel, setZoomLevel] = useState(1.0);
+  const [zoomLevel, setZoomLevel] = useState(1);
   const [imageArray, setImageArray] = useState([]);
   const [isCrop, setisCrop] = useState(false);
   const [isZoom, setisZoom] = useState(false);
@@ -140,23 +140,34 @@ function Create({ setCreate, setDiscardPost }) {
     const canvas = document.createElement("canvas");
     const canvasContext = canvas.getContext("2d");
 
-    let image = new Image();
+    const image = new Image();
+    image.onload = () => {
+      const scaledWidth = image.width * zoom;
+      const scaledHeight = image.height * zoom;
+       console.log(scaledHeight, scaledWidth)
+      // Set canvas dimensions
+      canvas.width = scaledWidth;
+      canvas.height = scaledHeight;
+
+      // Draw the scaled image on the canvas
+      canvasContext.drawImage(image, 0, 0, scaledWidth, scaledHeight);
+
+      // Get the resized image data URL
+      const resizedImageUrl = canvas.toDataURL("image/jpeg");
+
+      // Update the imageArray state with the resized image
+      setImageArray(prevImageArray => {
+        const newArray = [...prevImageArray];
+        newArray[index] = resizedImageUrl;
+        return newArray;
+      });
+    };
+
+    // Set the src of the image
     image.src = imageArray[index];
-    console.log(index, zoom)
-    const newWidth = image.width * zoom;
-    const newHeight = image.height * zoom;
-
-    canvas.width = newWidth;
-    canvas.height = newHeight;
-
-    canvasContext.drawImage(image, 0, 0, newWidth, newHeight);
-
-    const resizedImageUrl = canvas.toDataURL("image/jpeg");
-    const newArray = [...imageArray];
-    newArray[index] = resizedImageUrl;
-    setImageArray(newArray);
-
   };
+
+
 
   return (
     <>

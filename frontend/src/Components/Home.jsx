@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import SinglePost from "./ShareComponent/SinglePost";
-import SuggestionIds from "./ShareComponent/suggestionIds";
+import SinglePost from "../Components/ShareComponent/SinglePost.jsx";
+import SuggestionIds from "../Components/ShareComponent/SuggestionIds.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import SwitchAccount from "./Modals/SwitchAccount";
 import "../CustomStyles/Home.css";
