@@ -51,10 +51,10 @@ function App() {
       {StartonLoad ? (
         <StartLoad />
       ) : (
-        <div className="flex gap-2 min-h-screen">
+        <div className="flex md:flex-row flex-col gap-2 md:min-h-screen">
           <header
             style={{ maxHeight: "calc(5vh + 12rem)", zIndex: '999999' }}
-            className={`${isNotification ? "lg:max-w-[20vw]" : "lg:min-w-[20vw] "} dark:bg-black overflow-y-auto w-fit sidebar-header dark:border-[#262626] bg-white`}
+            className={`${isNotification ? "lg:max-w-[20vw]" : "lg:min-w-[20vw]"} dark:bg-black overflow-y-auto w-fit sidebar-header md:min-h-[100vh] dark:border-[#262626] bg-white`}
           >
             <SideNavBar
               setCreate={setCreate}
@@ -66,7 +66,7 @@ function App() {
           </header>
           <main
             style={{ maxHeight: "calc(0vh + 15rem)" }}
-            className="flex-1 overflow-y-scroll min-h-screen"
+            className="md:flex-1 overflow-y-scroll min-h-screen"
           >
             {navigation.state == "idle" ? (
               <Private>
@@ -80,13 +80,13 @@ function App() {
         </div>
       )}
 
-      {isCreate && <Create setCreate={setCreate} setDiscardPost={setDiscardPost}/>}
-      {clickMore && <More setClickMore={setClickMore} setDark={setDark} setSwitchaccount={setSwitchaccount} setReport={setReport}/>}
-      {Dark && <Mode setDark={setDark} setClickMore={setClickMore} checked={checked} setchecked={setchecked}/>}
-      {swithaccount && <SwitchAccount setSwitchaccount={setSwitchaccount} swithaccount={swithaccount}/>}
+      {isCreate && <Create setCreate={setCreate} setDiscardPost={setDiscardPost} />}
+      {clickMore && <More setClickMore={setClickMore} setDark={setDark} setSwitchaccount={setSwitchaccount} setReport={setReport} />}
+      {Dark && <Mode setDark={setDark} setClickMore={setClickMore} checked={checked} setchecked={setchecked} />}
+      {swithaccount && <SwitchAccount setSwitchaccount={setSwitchaccount} swithaccount={swithaccount} />}
       {Report && <ReportProblem setReport={setReport} setClickMore={setClickMore} />}
       {LogoutLoading && <LogoutModal />}
-      {isDicardPost && <DiscardPost setDiscardPost={setDiscardPost} setCreate={setCreate}/>}
+      {isDicardPost && <DiscardPost setDiscardPost={setDiscardPost} setCreate={setCreate} />}
       {
         <div
           id="NotificationPopup"

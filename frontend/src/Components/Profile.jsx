@@ -17,7 +17,7 @@ function Profile() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  console.log(user);
+
 
 
   useEffect(() => {

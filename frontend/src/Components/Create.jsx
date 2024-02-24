@@ -1,80 +1,162 @@
 import React, { useEffect, useRef, useState } from "react";
+import { FaXmark } from "react-icons/fa6";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
-import 'react-image-crop/dist/ReactCrop.css'
-import ReactCrop from 'react-image-crop'
+import { FiPlus } from "react-icons/fi";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 function Create({ setCreate, setDiscardPost }) {
   const clickFile = useRef();
-  const [image, setimage] = useState("");
+  const [zoomLevel, setZoomLevel] = useState(1.0);
+  const [imageArray, setImageArray] = useState([]);
   const [isCrop, setisCrop] = useState(false);
-  const [resizedImage, setResizedImage] = useState(null);
-  const [Ratio, setRatio] = useState(null);
+  const [isZoom, setisZoom] = useState(false);
+  const [isAddMore, setAddMore] = useState(false);
+  const HiddenPopup = useRef(null);
+  const [activeindex, setActiveindex] = useState(null);
+  const [ActiveImg, setActiveImg] = useState(null);
+  const [ImgSize, setImgsize] = useState({});
+
+  useEffect(() => {
+    if (activeindex != null) {
+      let image = new Image();
+      image = new Image();
+      image.src = imageArray[activeindex];
+
+      setImgsize({
+        "img_width": image?.width,
+        "img_height": image?.height,
+      });
+
+      if (typeof imageArray[activeindex] === "string") {
+        setActiveImg(image);
+      }
+
+      setActiveImg(image?.src);
+    }
+  }, [activeindex]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (HiddenPopup.current && !HiddenPopup.current.contains(e.target)) {
+        setisCrop(false);
+        setisZoom(false);
+        setAddMore(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const Handleimageupload = (e) => {
     if (e?.target?.files[0]) {
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = (upload) => {
-        const img = new Image();
+        let img = new Image();
         img.src = upload?.target?.result;
-
         img.onload = () => {
-          setimage(img);
-          setResizedImage(upload.target.result);
-          setRatio(null);
+          setImageArray([...imageArray, img?.src]);
         };
       };
       reader.onerror = (error) => {
         console.log(error);
       };
-    } else {
-      setimage("");
-    }
-
-    if (file) {
-      reader.readAsDataURL(file);
     }
   };
 
 
-  const HandleResizeImage = (aspectRatio) => {
-    const canvas = document.createElement('canvas');
-    const canvasContext = canvas.getContext('2d');
-    let newWidth, newHeight;
 
-    if (aspectRatio === 'original') {
-      newWidth = image.width;
-      newHeight = image.height;
-    } else if (aspectRatio === '1:1') {
+  const HandleResizeImage = (aspectRatio, index) => {
+    const { img_width, img_height } = ImgSize;
+    const minWidth = 300;
+    const minHeight = 300;
+
+
+    let newWidth, newHeight, image;
+    image = new Image();
+    image.src = imageArray[index];
+
+    const canvas = document.createElement("canvas");
+    const canvasContext = canvas.getContext("2d");
+
+    if (aspectRatio === "original") {
+
+      newWidth = img_width;
+      newHeight = img_height;
+    } else if (aspectRatio === "1:1") {
       const minSize = Math.min(image.width, image.height);
       newWidth = minSize;
       newHeight = minSize;
-    } else if (aspectRatio === '16:9') {
+    } else if (aspectRatio === "16:9") {
       newWidth = Math.min(image.width, image.height * (16 / 9));
       newHeight = newWidth / (16 / 9);
-    } else if (aspectRatio === '4:5') {
-      newHeight = Math.min(image.height, image.width * (4 / 5));
-      newWidth = newHeight * (4 / 5);
+    } else if (aspectRatio === "4:5") {
+      newHeight = Math.min(image.height, image.width * (5 / 4));
+      newWidth = newHeight * (5 / 4);
     }
+
+    newWidth = Math.max(newWidth, minWidth);
+    newHeight = Math.max(newHeight, minHeight);
+    console.log(newWidth, newHeight);
+
+    canvas.width = newWidth;
+    canvas.height = newHeight;
+
+
+    canvasContext.drawImage(image, 0, 0, newWidth, newHeight);
+
+    const resizedImageUrl = canvas.toDataURL("image/jpeg");
+    const newArray = [...imageArray];
+    newArray[index] = resizedImageUrl;
+    setImageArray(newArray);
+  };
+
+  const HandleDelete = (img, index) => {
+    if (isAddMore && imageArray.length === 1) {
+      setAddMore(false);
+    }
+
+    for (let i = 0; i < imageArray?.length; i++) {
+      if (imageArray[i] == img && i == index) {
+        imageArray.pop();
+      }
+    }
+
+    setImageArray([...imageArray]);
+  };
+
+
+  const handleZoomImage = (index, zoom) => {
+    const canvas = document.createElement("canvas");
+    const canvasContext = canvas.getContext("2d");
+
+    let image = new Image();
+    image.src = imageArray[index];
+    console.log(index, zoom)
+    const newWidth = image.width * zoom;
+    const newHeight = image.height * zoom;
 
     canvas.width = newWidth;
     canvas.height = newHeight;
 
     canvasContext.drawImage(image, 0, 0, newWidth, newHeight);
 
-    const resizedImgDataUrl = canvas.toDataURL('image/jpeg');
-    setResizedImage(canvas.toDataURL('image/jpeg'));
+    const resizedImageUrl = canvas.toDataURL("image/jpeg");
+    const newArray = [...imageArray];
+    newArray[index] = resizedImageUrl;
+    setImageArray(newArray);
+
   };
-
-  useEffect(() => {
-    if (image && Ratio) {
-      HandleResizeImage(Ratio)
-    }
-
-  }, [Ratio])
-
-
-
 
   return (
     <>
@@ -84,82 +166,231 @@ function Create({ setCreate, setDiscardPost }) {
           if (e.target !== e.currentTarget) {
             return;
           }
-          if (image) {
+          if (imageArray.length > 0) {
             setDiscardPost(true);
           } else {
             setCreate(false);
           }
-        }}>
-          <div style={{ maxHeight: "calc(100vh - 10vh)" }} className={`min-h-[50vh] relative overflow-y-auto overflow-hidden shadow-lg bg-white dark:bg-[#262626] dark:text-[#ffffff] text-black font-bold shadow-[#364e7e1a] max-w-xl min-w-96 py-4 rounded-xl flex items-center ${image ? "gap-2" : "gap-20"} flex-col`}>
+        }}
+      >
+        <div
+          style={{ maxHeight: "calc(100vh - 10vh)" }}
+          className={`min-h-[50vh] relative overflow-y-auto overflow-hidden shadow-lg bg-white dark:bg-[#262626] dark:text-[#ffffff] text-black font-bold shadow-[#364e7e1a]  min-w-[400px] py-4 rounded-xl flex items-center ${imageArray.length ? "gap-0" : "gap-20"
+            } flex-col`}
+        >
           {
-            isCrop &&
-            <div className="flex flex-col bg-[#1a1a1acc] py-2 rounded-md absolute top-[140px] left-[5px]">
-              {/* ---original-size-button---- */}
-              <div onClick={() => setRatio('original')} className="flex items-center px-2 cursor-pointer">
-                <div className="flex flex-col justify-center mr-2">
-                  <span className="leading-4">Original</span>
+            // ----This-is-AspectRatioPopup-----
+            isCrop && (
+              <div
+                ref={HiddenPopup}
+                className="flex flex-col bg-[#1a1a1acc] py-2 rounded-md absolute top-[260px] left-[5px] z-50"
+              >
+                {/* ---original-size-button---- */}
+                <div
+                  onClick={() => HandleResizeImage("original", activeindex)}
+                  className="flex items-center px-2 cursor-pointer"
+                >
+                  <div className="flex flex-col justify-center mr-2">
+                    <span className="leading-4 ">Original</span>
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <svg
+                      className="text-current"
+                      fill="currentColor"
+                      height="24"
+                      role="img"
+                      viewBox="0 0 24 24"
+                      width="24"
+                    >
+                      <title>Photo outline icon</title>
+                      <path
+                        d="M6.549 5.013A1.557 1.557 0 1 0 8.106 6.57a1.557 1.557 0 0 0-1.557-1.557Z"
+                        fillRule="evenodd"
+                      ></path>
+                      <path
+                        d="m2 18.605 3.901-3.9a.908.908 0 0 1 1.284 0l2.807 2.806a.908.908 0 0 0 1.283 0l5.534-5.534a.908.908 0 0 1 1.283 0l3.905 3.905"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      ></path>
+                      <path
+                        d="M18.44 2.004A3.56 3.56 0 0 1 22 5.564h0v12.873a3.56 3.56 0 0 1-3.56 3.56H5.568a3.56 3.56 0 0 1-3.56-3.56V5.563a3.56 3.56 0 0 1 3.56-3.56Z"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                      ></path>
+                    </svg>
+                  </div>
                 </div>
-                <div className="flex flex-col justify-center">
-                  <svg className="text-current" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24">
-                    <title>Photo outline icon</title>
-                    <path d="M6.549 5.013A1.557 1.557 0 1 0 8.106 6.57a1.557 1.557 0 0 0-1.557-1.557Z" fillRule="evenodd"></path>
-                    <path d="m2 18.605 3.901-3.9a.908.908 0 0 1 1.284 0l2.807 2.806a.908.908 0 0 0 1.283 0l5.534-5.534a.908.908 0 0 1 1.283 0l3.905 3.905" fill="none" stroke="currentColor" strokeLinejoin="round" strokeWidth="2"></path>
-                    <path d="M18.44 2.004A3.56 3.56 0 0 1 22 5.564h0v12.873a3.56 3.56 0 0 1-3.56 3.56H5.568a3.56 3.56 0 0 1-3.56-3.56V5.563a3.56 3.56 0 0 1 3.56-3.56Z" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-                  </svg>
+                <hr className="my-2 border-b border-[#dbdbdb] w-full" />
+
+                {/* ----1:1---size-image--button--- */}
+                <div
+                  onClick={() => HandleResizeImage("1:1", activeindex)}
+                  className="flex items-center px-2 cursor-pointer"
+                >
+                  <div className="flex flex-col justify-center mr-2">
+                    <span className="leading-4">1:1</span>
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <svg
+                      className="text-current"
+                      fill="currentColor"
+                      height="24"
+                      role="img"
+                      viewBox="0 0 24 24"
+                      width="24"
+                    >
+                      <title>Crop portrait icon</title>
+                      <path d="M16 23H8a4.004 4.004 0 0 1-4-4V8a4.004 4.004 0 0 1 4-4h8a4.004 4.004 0 0 1 4 4v11a4.004 4.004 0 0 1-4 4ZM8 6a2.002 2.002 0 0 0-2 2v11a2.002 2.002 0 0 0 2 2h8a2.002 2.002 0 0 0 2-2V8a2.002 2.002 0 0 0-2-2Z"></path>
+                    </svg>
+                  </div>
+                </div>
+                <hr className="my-2 border-b border-[#dbdbdb] w-full" />
+
+                {/* ---4:5-size-image-button--- */}
+                <div
+                  onClick={() => HandleResizeImage("4:5", activeindex)}
+                  className="flex items-center px-2 cursor-pointer"
+                >
+                  <div className="flex flex-col justify-center mr-2">
+                    <span className="leading-4">4:5</span>
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <svg
+                      className="text-current"
+                      fill="currentColor"
+                      height="24"
+                      role="img"
+                      viewBox="0 0 24 24"
+                      width="24"
+                    >
+                      <title>Crop square icon</title>
+                      <path d="M19 23H5a4.004 4.004 0 0 1-4-4V5a4.004 4.004 0 0 1 4-4h14a4.004 4.004 0 0 1 4 4v14a4.004 4.004 0 0 1-4 4ZM5 3a2.002 2.002 0 0 0-2 2v14a2.002 2.002 0 0 0 2 2h14a2.002 2.002 0 0 0 2-2V5a2.002 2.002 0 0 0-2-2Z"></path>
+                    </svg>
+                  </div>
+                </div>
+                <hr className="my-2 border-b border-[#dbdbdb] w-full" />
+
+                {/* --16:9-size-image-button--- */}
+                <div
+                  onClick={() => HandleResizeImage("16:9", activeindex)}
+                  className="flex items-center px-2 cursor-pointer"
+                >
+                  <div className="flex flex-col justify-center mr-2">
+                    <span className="leading-4">16:9</span>
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <svg
+                      className="text-current"
+                      fill="currentColor"
+                      height="24"
+                      role="img"
+                      viewBox="0 0 24 24"
+                      width="24"
+                    >
+                      <title>Crop landscape icon</title>
+                      <path d="M19 20H5a4.004 4.004 0 0 1-4-4V8a4.004 4.004 0 0 1 4-4h14a4.004 4.004 0 0 1 4 4v8a4.004 4.004 0 0 1-4 4ZM5 6a2.002 2.002 0 0 0-2 2v8a2.002 2.002 0 0 0 2 2h14a2.002 2.002 0 0 0 2-2V8a2.002 2.002 0 0 0-2-2Z"></path>
+                    </svg>
+                  </div>
                 </div>
               </div>
-              <hr className="my-2 border-b border-[#dbdbdb] w-full" />
-
-              {/* ----1:1---size-image--button--- */}
-              <div onClick={() => setRatio('1:1')} className="flex items-center px-2 cursor-pointer">
-                <div className="flex flex-col justify-center mr-2">
-                  <span className="leading-4">1:1</span>
+            )
+          }
+          {
+            // ----This-is-zoomPopup-----
+            isZoom && (
+              <div
+                ref={HiddenPopup}
+                className=" bg-[#1a1a1acc] py-1 rounded-md absolute top-[395px] left-[55px] z-50"
+              >
+                <input
+                  className="cursor-pointer px-0 mx-0"
+                  max="5.0"
+                  min="1.0"
+                  step="0.1"
+                  readOnly
+                  type="range"
+                  value={zoomLevel}
+                  onChange={(e) => {
+                    const zoomRange = parseFloat(e.target.value)
+                    setZoomLevel(zoomRange);
+                    handleZoomImage(activeindex, zoomRange);
+                  }}
+                  style={{
+                    background:
+                      "linear-gradient(to right, rgb(255, 255, 255) 0%, rgb(255, 255, 255) 0%, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%)",
+                  }}
+                />
+              </div>
+            )
+          }
+          {
+            // ----This-is-AddMoreimagePopup-----
+            isAddMore && (
+              <div
+                ref={HiddenPopup}
+                className="bg-[#1a1a1acc] p-2 rounded-md absolute top-[370px] z-50 right-[5px] gap-2 flex flex-row min-w-[150px] max-w-sm h-fit  items-center"
+              >
+                <div className="max-w-72 overflow-hidden">
+                  {imageArray.length > 0 && (
+                    <Swiper
+                      modules={[Navigation, Pagination]}
+                      spaceBetween={5}
+                      slidesPerView={3}
+                      navigation={true}
+                      pagination={{ clickable: true }}
+                    >
+                      {imageArray.map((IMG, index) => (
+                        <SwiperSlide
+                          key={index}
+                          className={`min-w-20 min-h-10 max-w-24 max-h-12 overflow-hidden relative`}
+                        >
+                          <p
+                            onClick={() => HandleDelete(IMG, index)}
+                            className="absolute cursor-pointer right-[2px] top-[2px] rounded-full bg-[#1a1a1acc] p-2 text-white font-normal text-sm"
+                          >
+                            <FaXmark />
+                          </p>
+                          <img
+                            src={IMG}
+                            alt="SHOW ADD MORE POPUP IMAGE"
+                            className="min-h-[50px]"
+                          />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  )}
                 </div>
-                <div className="flex flex-col justify-center">
-                  <svg className="text-current" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24">
-                    <title>Crop square icon</title>
-                    <path d="M19 23H5a4.004 4.004 0 0 1-4-4V5a4.004 4.004 0 0 1 4-4h14a4.004 4.004 0 0 1 4 4v14a4.004 4.004 0 0 1-4 4ZM5 3a2.002 2.002 0 0 0-2 2v14a2.002 2.002 0 0 0 2 2h14a2.002 2.002 0 0 0 2-2V5a2.002 2.002 0 0 0-2-2Z"></path>
-                  </svg>
+
+                <div className="ml-2">
+                  <input
+                    type="file"
+                    id="image"
+                    accept="image/*"
+                    className="hidden"
+                    ref={clickFile}
+                    onChange={Handleimageupload}
+                  />
+
+                  <p
+                    onClick={() => {
+                      clickFile?.current?.click();
+                    }}
+                    className="border-2 dark:border-[#555555] p-4 rounded-full text-base text-white dark:text-black cursor-pointer"
+                  >
+                    <FiPlus />
+                  </p>
                 </div>
               </div>
-              <hr className="my-2 border-b border-[#dbdbdb] w-full" />
-
-              {/* ---4:5-size-image-button--- */}
-              <div onClick={() => setRatio('4:5')} className="flex items-center px-2 cursor-pointer">
-                <div className="flex flex-col justify-center mr-2">
-                  <span className="leading-4">4:5</span>
-                </div>
-                <div className="flex flex-col justify-center">
-                  <svg className="text-current" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24">
-                    <title>Crop portrait icon</title>
-                    <path d="M16 23H8a4.004 4.004 0 0 1-4-4V8a4.004 4.004 0 0 1 4-4h8a4.004 4.004 0 0 1 4 4v11a4.004 4.004 0 0 1-4 4ZM8 6a2.002 2.002 0 0 0-2 2v11a2.002 2.002 0 0 0 2 2h8a2.002 2.002 0 0 0 2-2V8a2.002 2.002 0 0 0-2-2Z"></path>
-                  </svg>
-                </div>
-              </div>
-              <hr className="my-2 border-b border-[#dbdbdb] w-full" />
-
-              {/* --16:9-size-image-button--- */}
-              <div onClick={() => setRatio('16:9')} className="flex items-center px-2 cursor-pointer">
-                <div className="flex flex-col justify-center mr-2">
-                  <span className="leading-4">16:9</span>
-                </div>
-                <div className="flex flex-col justify-center">
-                  <svg className="text-current" fill="currentColor" height="24" role="img" viewBox="0 0 24 24" width="24">
-                    <title>Crop landscape icon</title>
-                    <path d="M19 20H5a4.004 4.004 0 0 1-4-4V8a4.004 4.004 0 0 1 4-4h14a4.004 4.004 0 0 1 4 4v8a4.004 4.004 0 0 1-4 4ZM5 6a2.002 2.002 0 0 0-2 2v8a2.002 2.002 0 0 0 2 2h14a2.002 2.002 0 0 0 2-2V8a2.002 2.002 0 0 0-2-2Z"></path>
-                  </svg>
-                </div>
-              </div>
-            </div>
-
-
-
-
+            )
           }
           <div className="flex flex-row items-center justify-between border-b-2 dark:border-[#555555] w-full pb-2 px-2">
-
             <div>
-              {image && (
+              {imageArray.length > 0 && (
                 <p
                   onClick={() => {
                     setDiscardPost(true);
@@ -177,24 +408,49 @@ function Create({ setCreate, setDiscardPost }) {
               </h1>
             </div>
             <div>
-              {image && (
+              {imageArray.length > 0 && (
                 <p className="follow-link-color text-base font-bold">Next</p>
               )}
             </div>
           </div>
-          {image ? (
+          {imageArray.length > 0 ? (
             <div>
               {/* ------here-is--image--------- */}
-              <div>
-                {resizedImage && <img src={resizedImage} alt="Resized" />}
-
+              <div
+                className={`max-h-[450px] max-w-[450px] h-[420px] w-[420px] flex items-center justify-center overflow-hidden`}
+              >
+                {imageArray.length > 0 && (
+                  <Swiper
+                    modules={[Navigation, Pagination]}
+                    spaceBetween={1000}
+                    slidesPerView={1}
+                    pagination={{ clickable: true }}
+                    onSwiper={(swiper) => setActiveindex(swiper.activeIndex)}
+                    onSlideChange={(e) => setActiveindex(e.activeIndex)}
+                  >
+                    {imageArray.map((showImg, index) => (
+                      <SwiperSlide key={index}>
+                        <img
+                          src={showImg}
+                          alt="Resized"
+                          className="mx-auto my-auto w-fit"
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                )}
               </div>
 
-              <div className="flex flex-row items-center justify-between px-2 mt-2">
+              <div className="flex flex-row items-center justify-between px-2 mt-2 w-full">
                 <div>
                   <div className="flex flex-row gap-4 items-center">
                     {/* ---crop-image-button--- */}
-                    <p onClick={() => { setisCrop(!isCrop) }} className="dark:bg-black p-2 rounded-full bg-[#262626] cursor-pointer">
+                    <p
+                      onClick={() => {
+                        setisCrop(!isCrop);
+                      }}
+                      className="dark:bg-black p-2 rounded-full bg-[#262626] cursor-pointer"
+                    >
                       <svg
                         aria-label="Select Crop"
                         fill="white"
@@ -208,9 +464,13 @@ function Create({ setCreate, setDiscardPost }) {
                       </svg>
                     </p>
 
-
                     {/* ---zoom-image-button-- */}
-                    <p className="dark:bg-black p-2 rounded-full bg-[#262626] cursor-pointer">
+                    <p
+                      onClick={() => {
+                        setisZoom(!isZoom);
+                      }}
+                      className="dark:bg-black p-2 rounded-full bg-[#262626] cursor-pointer"
+                    >
                       <svg
                         aria-label="Select Zoom"
                         fill="white"
@@ -227,7 +487,12 @@ function Create({ setCreate, setDiscardPost }) {
                 </div>
                 <div>
                   {/* ----another-image-button-- */}
-                  <p className="dark:bg-black p-2 rounded-full bg-[#262626] cursor-pointer">
+                  <p
+                    onClick={() => {
+                      setAddMore(!isAddMore);
+                    }}
+                    className="dark:bg-black p-2 rounded-full bg-[#262626] cursor-pointer"
+                  >
                     <svg
                       aria-label="Open Media Gallery"
                       fill="white"
@@ -245,7 +510,6 @@ function Create({ setCreate, setDiscardPost }) {
                   </p>
                 </div>
               </div>
-
             </div>
           ) : (
             <div className="dark:bg-[#262626] dark:text-[#ffffff]">
@@ -291,65 +555,20 @@ function Create({ setCreate, setDiscardPost }) {
               >
                 Select from computer
               </button>
-              <button onClick={() => {
-                clickFile?.current?.click();
-              }} className="bg-[#0064e0] text-[#fff] mt-7 mx-auto w-fit font-normal py-2 px-4 rounded-md text-sm md:hidden block">
+              <button
+                onClick={() => {
+                  clickFile?.current?.click();
+                }}
+                className="bg-[#0064e0] text-[#fff] mt-7 mx-auto w-fit font-normal py-2 px-4 rounded-md text-sm md:hidden block"
+              >
                 Select from Gallery
               </button>
             </div>
           )}
-
-
-
-
-
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </>
   );
 }
 
 export default Create;
-
-/**
- * NOTES :
- * setDiscardPost those state come from app component !
- * 
-
-        <div style={{
-                  backgroundImage: `url(${image})`,
-                  backgroundPosition: 'center center',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: 'cover',
-                  width : "348px",
-                  height : '348px',
-                  overflow: 'hidden',
-                 
-                  transform: 'none'
-                }}>
-                </div>
- *
- * **/
