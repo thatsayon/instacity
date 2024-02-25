@@ -3,13 +3,15 @@ from rest_framework import generics, status, filters
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated 
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.decorators import action
+from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
 from django.shortcuts import get_object_or_404
 from track.models import SearchHistory
 from .serializers import PostSerializer, CommentSerializer
-from .models import Post, Comment
+from .models import Post, Comment, Like
 
 class PostPublishView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]
@@ -73,6 +75,21 @@ class PostDeleteView(generics.DestroyAPIView):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class PostLikeView(APIView):
+    def post(self, request, post_id):
+        post = get_object_or_404(Post, pk=post_id)
+
+        if Like.objects.filter(user=request.user, post=post).exists():
+            return Response({'detail': 'You have already liked this post.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        like = Like(user=request.user, post=post)
+        like.save()
+
+        post.likes += 1
+        post.save()
+
+        return Response({'detail': 'Post liked successfully.'}, status=status.HTTP_200_OK)
 
 class CommentCreateAPIView(generics.CreateAPIView):
     permission_classes = [IsAuthenticated]

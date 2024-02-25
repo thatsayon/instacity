@@ -51,9 +51,10 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3030',
+    'http://localhost:5173',
 ]
 
+CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = 'instacity.urls'
 
 TEMPLATES = [

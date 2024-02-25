@@ -21,8 +21,8 @@ class PostSerializer(serializers.ModelSerializer):
     images = ImageSerializer(many=True)
     class Meta:
         model = Post 
-        fields = ['id', 'author', 'images', 'caption', 'created_at']
-        read_only_fields = ['id', 'author', 'created_at']
+        fields = ['id', 'author', 'images', 'caption', 'likes', 'created_at']
+        read_only_fields = ['id', 'author', 'likes', 'created_at']
 
     def create(self, validated_data):
         images_data = validated_data.pop('images', [])
