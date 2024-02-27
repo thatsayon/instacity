@@ -25,6 +25,7 @@ function App() {
   const [checked, setchecked] = useState(false);
   const [isNotification, setNotification] = useState(false);
   const [isDicardPost, setDiscardPost] = useState(false);
+  const [isSearch, setSearch] = useState(false);
 
   const { LogoutLoading } = useShareobj();
 
@@ -53,8 +54,9 @@ function App() {
       ) : (
         <div className="flex md:flex-row flex-col gap-2 md:min-h-screen">
           <header
-            style={{ maxHeight: "calc(5vh + 12rem)", zIndex: '999999' }}
-            className={`${isNotification ? "lg:max-w-[20vw]" : "lg:min-w-[20vw]"} dark:bg-black overflow-y-auto w-fit sidebar-header md:min-h-[100vh] dark:border-[#262626] bg-white`}
+            style={{ maxHeight: "calc(5vh + 12rem)", zIndex: "999999" }}
+            className={`${isNotification || isSearch ? "lg:max-w-[20vw]" : "lg:min-w-[20vw]"
+              } dark:bg-black overflow-y-auto w-fit sidebar-header md:min-h-[100vh] dark:border-[#262626] bg-white`}
           >
             <SideNavBar
               setCreate={setCreate}
@@ -62,6 +64,8 @@ function App() {
               setClickMore={setClickMore}
               setNotification={setNotification}
               isNotification={isNotification}
+              setSearch={setSearch}
+              isSearch={isSearch}
             />
           </header>
           <main
@@ -70,7 +74,6 @@ function App() {
           >
             {navigation.state == "idle" ? (
               <Private>
-
                 <Outlet />
               </Private>
             ) : (
@@ -80,14 +83,40 @@ function App() {
         </div>
       )}
 
-      {isCreate && <Create setCreate={setCreate} setDiscardPost={setDiscardPost} />}
-      {clickMore && <More setClickMore={setClickMore} setDark={setDark} setSwitchaccount={setSwitchaccount} setReport={setReport} />}
-      {Dark && <Mode setDark={setDark} setClickMore={setClickMore} checked={checked} setchecked={setchecked} />}
-      {swithaccount && <SwitchAccount setSwitchaccount={setSwitchaccount} swithaccount={swithaccount} />}
-      {Report && <ReportProblem setReport={setReport} setClickMore={setClickMore} />}
+      {isCreate && (
+        <Create setCreate={setCreate} setDiscardPost={setDiscardPost} />
+      )}
+      {clickMore && (
+        <More
+          setClickMore={setClickMore}
+          setDark={setDark}
+          setSwitchaccount={setSwitchaccount}
+          setReport={setReport}
+        />
+      )}
+      {Dark && (
+        <Mode
+          setDark={setDark}
+          setClickMore={setClickMore}
+          checked={checked}
+          setchecked={setchecked}
+        />
+      )}
+      {swithaccount && (
+        <SwitchAccount
+          setSwitchaccount={setSwitchaccount}
+          swithaccount={swithaccount}
+        />
+      )}
+      {Report && (
+        <ReportProblem setReport={setReport} setClickMore={setClickMore} />
+      )}
       {LogoutLoading && <LogoutModal />}
-      {isDicardPost && <DiscardPost setDiscardPost={setDiscardPost} setCreate={setCreate} />}
+      {isDicardPost && (
+        <DiscardPost setDiscardPost={setDiscardPost} setCreate={setCreate} />
+      )}
       {
+        // -------Notification---bar----
         <div
           id="NotificationPopup"
           className={`fixed min-h-screen right-0 top-0  bottom-0 justify-center items-center flex  max-w-md  transition-all duration-500 ${isNotification ? "lg:left-[54px] left-[69px]" : "left-[-456px]"
@@ -97,8 +126,35 @@ function App() {
             style={{ maxHeight: "calc(100vh - 10vh)" }}
             className="min-h-screen overflow-y-scroll bg-[#ffffff] dark:bg-black dark:text-[#ffffff] text-[#000000] max-w-md mx-auto py-4 w-full px-1"
           >
-            <h1 className="text-2xl font-bold text-black dark:text-white">Notifications</h1>
+            <h1 className="text-2xl font-bold text-black dark:text-white">
+              Notifications
+            </h1>
+          </div>
+        </div>
+      }
 
+      {
+        // ------Search--bar-------
+        <div
+          className={`fixed min-h-screen right-0 top-0  bottom-0 justify-center items-center flex  max-w-md  transition-all duration-500 ${isSearch ? "lg:left-[54px] left-[69px]" : "left-[-456px]"
+            } `}
+        >
+          <div
+            style={{ maxHeight: "calc(100vh - 10vh)" }}
+            className="min-h-screen overflow-y-scroll bg-[#ffffff] dark:bg-black dark:text-[#ffffff] text-[#000000] max-w-md mx-auto py-4 w-full"
+          >
+            <h1 className="text-2xl font-medium text-black dark:text-white my-2  px-2">
+              Search
+            </h1>
+
+            <div className="mt-4  px-2">
+              <input type="text" className="w-full input-bg placeholder:text-gray-700" placeholder="Search" />
+            </div>
+            <p className="text-xs text-[#737373] font-normal tracking-wide my-5 border-b-[1px] dark:border-[#262626] border-[#dbdbdb] w-full"></p>
+
+            <div className="px-2">
+              <h1 className="gray-style-16">Recent</h1>
+            </div>
           </div>
         </div>
       }

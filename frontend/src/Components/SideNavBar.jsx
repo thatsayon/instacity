@@ -14,7 +14,7 @@ import instacityLogo from "../assets/LogoFolder/instaLogo.png";
 import '../CustomStyles/Sidebar.css';
 import useShareobj from "../CustomHooks/useShareobj";
 
-function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNotification }) {
+function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNotification, isSearch, setSearch }) {
   const navigate = useNavigate();
   const { user, image_url } = useShareobj();
 
@@ -24,70 +24,70 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
     <>
       <nav className={`lg:p-2 p-4 dark:text-[#ffffff] overflow-hidden md:block hidden`}>
         <div onClick={() => { navigate('/') }} className=" py-4 cursor-pointer ">
-          <h1 className={`text-3xl italic text-gray-700 dark:text-[#ffffff] transition-all duration-500 ${isNotification ? "opacity-0 h-0 w-0" : 'opacity-0 h-0 w-0 lg:w-fit lg:h-fit lg:opacity-100'} `}>
+          <h1 className={`text-3xl italic text-gray-700 dark:text-[#ffffff] transition-all duration-500 ${isNotification || isSearch ? "opacity-0 h-0 w-0" : 'opacity-0 h-0 w-0 lg:w-fit lg:h-fit lg:opacity-100'} `}>
             InstaCity
           </h1>
           <img
             width="35px"
             src={instacityLogo}
             alt="Instacity logo"
-            className={` transition-all  ${isNotification ? "opacity-100 h-fit w-[35px]" : 'lg:opacity-0 lg:h-0 lg:w-0 opacity-100 h-fit w-[35px]'} lg:duration-500`}
+            className={` transition-all  ${isNotification || isSearch ? "opacity-100 h-fit w-[35px]" : 'lg:opacity-0 lg:h-0 lg:w-0 opacity-100 h-fit w-[35px]'} lg:duration-500`}
           />
         </div>
 
         <div>
           <ul id="sidebar-link"  >
             <li>
-              <NavLink id="Home" to={"/"}>
+              <NavLink id="Home" to={"/"} onClick={() => { setSearch(false) , setNotification(false)}}>
                 <div className="dark:text-white">
                   <LuHome />
                 </div>
-                <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}> Home</p>
+                <p className={` transition-all  ${isNotification || isSearch ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}> Home</p>
 
               </NavLink>
             </li>
             <li>
-              <NavLink id="Search" to={"/Search"}>
-                <div>
+              <button id="Search" onClick={() => { setSearch(!isSearch) , setNotification(false)}}>
+                <div className={`${isSearch && 'lg:text-[#0095f6] lg:dark:text-[#0095f6]'}  dark:text-white`}>
                   <IoSearchSharp />
                 </div>
-                <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>Search</p>
-              </NavLink>
+                <p className={` transition-all  ${isNotification || isSearch ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>Search</p>
+              </button>
             </li>
             <li>
-              <NavLink id="Explore" to={"/Explore"}>
+              <NavLink id="Explore" to={"/Explore"} onClick={() => { setSearch(false) , setNotification(false)}}>
                 <div>
                   <MdOutlineExplore />
                 </div>
-                <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>Explore</p>
+                <p className={` transition-all  ${isNotification || isSearch ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>Explore</p>
               </NavLink>
             </li>
             <li>
-              <NavLink id="Reels" to={"/Reels"}>
+              <NavLink id="Reels" to={"/Reels"} onClick={() => { setSearch(false) , setNotification(false)}}>
                 <div>
                   <BiMoviePlay />
                 </div>
 
-                <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}> Reels</p>
+                <p className={` transition-all  ${isNotification || isSearch ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}> Reels</p>
               </NavLink>
             </li>
             <li>
-              <NavLink id="Message" to={"/Message"}>
+              <NavLink id="Message" to={"/Message"} onClick={() => { setSearch(false) , setNotification(false)}}>
                 <div>
                   <AiOutlineMessage />
 
                 </div>
 
-                <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}> Messages</p>
+                <p className={` transition-all  ${isNotification || isSearch ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}> Messages</p>
               </NavLink>
             </li>
 
             <li>
-              <button onClick={() => { setNotification(!isNotification) }} className={`  ${isNotification && 'bg-[#0000000d] lg:bg-inherit  dark:bg-[#5555554d] lg:dark:bg-inherit'} dark:text-white`}>
+              <button onClick={() => { setNotification(!isNotification),setSearch(false) }} className={`  ${isNotification || isSearch && 'bg-[#0000000d] lg:bg-inherit  dark:bg-[#5555554d] lg:dark:bg-inherit'} dark:text-white`}>
                 <div id="Notification" className={`${isNotification && 'lg:text-[#0095f6] lg:dark:text-[#0095f6]'}  dark:text-white`} >
                   <IoMdNotificationsOutline />
                 </div>
-                <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}> Notification</p>
+                <p className={` transition-all  ${isNotification || isSearch ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}> Notification</p>
               </button>
             </li>
             <li>
@@ -96,11 +96,11 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
                   <IoCreateOutline />
                 </div>
 
-                <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>Create</p>
+                <p className={` transition-all  ${isNotification || isSearch ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>Create</p>
               </button>
             </li>
             <li>
-              <NavLink id="Profile" to={"/Profile"}>
+              <NavLink id="Profile" to={"/Profile"} onClick={() => { setSearch(false) , setNotification(false)}}>
                 {
                   user?.profile_pic ?
                     <img
@@ -112,7 +112,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
                       <FaRegUserCircle />
                     </div>
                 }
-                <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>Profile</p>
+                <p className={` transition-all  ${isNotification || isSearch ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>Profile</p>
               </NavLink>
             </li>
 
@@ -122,7 +122,7 @@ function SideNavBar({ setCreate, clickMore, setClickMore, setNotification, isNot
                   <IoMenuSharp />
                 </div>
 
-                <p className={` transition-all  ${isNotification ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>More</p>
+                <p className={` transition-all  ${isNotification || isSearch ? "opacity-0 h-0 w-0 absolute duration-0" : 'opacity-0 h-0 w-0 absolute lg:opacity-100 lg:h-auto lg:w-auto lg:static duration-700'} dark:text-white`}>More</p>
               </button>
             </li>
 
@@ -154,7 +154,7 @@ export default SideNavBar;
 /**
  * NOTES ,
  * 
- * setCreate, clickMore, setClickMore , setNotification , isNotification - they all props come from app component.
+ * setCreate, clickMore, setClickMore , setNotification , isNotification,isSearch,setSearch - they all props come from app component.
  * 
  * 
  * **/

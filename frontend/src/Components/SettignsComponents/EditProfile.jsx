@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import "../../CustomStyles/EditProfile.css";
 import useShareobj from "../../CustomHooks/useShareobj";
 import anynomoususer from "../../assets/Anynomous.webp";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 
 function EditProfile() {
   const { user, image_url } = useShareobj();
   const [isOpen, setIsOpen] = useState();
   const [selectedGender, setSelectedGender] = useState("");
-  const [word , setWord ] = useState(0);
-  
+  const [word, setWord] = useState(0);
+
 
   const HandleUpdateInfo = (e) => {
     e.preventDefault();
@@ -23,15 +23,15 @@ function EditProfile() {
     const Email = data.get('Email');
     const Phone = data.get('Phone');
     const Gender = data.get('Gender');
-    
+
     const obj = {
-      "Name" : Name ,
-      "user_name" : UserName,
-      "Social_link" : social_link || '',
-      "Bio" : Bio || "",
-      "Email" : Email, 
-      "Phone" : Phone || '',
-      "Gender" : Gender || ''
+      "Name": Name,
+      "user_name": UserName,
+      "Social_link": social_link || '',
+      "Bio": Bio || "",
+      "Email": Email,
+      "Phone": Phone || '',
+      "Gender": Gender || ''
 
     }
 
@@ -39,6 +39,8 @@ function EditProfile() {
     console.log(obj)
 
   };
+
+
   return (
     <>
       <div className="max-w-lg mx-auto py-5 dark:text-white">
@@ -132,15 +134,20 @@ function EditProfile() {
             </div>
             <div className="second-div">
               <textarea
-                onChange={(e)=>{setWord(e?.target?.value?.length)}}
+                onKeyDown={(e) => {
+                  if (word >= 200 && e.key !== 'Backspace' && e.key !== 'Delete') {
+                    e.preventDefault();
+                  }
+                }}
+                onChange={(e) => { setWord(e?.target?.value?.length) }}
+
                 id="Bio"
                 name="Bio"
                 rows="5"
-                disabled={word >= 150}
-                placeholder="write bio"
+                placeholder="write bio..."
               ></textarea>
               <div>
-                <span>{word} / 150</span>
+                <span>{word} / 216</span>
               </div>
             </div>
           </div>
@@ -320,7 +327,7 @@ function EditProfile() {
               </button>
 
               <button
-                onClick={() => { setIsOpen(false)}}
+                onClick={() => { setIsOpen(false) }}
                 className="dark:bg-[#363636] bg-[#efefef] py-[8px] text-[#000000] dark:text-[#ffffff] px-[10px] rounded-md text-[14px] font-medium hover:opacity-70 "
               >
                 Cancel

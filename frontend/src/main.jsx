@@ -7,7 +7,6 @@ import NotFound from "./Components/NotFound.jsx";
 import Home from "./Components/Home.jsx";
 import Explore from "./Components/Explore.jsx";
 import Reels from "./Components/Reels.jsx";
-import Search from "./Components/Search.jsx";
 import Profile from "./Components/Profile.jsx";
 import Register from "./Components/Register.jsx";
 import Login from "./Components/Login.jsx";
@@ -38,10 +37,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-      },
-      {
-        path: "/Search",
-        element: <Search />,
       },
       {
         path: "/Explore",
