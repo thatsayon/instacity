@@ -50,10 +50,18 @@
 }
 
 #sidebar-link > li > a > div {
-  font-size: 28px;
+  font-size: 26px;
 }
 #sidebar-link > li > button > div {
   font-size: 28px;
+}
+
+/* ----Mobile----design------ */
+#Mobile-nav > li > a {
+  color: black;
+  font-size: 24px;
+  font-weight: 600;
+  font-style: normal;
 }
 
 @media only screen and (min-width: 280px) and (max-width: 900px) {

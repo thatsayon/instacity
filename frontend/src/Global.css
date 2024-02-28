@@ -149,18 +149,14 @@
 
 /* --scroll-bar-design-- */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--button-primary--);
-  border-radius: var(--radius-md--);
+  border-radius: var(--radius-sm--);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  cursor: pointer;
-  background: var(--black-1--);
-}
 
 html {
   scrollbar-width: thin;
@@ -272,4 +268,14 @@ body {
   outline: none;
   padding: 15px 6px ;
   border-radius: 4px;
+}
+
+@media only screen and (min-width: 280px) and (max-width: 900px) {
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: none;
+    border-radius: var(--radius-sm--);
+  }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SideNavBar from "./Components/SideNavBar";
-import { Outlet, useNavigation } from "react-router-dom";
+import { NavLink, Outlet, useNavigation } from "react-router-dom";
 import StartLoad from "./Components/LoadingReels/StartLoad";
 import Create from "./Components/Create";
 import More from "./Components/More";
@@ -13,8 +13,24 @@ import Private from "./Components/Private";
 import LoadingOne from "./Components/LoadingReels/LoadingOne";
 import LogoutModal from "./Components/Modals/LogoutModal";
 import DiscardPost from "./Components/Modals/DiscardPost";
+import Search from "./Components/Search";
+import Notification from "./Components/Notification";
+import { LuHome } from "react-icons/lu";
+import { IoSearchSharp } from "react-icons/io5";
+import { MdOutlineExplore } from "react-icons/md";
+import { BiMoviePlay } from "react-icons/bi";
+import { RiMessengerLine } from "react-icons/ri";
+import { IoHeartOutline } from "react-icons/io5";
+import { IoCreateOutline } from "react-icons/io5";
+import { FaRegUserCircle } from "react-icons/fa";
+import { IoMenuSharp } from "react-icons/io5";
+
+
 
 function App() {
+
+
+
   const navigation = useNavigation();
   const [StartonLoad, setStartOnLoad] = useState(true);
   const [swithaccount, setSwitchaccount] = useState(false);
@@ -27,7 +43,7 @@ function App() {
   const [isDicardPost, setDiscardPost] = useState(false);
   const [isSearch, setSearch] = useState(false);
 
-  const { LogoutLoading } = useShareobj();
+  const { LogoutLoading, user, image_url } = useShareobj();
 
   useEffect(() => {
     setTimeout(() => {
@@ -55,12 +71,13 @@ function App() {
         <div className="flex md:flex-row flex-col gap-2 md:min-h-screen">
           <header
             style={{ maxHeight: "calc(5vh + 12rem)", zIndex: "999999" }}
-            className={`${isNotification || isSearch ? "lg:max-w-[20vw]" : "lg:min-w-[20vw]"
-              } dark:bg-black overflow-y-auto w-fit sidebar-header md:min-h-[100vh] dark:border-[#262626] bg-white`}
+            className={`${isNotification || isSearch ? "lg:max-w-[20vw]" : "lg:min-w-[20vw] "
+              } dark:bg-black overflow-y-auto sidebar-header md:min-h-[100vh] dark:border-[#262626] bg-white`}
           >
             <SideNavBar
               setCreate={setCreate}
               clickMore={clickMore}
+              isCreate={isCreate}
               setClickMore={setClickMore}
               setNotification={setNotification}
               isNotification={isNotification}
@@ -75,12 +92,16 @@ function App() {
             {navigation.state == "idle" ? (
               <Private>
                 <Outlet />
+                <h3>Hello world </h3>
               </Private>
             ) : (
               <LoadingOne />
             )}
           </main>
         </div>
+        
+        
+        
       )}
 
       {isCreate && (
@@ -117,46 +138,13 @@ function App() {
       )}
       {
         // -------Notification---bar----
-        <div
-          id="NotificationPopup"
-          className={`fixed min-h-screen right-0 top-0  bottom-0 justify-center items-center flex  max-w-md  transition-all duration-500 ${isNotification ? "lg:left-[54px] left-[69px]" : "left-[-456px]"
-            } `}
-        >
-          <div
-            style={{ maxHeight: "calc(100vh - 10vh)" }}
-            className="min-h-screen overflow-y-scroll bg-[#ffffff] dark:bg-black dark:text-[#ffffff] text-[#000000] max-w-md mx-auto py-4 w-full px-1"
-          >
-            <h1 className="text-2xl font-bold text-black dark:text-white">
-              Notifications
-            </h1>
-          </div>
-        </div>
+        isNotification && <Notification isNotification={isNotification} />
       }
 
       {
         // ------Search--bar-------
-        <div
-          className={`fixed min-h-screen right-0 top-0  bottom-0 justify-center items-center flex  max-w-md  transition-all duration-500 ${isSearch ? "lg:left-[54px] left-[69px]" : "left-[-456px]"
-            } `}
-        >
-          <div
-            style={{ maxHeight: "calc(100vh - 10vh)" }}
-            className="min-h-screen overflow-y-scroll bg-[#ffffff] dark:bg-black dark:text-[#ffffff] text-[#000000] max-w-md mx-auto py-4 w-full"
-          >
-            <h1 className="text-2xl font-medium text-black dark:text-white my-2  px-2">
-              Search
-            </h1>
+        isSearch && <Search isSearch={isSearch} />
 
-            <div className="mt-4  px-2">
-              <input type="text" className="w-full input-bg placeholder:text-gray-700" placeholder="Search" />
-            </div>
-            <p className="text-xs text-[#737373] font-normal tracking-wide my-5 border-b-[1px] dark:border-[#262626] border-[#dbdbdb] w-full"></p>
-
-            <div className="px-2">
-              <h1 className="gray-style-16">Recent</h1>
-            </div>
-          </div>
-        </div>
       }
     </>
   );

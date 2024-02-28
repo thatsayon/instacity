@@ -21,7 +21,7 @@ function Home() {
   return (
     <>
       {
-        user ? <div className="px-[3%] py-4 pb-6  flex flex-row dark:text-[#ffffff] text-[#000000]">
+        user ? <div className="md:px-[3%] px-[1%] py-4 pb-6  flex flex-row dark:text-[#ffffff] text-[#000000]">
           <div className="lg:w-2/3 w-full lg:pl-14  " >
             {/* ----here-is-post-content--- */}
             < SinglePost />
