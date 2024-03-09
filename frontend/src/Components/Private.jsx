@@ -6,13 +6,13 @@ import { Navigate } from 'react-router-dom';
 function Private({ children }) {
 
 
-    const { user } = useShareobj();
-
-    console.log(user)
+    const { Token } = useShareobj();
 
 
 
-    if (!user || user == null) {
+
+
+    if (!Token || Token == null) {
         return <Navigate to="/Login" />;
     }
 

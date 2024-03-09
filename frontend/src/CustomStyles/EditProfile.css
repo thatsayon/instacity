@@ -1,0 +1,68 @@
+div > form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+div > form > .E_D_P_flex {
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  width: 100%;
+}
+div > form > .E_D_P_flex > .first-div {
+  width: 25%;
+}
+div > form > .E_D_P_flex > .second-div {
+  width: 75%;
+}
+
+div > form > .E_D_P_flex > .second-div > input,
+textarea,
+div > input {
+  border: 1px solid var(--gray-23--);
+  width: 100%;
+  padding: 8px 4px;
+  border-radius: var(--radius-sm--);
+  font-weight: var(--font-medium--);
+  font-size: 14px;
+  color: var(--black-10--);
+  background-color: var(--white-12--);
+  outline: none;
+  transition: all 0.8s;
+  text-overflow: ellipsis;
+}
+div > form > .E_D_P_flex > .second-div > input:focus,
+textarea:focus {
+  border: 1px solid var(--dark-bg-link--);
+}
+
+div > form > .E_D_P_flex > div > label {
+  color: var(--black-7--);
+  font-weight: var(--font-semibold--);
+}
+.dark form > .E_D_P_flex > div > label {
+  color: var(--white-12--);
+}
+
+.dark form > .E_D_P_flex > .second-div > div > input {
+  background-color: var(--black-9--);
+  color: var(--white-12--);
+  font-weight: var(--font-normal--);
+}
+.dark form > .E_D_P_flex > .second-div > textarea {
+  background-color: var(--black-9--);
+  color: var(--white-12--);
+  font-weight: var(--font-normal--);
+}
+.dark form > .E_D_P_flex > .second-div > input {
+  background-color: var(--black-9--);
+  color: var(--white-12--);
+  font-weight: var(--font-normal--);
+}
+
+div > form > .E_D_P_flex > div > div > span {
+  color: var(--gray-17--);
+  font-size: 12px;
+  font-weight: var(--font-medium--);
+}

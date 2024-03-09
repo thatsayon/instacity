@@ -1,0 +1,62 @@
+#setting-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+#setting-nav > li {
+  border-radius: var(--radius-md--);
+}
+
+#setting-nav > li > a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 4px;
+  color:var(--black-10--);
+  border-radius: var(--radius-md--);
+  width: 100%;
+  font-weight: var(--font-medium--);
+  font-size: 14px;
+}
+#setting-nav > li > button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 4px;
+  border-radius: var(--radius-md--);
+  width: 100%;
+}
+
+#setting-nav > li > a {
+  font-weight: var(--font-normal--);
+  color: var(--black-18--);
+}
+#setting-nav > li > button {
+  font-weight: var(--font-normal--);
+  color: var(--black-18--);
+}
+
+#setting-nav > li > .active {
+  background-color: var(--hover-bg--);
+}
+
+#setting-nav > li:hover {
+  background: var(--hover-bg--);
+}
+.dark #setting-nav > li > a{
+    color:var(--white-3--)
+}
+.dark #setting-nav > li:hover {
+  background: var(--dark-hover-bg--);
+}
+.dark #setting-nav > li > .active {
+  background: var(--dark-hover-bg--);
+}
+
+#setting-nav > li > a > div {
+  font-size: 28px;
+}
+#setting-nav > li > button > div {
+  font-size: 28px;
+}

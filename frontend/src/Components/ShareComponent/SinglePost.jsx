@@ -1,16 +1,18 @@
 import React from "react";
 
-function Post() {
+function SinglePost() {
     return (
         <>
             <div className="md:max-w-md max-w-xs lg:mx-0 mx-auto  bg-white rounded-sm dark:bg-[#000000] dark:text-[#ffffff] dark:border-[#262626] border-[#dbdbdb] border-b-[2px] pb-4">
                 {/* User information */}
-                <div className="flex items-center py-4 dark:text-[#ffffff] text-black">
-                    <img
-                        src="https://media.istockphoto.com/id/1483473258/photo/smiling-young-woman-professional-in-formal-wear-with-arms-crossed-and-looking-at-camera.jpg?s=1024x1024&w=is&k=20&c=aA_psXlJflGGQ5q0dv7HALcX_K2LI9HeTEy6gMgTWMk=" // Replace with the actual user photo URL
-                        alt="User Profile"
-                        className="w-10 h-10 rounded-full mr-1 "
-                    />
+                <div className="flex items-center py-4 dark:text-[#ffffff] text-black w-full">
+                    <div>
+                        <img
+                            src="https://media.istockphoto.com/id/1483473258/photo/smiling-young-woman-professional-in-formal-wear-with-arms-crossed-and-looking-at-camera.jpg?s=1024x1024&w=is&k=20&c=aA_psXlJflGGQ5q0dv7HALcX_K2LI9HeTEy6gMgTWMk=" // Replace with the actual user photo URL
+                            alt="User Profile"
+                            className="w-10 h-10 rounded-full mr-1 "
+                        />
+                    </div>
                     <div className="flex flex-col items-start ">
                         <p className="black-style dark:text-[#ffffff] text-black ">
                             Tabassum jakia
@@ -23,14 +25,17 @@ function Post() {
                 <div className="py-4">
                     <h1>Hello world how ae you</h1>
                 </div>
+                <div className="max-w-xl max-h-96 border-2 overflow-hidden">
                 <img
                     src="https://plus.unsplash.com/premium_photo-1702910931506-c2c942c6612d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" // Replace with the actual post image URL
                     alt="Post"
-                    className="w-full h-64 object-cover cursor-pointer"
+                    className="object-cover cursor-pointer mx-auto"
                 />
 
+                </div>
+
                 {/* Post Actions */}
-                <div className="flex justify-between  py-4">
+                <div className="flex items-center justify-between  py-4">
                     <div className="flex space-x-4">
                         {/* ---love-icon--- */}
                         <button>
@@ -101,30 +106,32 @@ function Post() {
                     </div>
 
                     {/* Bookmark icon */}
-                    <button>
-                        <svg
-                            aria-label="Save"
-                            fill="currentColor"
-                            height="24px"
-                            role="img"
-                            viewBox="0 0 24 24"
-                            width="24px"
-                        >
-                            <title>Save</title>
-                            <polygon
-                                fill="none"
-                                points="20 21 12 13.44 4 21 4 3 20 3 20 21"
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                            ></polygon>
-                        </svg>
-                    </button>
+                    <div>
+                        <button >
+                            <svg
+                                aria-label="Save"
+                                fill="currentColor"
+                                height="24px"
+                                role="img"
+                                viewBox="0 0 24 24"
+                                width="24px"
+                            >
+                                <title>Save</title>
+                                <polygon
+                                    fill="none"
+                                    points="20 21 12 13.44 4 21 4 3 20 3 20 21"
+                                    stroke="currentColor"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                ></polygon>
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
         </>
     );
 }
 
-export default Post;
+export default SinglePost;

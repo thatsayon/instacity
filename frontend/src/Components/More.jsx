@@ -2,15 +2,24 @@ import React from 'react';
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineCameraswitch } from "react-icons/md";
 import { LuActivitySquare } from "react-icons/lu";
-import { CiBookmark } from "react-icons/ci";
+import { CiBookmark, CiBowlNoodles } from "react-icons/ci";
 import { IoLogOutOutline } from "react-icons/io5";
 import { FaSun } from "react-icons/fa";
 import { VscReport } from "react-icons/vsc";
 import { Link } from 'react-router-dom';
 import '../CustomStyles/More.css';
+import useShareobj from '../CustomHooks/useShareobj';
 
 
-function More({ setClickMore, setDark, setSwitchaccount, setReport }) {
+function More({ setClickMore, setDark, setSwitchaccount, setReport, }) {
+
+
+  const { Logout } = useShareobj();
+
+
+
+
+
   return (
     <>
 
@@ -21,14 +30,14 @@ function More({ setClickMore, setDark, setSwitchaccount, setReport }) {
           }
           setClickMore(false);
         }}
-        className="fixed right-0 top-0 px-2 py-4 overflow-hidden scrollbar-hide  z-50 lg:left-[-600px] md:left-[-322px] bottom-0 justify-center items-center flex dropdown"
+        className="fixed right-0 top-0 px-2 py-4 overflow-hidden  z-[9999999] lg:left-[-600px] md:left-[-322px] bottom-0 justify-center items-center flex dropdown"
       >
-        <div className=" scrollbar-hide overflow-hidden max-h-[95vh]  my-auto  bg-[#ffffff] text-[#000000] dark:bg-[#262626] dark:text-[#ffffff]   font-bold shadow-md shadow-[#364e7e1a] max-w-xs mx-auto  w-full p-4 rounded-md">
+        <div className=" overflow-y-auto max-h-[95vh]  my-auto  bg-[#ffffff] text-[#000000] dark:bg-[#262626] dark:text-[#ffffff]   font-bold shadow-md shadow-[#364e7e1a] max-w-xs mx-auto  w-full p-4 rounded-md">
 
           <div className='dark:bg-[#262626] dark:text-[#ffffff] text-[#000000] font-normal '>
             <ul id='more-link'>
               <li className='dark:hover:bg-[#e0f1ff]'>
-                <Link to='/' >
+                <Link to='/Settings/EditProfile' onClick={()=> setClickMore(false)}>
                   <div>
                     <IoSettingsOutline />
                   </div>
@@ -85,7 +94,7 @@ function More({ setClickMore, setDark, setSwitchaccount, setReport }) {
               </li>
 
               <li>
-                <button>
+                <button onClick={() => { setClickMore(false), Logout() }}>
                   <div>
                     <IoLogOutOutline />
                   </div>
@@ -125,6 +134,6 @@ export default More
 
 /**
  * NOTES 
- * setClickMore, setDark, setSwitchaccount, setReport - those state comes form app component.
+ * setClickMore, setDark, setSwitchaccount, setReport , - those state comes form app component.
  *
  */

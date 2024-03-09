@@ -149,18 +149,14 @@
 
 /* --scroll-bar-design-- */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--button-primary--);
-  border-radius: var(--radius-md--);
+  border-radius: var(--radius-sm--);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  cursor: pointer;
-  background: var(--black-1--);
-}
 
 html {
   scrollbar-width: thin;
@@ -196,7 +192,7 @@ body {
   border-radius: var(--radius-md--);
 }
 
-.button-primary:hover{
+.button-primary:hover {
   opacity: 0.9;
 }
 
@@ -205,19 +201,19 @@ body {
   font-size: 12px;
   font-weight: var(--font-medium--);
   cursor: pointer;
-  transition: all 0.1s;
+  transition: all 0.2s;
 }
 
 .follow-link-color {
   color: var(--link-color--);
-  font-size: 12px;
-  font-weight: var(--font-medium--);
+  font-size: 14px;
+  font-weight: var(--font-semibold--);
   cursor: pointer;
   transition: all 0.1s;
 }
 
-.follow-link-color:hover{
-  color:var(--black-1--)
+.follow-link-color:hover {
+  color: var(--black-1--);
 }
 
 .link-color:hover {
@@ -227,6 +223,12 @@ body {
 .error-color {
   color: var(--red-3--);
 }
+.hover-bg {
+  background-color: var(--hover-bg--);
+}
+.success-color {
+  color: var(--green-1--);
+}
 
 .gray-style {
   font-size: 12px;
@@ -235,8 +237,45 @@ body {
   color: var(--gray-17--);
 }
 
+.gray-style-16{
+  font-size: 16px;
+  font-style: normal;
+  font-weight: var(--font-medium--);
+  color: var(--gray-17--);
+}
+
 .black-style {
   font-size: 14px;
   font-style: normal;
   font-weight: var(--font-semibold--);
+}
+
+.dark .input-bg {
+  background-color: var(--black-9--);
+  color: var(--white-12--);
+  font-weight: var(--font-normal--);
+  border :none;
+  outline: none;
+  padding: 15px 6px ;
+  border-radius: 4px;
+}
+
+.input-bg{
+  color: var(--black-10--);
+  background-color: var(--gray-10--);
+  font-weight: var(--font-normal--);
+  border :none;
+  outline: none;
+  padding: 15px 6px ;
+  border-radius: 4px;
+}
+
+@media only screen and (min-width: 280px) and (max-width: 900px) {
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: none;
+    border-radius: var(--radius-sm--);
+  }
 }
