@@ -14,7 +14,7 @@ function Login() {
   const [error, setError] = useState(false);
   const [ispass, setIspass] = useState("");
   const [btnLoading, setbtnLoading] = useState(false);
-  const { LoginWithEmailandPassword, setToken } = useShareobj();
+  const { LoginWithEmailandPassword, setToken } = useShareobj() || '';
 
   const navigate = useNavigate();
 

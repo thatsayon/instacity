@@ -1,8 +1,70 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
+import { FaXmark } from "react-icons/fa6";
+import useShareobj from "../../CustomHooks/useShareobj";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 function ReportProblem({ setReport, setClickMore }) {
+  const [ReportText, setReportText] = useState("");
+  const [Imagearray, setImagearray] = useState([]);
+  const clickFile = useRef();
+  const { report, user } = useShareobj() || {}
+
+
+
+  const HandleAddFile = (e) => {
+    if (e?.target?.files[0]) {
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onload = (upload) => {
+        let img = new Image();
+        img.src = upload?.target?.result;
+        img.onload = () => {
+          setImagearray([...Imagearray, img?.src]);
+        };
+      };
+      reader.onerror = (error) => {
+        console.log(error);
+      };
+    }
+  };
+
+
+
+  const HandleDelete = (img, index) => {
+
+
+    for (let i = 0; i < Imagearray?.length; i++) {
+      if (Imagearray[i] == img && i == index) {
+        Imagearray.pop();
+      }
+    }
+
+    setImagearray([...Imagearray]);
+  };
+
+  const submit = () => {
+
+    const obj = {
+      "report": ReportText
+
+    }
+
+    report(obj)
+      .then((res) => {
+        if (res?.data) {
+        setReportText('')
+      } })
+      .catch((error) => { console.log(error) })
+
+
+  }
   return (
     <>
       <div
@@ -44,16 +106,58 @@ function ReportProblem({ setReport, setClickMore }) {
           </div>
           <div className="px-1 mt-2">
             <div>
-              <textarea name="report" id="report" className="w-full min-h-[30vh] dark:text-white outline-none border-2 bg-[#ffffff] transition-all duration-500 dark:bg-[#262626] dark:border-[#555555] p-1 dark:focus:border-[#1b74e4] focus:border-[#1b74e4] rounded-md "></textarea>
+              <textarea onChange={(e) => { setReportText(e.target.value) }} name="report" id="report" value={ReportText} className="w-full min-h-[30vh] dark:text-white outline-none border-2 bg-[#ffffff] transition-all duration-500 dark:bg-[#262626] dark:border-[#555555] p-1 dark:focus:border-[#1b74e4] focus:border-[#1b74e4] rounded-md "></textarea>
             </div>
             <div className="my-2 flex items-center justify-between">
               <div>
-                <button className="button-primary">Send report</button>
+                <button disabled={!ReportText} onClick={submit} className="button-primary disabled:opacity-75">Send report</button>
               </div>
               <div>
-                <button className="dark:bg-[#363636] bg-[#efefef] py-[8px] text-[#000000] dark:text-[#ffffff] px-[10px] rounded-md text-[14px] font-medium hover:opacity-70 ">Add file</button>
+                <input
+                  type="file"
+                  id="image"
+                  accept="image/*"
+                  className="hidden"
+                  ref={clickFile}
+                  onChange={HandleAddFile}
+                />
+                <button onClick={() => {
+                  clickFile?.current?.click();
+                }} className="dark:bg-[#363636] bg-[#efefef] py-[8px] text-[#000000] dark:text-[#ffffff] px-[10px] rounded-md text-[14px] font-medium hover:opacity-70 ">Add file</button>
               </div>
             </div>
+          </div>
+
+          <div className="w-full overflow-hidden px-4">
+            {Imagearray.length > 0 && (
+
+              <Swiper
+                modules={[Navigation, Pagination]}
+                spaceBetween={5}
+                slidesPerView={3}
+                navigation={true}
+
+              >
+                {Imagearray.map((IMG, index) => (
+                  <SwiperSlide
+                    key={index}
+                    className={` max-w-28 max-h-16 overflow-hidden relative`}
+                  >
+                    <p
+                      onClick={() => HandleDelete(IMG, index)}
+                      className="absolute cursor-pointer right-[2px] top-[2px] rounded-full bg-[#1a1a1acc] p-2 text-white font-normal text-sm"
+                    >
+                      <FaXmark />
+                    </p>
+                    <img
+                      src={IMG}
+                      alt="Report file"
+                      className="min-h-[70px]"
+                    />
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}
           </div>
 
           <p className="gray-style text-center dark:text-white max-w-sm mx-auto">Your Instacity username and browser information will be automatically included in your report.</p>

@@ -5,20 +5,19 @@ import { useLocation } from "react-router-dom";
 export const FetchContext = createContext(null);
 
 function ApiContext({ children }) {
-  const axiosFetch = useFetch();
-  const image_url = "http://127.0.0.1:8000/";
-
   const [Token, setToken] = useState(null);
   const [user, setUser] = useState(null);
   const [LogoutLoading, setLogoutLoading] = useState(false);
-  const [CurrentLocation, setCurrentLocation] = useState({});
+  const [isuserToken, setisuserToken] = useState(false);
+  const axiosFetch = useFetch();
+  const image_url = "http://127.0.0.1:8000/";
 
   const RegisterWithEmailandPassword = (obj) => {
-    return axiosFetch.post("register/", obj);
+    return axiosFetch.post("api/register/", obj);
   };
 
   const LoginWithEmailandPassword = (obj) => {
-    return axiosFetch.post("login/", obj);
+    return axiosFetch.post("api/login/", obj);
   };
 
   const Logout = () => {
@@ -31,7 +30,7 @@ function ApiContext({ children }) {
       setLogoutLoading(false);
 
       axiosFetch
-        .post("logout/", null, { headers })
+        .post("api/logout/", null, { headers })
         .then((res) => {
           if (res?.data?.message == "Logout successful" || res?.data) {
             setToken(null);
@@ -39,12 +38,35 @@ function ApiContext({ children }) {
           }
         })
         .catch((err) => {
-          if (err) {
-            console.log("401 unauthorized");
-          }
+          console.log(err);
         });
     }, 2000);
   };
+
+  const report = (obj) => {
+    const headers = {
+      Authorization: `Token ${Token}`,
+    };
+
+    return axiosFetch.post("profile/report/", obj, { headers });
+  };
+
+  const changePassword = (obj) => {
+    const headers = {
+      Authorization: `Token ${Token}`,
+    };
+
+    return axiosFetch.patch("api/change-password/", obj, { headers });
+
+  }
+  const update_user_info = (obj) => {
+    const headers = {
+      Authorization: `Token ${Token}`,
+    };
+
+    return axiosFetch.post("profile/profiles/", obj, { headers });
+
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("userToken");
@@ -58,9 +80,8 @@ function ApiContext({ children }) {
       const headers = {
         Authorization: `Token ${token}`,
       };
-
       axiosFetch
-        .get("user-info/", { headers })
+        .get("api/user-info/", { headers })
         .then((res) => {
           setUser(res?.data);
         })
@@ -73,9 +94,27 @@ function ApiContext({ children }) {
             Logout();
           }
         });
-      // console.log(CurrentLocation)
     }
+
   }, [localStorage.getItem("userToken")]);
+
+
+
+  setInterval(() => {
+    const userToken = localStorage.getItem("userToken");
+    if (!userToken) {
+      setisuserToken(true)
+    }
+    else {
+      setisuserToken(false)
+    }
+  }, 50000);
+
+  useEffect(() => {
+    if (isuserToken) {
+      Logout();
+    }
+  }, [isuserToken])
 
   const LanguageArray = [
     "English",
@@ -127,6 +166,9 @@ function ApiContext({ children }) {
     RegisterWithEmailandPassword,
     LoginWithEmailandPassword,
     Logout,
+    report,
+    changePassword,
+    update_user_info
   };
 
   return (

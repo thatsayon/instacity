@@ -9,8 +9,10 @@ function ChangePassword() {
   const [newPass, setNewPass] = useState('');
   const [confirmNewpass, setConfirmNewpass] = useState('');
   const [error, setError] = useState('');
+  const [succesMessage, setsuccessMessage] = useState('');
   const [isDisable, setDisable] = useState(true);
   const [btnLoading, setbtnLoading] = useState(false);
+  const { changePassword } = useShareobj() || '';
 
 
 
@@ -43,21 +45,37 @@ function ChangePassword() {
     }, 800);
 
     if (!/^(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]).{6,}$/.test(oldPass)) {
-      setError("Old password is incorrect, please try again !");
+      setError("Old password is wrong, please try again !");
       return;
     }
 
-    if(oldPass == newPass){
+    if (oldPass == newPass) {
       setError("Old password or new password are same please try another !");
       return;
     }
 
     const obj = {
-      "Old_Password" : oldPass ,
-      "New_password" : newPass
+      "old_password": oldPass,
+      "new_password": newPass
+
     }
 
-    console.log(obj)
+    changePassword(obj)
+      .then(res => {
+        if (res?.data?.message) {
+          e.target.reset();
+          setsuccessMessage(res?.data?.message)
+          setTimeout(() => {
+            setsuccessMessage('')
+          }, 4000);
+        }
+      })
+      .catch(err => {
+        if (err?.response?.status) {
+          setError("Old password is wrong, please try again !");
+        }
+
+      })
 
   }
   return (
@@ -80,9 +98,17 @@ function ChangePassword() {
               <h1 className="text-base font-medium text-black dark:text-white">
                 {user?.username || "anynomous user"}
               </h1>
-              <p className='mt-5 error-color text-xs font-medium whitespace-pre-wrap'>
-                {error}
-              </p>
+              {
+                error && <p className='mt-5 error-color text-sm font-semibold whitespace-pre-wrap'>
+                  {error}
+                </p>
+              }
+              {
+                succesMessage &&
+                <p className='mt-5 success-color text-sm font-semibold whitespace-pre-wrap'>
+                  {succesMessage}
+                </p>
+              }
             </div>
           </div>
 

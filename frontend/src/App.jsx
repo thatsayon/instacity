@@ -71,8 +71,7 @@ function App() {
         <div className="flex md:flex-row flex-col gap-2 md:min-h-screen">
           <header
             style={{ maxHeight: "calc(5vh + 12rem)", zIndex: "999999" }}
-            className={`${isNotification || isSearch ? "lg:max-w-[20vw]" : "lg:min-w-[20vw] "
-              } dark:bg-black overflow-y-auto sidebar-header md:min-h-[100vh] dark:border-[#262626] bg-white`}
+            className={`${isNotification || isSearch ? "lg:max-w-[20vw]" : "lg:min-w-[20vw] "} dark:bg-black overflow-y-auto sidebar-header md:min-h-[100vh] dark:border-[#262626] bg-white`}
           >
             <SideNavBar
               setCreate={setCreate}
@@ -92,16 +91,16 @@ function App() {
             {navigation.state == "idle" ? (
               <Private>
                 <Outlet />
-                <h3>Hello world </h3>
+
               </Private>
             ) : (
               <LoadingOne />
             )}
           </main>
         </div>
-        
-        
-        
+
+
+
       )}
 
       {isCreate && (

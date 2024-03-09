@@ -379,6 +379,7 @@ function Create({ setCreate, setDiscardPost }) {
                         Brightnesss
                       </p>
                       <input
+                      className="px-0 mx-0"
                         type="range"
                         min="0"
                         max="100"
@@ -393,6 +394,7 @@ function Create({ setCreate, setDiscardPost }) {
                         Contrast
                       </p>
                       <input
+                      className="px-0 mx-0"
                         type="range"
                         min="1"
                         max="100"
@@ -410,6 +412,7 @@ function Create({ setCreate, setDiscardPost }) {
                         Fade
                       </p>
                       <input
+                      className="px-0 mx-0"
                         type="range"
                         min="1"
                         max="100"
@@ -428,6 +431,7 @@ function Create({ setCreate, setDiscardPost }) {
                         Saturation
                       </p>
                       <input
+                      className="px-0 mx-0"
                         type="range"
                         min="1"
                         max="100"
@@ -446,6 +450,7 @@ function Create({ setCreate, setDiscardPost }) {
                         Temperature
                       </p>
                       <input
+                      className="px-0 mx-0"
                         type="range"
                         min="1"
                         max="100"

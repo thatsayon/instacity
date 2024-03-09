@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
 
 function EditProfile() {
-  const { user, image_url } = useShareobj();
+  const { user, image_url, update_user_info } = useShareobj() || '';
   const [isOpen, setIsOpen] = useState();
   const [selectedGender, setSelectedGender] = useState("");
   const [word, setWord] = useState(0);
+  const [phone , setPhone ] = useState('+880')
 
 
   const HandleUpdateInfo = (e) => {
@@ -21,22 +22,24 @@ function EditProfile() {
     const social_link = data.get('social-link');
     const Bio = data.get('Bio');
     const Email = data.get('Email');
-    const Phone = data.get('Phone');
+    const Phone = phone;
     const Gender = data.get('Gender');
 
     const obj = {
-      "Name": Name,
-      "user_name": UserName,
-      "Social_link": social_link || '',
-      "Bio": Bio || "",
-      "Email": Email,
-      "Phone": Phone || '',
-      "Gender": Gender || ''
-
+      "bio": Bio || '',
+      "gender": Gender || '',
+      "phone_number": Phone || '',
+      "social_links": social_link || ''
     }
 
 
-    console.log(obj)
+
+
+    update_user_info(obj)
+      .then(res => {
+      console.log(res.data)
+    })
+    .catch(error => console.log(error))
 
   };
 
@@ -175,6 +178,8 @@ function EditProfile() {
               <input
                 id="Phone"
                 name="Phone"
+                value={phone}
+                onChange={(e)=> setPhone(e.target.value)}
                 placeholder="Phone number"
                 type="text"
               />
