@@ -49,6 +49,8 @@ function Login() {
       password: password,
     };
 
+    console.log(obj)
+
     LoginWithEmailandPassword(obj)
       .then((res) => {
         if (res?.data?.token) {

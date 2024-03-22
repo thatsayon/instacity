@@ -1,15 +1,10 @@
-import React, { useEffect } from 'react'
-import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import '../../CustomStyles/settings.css'
+import React from 'react'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import '../../CustomStyles/Settings.css';
 
 function Settings() {
 
   const navigate = useNavigate();
-
-
-
-
-
 
   return (
     <section className='flex flex-col gap-4 px-[4%] py-4 max-h-screen overflow-hidden'>
@@ -17,7 +12,7 @@ function Settings() {
       <header style={{ maxHeight: "calc(5vh + 12rem)" }} className='flex flex-row gap-5 items-center my-6 border-[1px] dark:border-[#262626] rounded-2xl border-[#dbdbdb] p-4'>
         <h1 className='text-base text-black dark:text-white'>Midgen</h1>
         <p className='text-sm font-normal text-black dark:text-white text-center'>you can change your informations !</p>
-        <h4 className='text-xs text-[#737373] font-normal tracking-wide'>Soon, Accounts Center will be the primary place to manage your account info, settings and experiences across Midgen technologies like Instacity. <span onClick={()=> navigate("/NotFound")} className='text-[#0095f6] cursor-pointer'>Learn more</span></h4>
+        <h4 className='text-xs text-[#737373] font-normal tracking-wide'>Soon, Accounts Center will be the primary place to manage your account info, settings and experiences across Midgen technologies like Instacity. <span onClick={() => navigate("/NotFound")} className='text-[#0095f6] cursor-pointer'>Learn more</span></h4>
       </header>
 
 
@@ -25,8 +20,8 @@ function Settings() {
 
         <nav style={{ maxHeight: "calc(105vh - 12rem)" }} className='w-3/12 overflow-y-auto '>
           <h1 className='text-black dark:text-white font-semibold text-xl mb-3'>Settings</h1>
-     
-         
+
+
           <ul id='setting-nav' >
             <li><NavLink to='/Settings/EditProfile'>Edit Profile</NavLink></li>
             <li><NavLink to='/Settings/Language'>Languages preferences</NavLink></li>

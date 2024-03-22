@@ -10,14 +10,14 @@ function DiscardPost({ setDiscardPost, setCreate }) {
             <p className="text-sm font-normal text-[#737373]">If you leave, your edits won't be saved.</p>
           </div>
           <div className="flex flex-col items-center gap-4">
-            <p onClick={() => { setCreate(false),setDiscardPost(false) }} className="border-t-2 dark:border-[#555555] w-full text-center pt-2 text-red-500 font-medium text-sm cursor-pointer">Discard</p>
+            <p onClick={() => { setCreate(false),setDiscardPost(false)}} className="border-t-2 dark:border-[#555555] w-full text-center pt-2 text-red-500 font-medium text-sm cursor-pointer">Discard</p>
             <p onClick={() => { setDiscardPost(false) }} className="border-t-2 dark:border-[#555555] dark:text-white w-full text-center pt-2 font-normal text-black cursor-pointer text-sm">cencel</p>
           </div>
 
         </div>
       </div>
     </>
-  );
+  );     
 }
 
 export default DiscardPost;

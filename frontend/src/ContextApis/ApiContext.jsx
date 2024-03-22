@@ -57,16 +57,14 @@ function ApiContext({ children }) {
     };
 
     return axiosFetch.patch("api/change-password/", obj, { headers });
-
-  }
+  };
   const update_user_info = (obj) => {
     const headers = {
       Authorization: `Token ${Token}`,
     };
 
     return axiosFetch.post("profile/profiles/", obj, { headers });
-
-  }
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("userToken");
@@ -95,26 +93,22 @@ function ApiContext({ children }) {
           }
         });
     }
-
   }, [localStorage.getItem("userToken")]);
-
-
 
   setInterval(() => {
     const userToken = localStorage.getItem("userToken");
     if (!userToken) {
-      setisuserToken(true)
+      setisuserToken(true);
+    } else {
+      setisuserToken(false);
     }
-    else {
-      setisuserToken(false)
-    }
-  }, 50000);
+  }, 5000);
 
   useEffect(() => {
     if (isuserToken) {
       Logout();
     }
-  }, [isuserToken])
+  }, [isuserToken]);
 
   const LanguageArray = [
     "English",
@@ -168,7 +162,7 @@ function ApiContext({ children }) {
     Logout,
     report,
     changePassword,
-    update_user_info
+    update_user_info,
   };
 
   return (
