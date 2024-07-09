@@ -7,7 +7,7 @@ function Settings() {
   const navigate = useNavigate();
 
   return (
-    <section className='flex flex-col gap-4 px-[4%] py-4 max-h-screen overflow-hidden'>
+    <section className='flex flex-col gap-4 px-[1%] py-4 max-h-screen overflow-hidden'>
 
       <header style={{ maxHeight: "calc(5vh + 12rem)" }} className='flex flex-row gap-5 items-center my-6 border-[1px] dark:border-[#262626] rounded-2xl border-[#dbdbdb] p-4'>
         <h1 className='text-base text-black dark:text-white'>Midgen</h1>

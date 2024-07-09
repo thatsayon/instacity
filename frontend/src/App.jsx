@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SideNavBar from "./Components/SideNavBar";
-import { NavLink, Outlet, useNavigation } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigation } from "react-router-dom";
 import StartLoad from "./Components/LoadingReels/StartLoad";
 import Create from "./Components/Create";
 import More from "./Components/More";
@@ -43,6 +43,9 @@ function App() {
   const [isDicardPost, setDiscardPost] = useState(false);
   const [isSearch, setSearch] = useState(false);
 
+  const location = useLocation();
+
+
   const { LogoutLoading, user, image_url } = useShareobj();
 
   useEffect(() => {
@@ -63,6 +66,8 @@ function App() {
     }
   }, [localStorage.getItem("Dark")]);
 
+  console.log(location.pathname)
+
   return (
     <>
       {StartonLoad ? (
@@ -70,8 +75,7 @@ function App() {
       ) : (
         <div className="flex md:flex-row flex-col gap-2 md:min-h-screen">
           <header
-            style={{ maxHeight: "calc(5vh + 12rem)", zIndex: "999999" }}
-            className={`${isNotification || isSearch ? "lg:max-w-[20vw]" : "lg:min-w-[20vw] "} dark:bg-black overflow-y-auto sidebar-header md:min-h-[100vh] dark:border-[#262626] bg-white`}
+            className={`${isNotification || isSearch ? "lg:max-w-[20vw]" : "lg:min-w-[20vw] "} dark:bg-black max-h-[17rem] overflow-y-auto sidebar-header md:min-h-[100vh] dark:border-[#262626] bg-white`}
           >
             <SideNavBar
               setCreate={setCreate}

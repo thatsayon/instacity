@@ -1,7 +1,7 @@
 #sidebar-link {
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 5px;
 }
 
 #sidebar-link > li {

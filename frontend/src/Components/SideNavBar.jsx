@@ -22,9 +22,9 @@ function SideNavBar({ setCreate, isCreate, clickMore, setClickMore, setNotificat
 
   return (
     <>
-      <nav className={`lg:p-2 p-4 dark:text-[#ffffff] overflow-hidden md:block hidden`}>
+      <nav className={`px-2 dark:text-[#ffffff] overflow-hidden md:block hidden`}>
         <div onClick={() => { navigate('/') }} className=" py-4 cursor-pointer ">
-          <h1 className={`text-3xl italic text-gray-700 dark:text-[#ffffff] transition-all duration-500 ${isNotification || isSearch ? "opacity-0 h-0 w-0" : 'opacity-0 h-0 w-0 lg:w-fit lg:h-fit lg:opacity-100'} `}>
+          <h1 className={`text-2xl font-bold text-gray-700 dark:text-[#ffffff] transition-all duration-500 ${isNotification || isSearch ? "opacity-0 h-0 w-0" : 'opacity-0 h-0 w-0 lg:w-fit lg:h-fit lg:opacity-100'} `}>
             InstaCity
           </h1>
           <img
@@ -117,7 +117,7 @@ function SideNavBar({ setCreate, isCreate, clickMore, setClickMore, setNotificat
               </NavLink>
             </li>
 
-            <li className="lg:mt-6">
+            <li className="lg:mt-3">
               <button onClick={() => setClickMore(!clickMore)}>
                 <div className="dark:text-[#ffffff]">
                   <IoMenuSharp />
@@ -130,6 +130,12 @@ function SideNavBar({ setCreate, isCreate, clickMore, setClickMore, setNotificat
           </ul>
         </div>
       </nav>
+
+
+
+
+
+      {/* ---------small-screenn-showw--------------- */}
 
       <nav className="md:hidden block w-full dark:text-[#ffffff] ">
         <div className="px-[1%] pt-2 flex flex-row items-center justify-between">
