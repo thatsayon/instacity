@@ -3,7 +3,7 @@ import React from "react";
 function DiscardPost({ setDiscardPost, setCreate }) {
   return (
     <>
-      <div className=" fixed right-0 top-0 z-50 left-0 bottom-0 justify-center items-center flex bg-[#00000080] ">
+      <div className=" fixed right-0 top-0 z-50 left-0 px-[1%] bottom-0 justify-center items-center flex bg-[#00000080] ">
         <div className="scrollbar-hide min-h-[25vh]  my-auto bg-[#ffffff] dark:bg-[#262626]  dark:text-[#ffffff] text-[#000000] shadow-lg z-50  dark:shadow-black max-w-sm mx-auto py-4 w-full rounded-md ">
           <div className="text-text mx-auto flex items-center justify-center flex-col mb-6">
             <h1 className="text-base font-medium text-black dark:text-white">Discard post?</h1>

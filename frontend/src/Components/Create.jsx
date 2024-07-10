@@ -53,17 +53,26 @@ function Create({ setCreate, setDiscardPost }) {
   const [croppedImgSrc, setCroppedImgSrc] = useState("");
   const [crop, setCrop] = useState();
   const [isPreview, setPreview] = useState(false);
-  
+
   const MoreRef = useRef(null);
   const MoreRefbtn = useRef(null);
+  const ZoomRef = useRef(null);
+  const ZoomRefbtn = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      console.log(MoreRef.current.contains(e.target))
-      if ( !MoreRef.current.contains(e.target) && !MoreRefbtn.current.contains(e.target) ) {
-      
-        
+    
+      if (
+        !MoreRef?.current?.contains(e.target) &&
+        !MoreRefbtn?.current?.contains(e.target)
+      ) {
         setAddMore(false);
+      }
+      if (
+        !ZoomRef?.current?.contains(e.target) &&
+        !ZoomRefbtn?.current?.contains(e.target)
+      ) {
+        setisZoom(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -135,7 +144,7 @@ function Create({ setCreate, setDiscardPost }) {
 
   const HandleCropSave = () => {
     setisCrop(false);
-    console.log(isCrop);
+    setPreview(false)
     setImageArray((prevArray) => {
       const newArray = [...prevArray];
       newArray[activeindex] = croppedImgSrc;
@@ -163,7 +172,7 @@ function Create({ setCreate, setDiscardPost }) {
           <div
             className={` relative overflow-y-auto overflow-hidden shadow-lg bg-white dark:bg-[#262626] dark:text-[#ffffff] max-h-[95vh] text-black font-bold shadow-[#364e7e1a] pt-4 rounded-md flex items-center  flex-col`}
           >
-            <div className="flex flex-row items-center justify-between border-b-2 dark:border-[#555555] w-full  px-2">
+            <div className="flex flex-row items-center pb-1 justify-between border-b-2 dark:border-[#555555] w-full  px-2">
               <div>
                 <p
                   onClick={() => {
@@ -173,6 +182,12 @@ function Create({ setCreate, setDiscardPost }) {
                 >
                   <MdOutlineKeyboardArrowLeft />
                 </p>
+              </div>
+              
+              <div>
+                <h1 className="text-base text-black dark:text-white font-semibold  ">
+                  {isAdjust && !writeCaption && "Adjust" || writeCaption && 'Caption'}
+                </h1>
               </div>
               <div>
                 {writeCaption ? (
@@ -186,6 +201,7 @@ function Create({ setCreate, setDiscardPost }) {
                   <p
                     onClick={() => {
                       setWriteCaption(true);
+                      
                     }}
                     className={`  follow-link-color text-base font-bold cursor-pointer`}
                   >
@@ -195,8 +211,8 @@ function Create({ setCreate, setDiscardPost }) {
               </div>
             </div>
 
-            <div className="flex flex-row gap-1 w-full max-w-2xl h-full">
-              <div className="w-1/2 my-auto">
+            <div className="flex md:flex-row flex-col gap-1 w-full max-w-2xl h-full">
+              <div className="md:w-1/2 w-full my-auto">
                 {imageArray.length > 0 && (
                   <Swiper
                     modules={[Navigation, Pagination]}
@@ -220,7 +236,7 @@ function Create({ setCreate, setDiscardPost }) {
                   </Swiper>
                 )}
               </div>
-              <div className="w-1/2 overflow-y-auto max-h-[95vh]">
+              <div className="md:w-1/2 w-full overflow-y-auto max-h-[95vh]">
                 {writeCaption ? (
                   <section className="px-1">
                     <div className="flex items-start pt-2 dark:text-[#ffffff] text-black w-full">
@@ -509,7 +525,7 @@ function Create({ setCreate, setDiscardPost }) {
         ) : (
           // ---image-Receive--section--
           <section
-            className={` max-h-[95vh] max-w-[600px] min-w-[450px] md:min-h-[70vh] 2xl:min-h-[50vh] relative overflow-y-auto overflow-hidden shadow-lg bg-white dark:bg-[#262626] dark:text-[#ffffff] text-black font-bold shadow-[#364e7e1a]  pt-4 rounded-md flex items-center  flex-col`}
+            className={` max-h-[95vh] max-w-[600px] md:w-[450px] w-[350px] md:min-h-[60vh] min-h-[65vh]  2xl:min-h-[50vh] relative overflow-y-auto overflow-hidden shadow-lg bg-white dark:bg-[#262626] dark:text-[#ffffff] text-black font-bold shadow-[#364e7e1a]  pt-4 rounded-md flex items-center  flex-col`}
           >
             <div className="flex flex-row items-center justify-between border-b-2 dark:border-[#555555] w-full pb-2 px-2">
               <div>
@@ -535,9 +551,7 @@ function Create({ setCreate, setDiscardPost }) {
 
               <div>
                 <h1 className="text-base text-black dark:text-white font-semibold  ">
-                  {(isCrop && !isPreview && "Crop") ||
-                    (isPreview && "Preview") ||
-                    "Create new post"}
+                  {(isCrop && !isPreview && "Crop") || (isPreview && "Preview")|| (!isPreview && !isCrop && !isAdjust && "Create new post")}
                 </h1>
               </div>
 
@@ -557,7 +571,7 @@ function Create({ setCreate, setDiscardPost }) {
             {imageArray.length > 0 ? (
               isCrop ? (
                 <div
-                  className={`max-h-[95vh]  max-w-[600px] min-w-[450px] min-h-[60vh]  flex flex-col items-center justify-center overflow-y-auto overflow-hidden`}
+                  className={`max-h-[95vh]  max-w-[600px] md:w-[450px] w-[350px] md:min-h-[60vh] min-h-[80vh]  flex flex-col items-center justify-center overflow-y-auto overflow-hidden`}
                 >
                   <div className={`${isPreview ? "hidden" : "block"}`}>
                     <ReactCrop
@@ -613,7 +627,7 @@ function Create({ setCreate, setDiscardPost }) {
                 <div>
                   {/* ------here-is--image--------- */}
                   <div
-                    className={`flex items-center justify-center max-w-[450px]  h-auto`}
+                    className={`flex items-center justify-center md:w-[400px] w-[280px]  h-auto`}
                   >
                     {imageArray.length > 0 && (
                       <Swiper
@@ -669,6 +683,7 @@ function Create({ setCreate, setDiscardPost }) {
 
                         {/* ---zoom-image-button-- */}
                         <p
+                          ref={ZoomRefbtn}
                           onClick={() => {
                             setisZoom(!isZoom);
                           }}
@@ -693,6 +708,7 @@ function Create({ setCreate, setDiscardPost }) {
                         // ----This-is-zoomPopup-----
                         isZoom && (
                           <div
+                            ref={ZoomRef}
                             className=" bg-[#1a1a1acc] py-1 rounded-md absolute top-[-50px] left-[-360px] z-50"
                           >
                             <input
