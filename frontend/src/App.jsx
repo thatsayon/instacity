@@ -43,8 +43,6 @@ function App() {
   const [isDicardPost, setDiscardPost] = useState(false);
   const [isSearch, setSearch] = useState(false);
 
-  const location = useLocation();
-
 
   const { LogoutLoading, user, image_url } = useShareobj();
 
@@ -66,7 +64,6 @@ function App() {
     }
   }, [localStorage.getItem("Dark")]);
 
-  console.log(location.pathname)
 
   return (
     <>

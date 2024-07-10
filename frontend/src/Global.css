@@ -192,9 +192,23 @@ body {
   border-radius: var(--radius-md--);
 }
 
-.button-primary:hover {
+
+.button-primary:hover ,.button-xs:hover{
   opacity: 0.9;
 }
+
+.button-sm {
+  width: fit-content ;
+  background: var(--button-primary--);
+  color: var(--white-3--);
+  font-size: 14px;
+  font-weight: var(--font-medium--);
+  padding: 8px 12px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: var(--radius-sm--);
+}
+
 
 .link-color {
   color: var(--r-p-link-);
