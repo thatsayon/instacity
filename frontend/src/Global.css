@@ -178,6 +178,7 @@ body {
 
 /* ---global--style-- */
 .button-primary {
+  min-width: 105px;
   background: var(--button-primary--);
   display: flex;
   flex-direction: row;
@@ -185,7 +186,7 @@ body {
   justify-content: center;
   gap: 4px;
   color: var(--white-3--);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: var(--font-medium--);
   padding: 8px 10px;
   cursor: pointer;

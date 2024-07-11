@@ -25,24 +25,18 @@ import { IoCreateOutline } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoMenuSharp } from "react-icons/io5";
 
-
-
 function App() {
-
-
-
   const navigation = useNavigation();
   const [StartonLoad, setStartOnLoad] = useState(true);
   const [swithaccount, setSwitchaccount] = useState(false);
   const [isCreate, setCreate] = useState(false);
   const [clickMore, setClickMore] = useState(false);
   const [Dark, setDark] = useState(false);
-  const [Report, setReport] = useState(false);
+  const [isReport, setReport] = useState(false);
   const [checked, setchecked] = useState(false);
   const [isNotification, setNotification] = useState(false);
   const [isDicardPost, setDiscardPost] = useState(false);
   const [isSearch, setSearch] = useState(false);
-
 
   const { LogoutLoading, user, image_url } = useShareobj();
 
@@ -64,7 +58,6 @@ function App() {
     }
   }, [localStorage.getItem("Dark")]);
 
-
   return (
     <>
       {StartonLoad ? (
@@ -72,7 +65,11 @@ function App() {
       ) : (
         <div className="flex md:flex-row flex-col gap-2 md:min-h-screen">
           <header
-            className={`${isNotification || isSearch ? "lg:max-w-[20vw]" : "lg:min-w-[20vw] "} dark:bg-black max-h-[17rem] overflow-y-auto sidebar-header md:min-h-[100vh] dark:border-[#262626] bg-white`}
+            className={`${
+              isNotification || isSearch
+                ? "lg:max-w-[20vw]"
+                : "lg:min-w-[20vw] "
+            } dark:bg-black max-h-[17rem] overflow-y-auto sidebar-header md:min-h-[100vh] dark:border-[#262626] bg-white`}
           >
             <SideNavBar
               setCreate={setCreate}
@@ -92,16 +89,12 @@ function App() {
             {navigation.state == "idle" ? (
               <Private>
                 <Outlet />
-
               </Private>
             ) : (
               <LoadingOne />
             )}
           </main>
         </div>
-
-
-
       )}
 
       {isCreate && (
@@ -129,8 +122,11 @@ function App() {
           swithaccount={swithaccount}
         />
       )}
-      {Report && (
-        <ReportProblem setReport={setReport} setClickMore={setClickMore} />
+      {isReport && (
+        <ReportProblem
+          onReport={() => setReport(!isReport)}
+          onClickMore={() => setClickMore(!clickMore)}
+        />
       )}
       {LogoutLoading && <LogoutModal />}
       {isDicardPost && (
@@ -144,7 +140,6 @@ function App() {
       {
         // ------Search--bar-------
         isSearch && <Search isSearch={isSearch} />
-
       }
     </>
   );

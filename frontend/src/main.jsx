@@ -28,6 +28,7 @@ import Other from "./Components/SettignsComponents/EmailFromInstacity/Other.jsx"
 import Security from "./Components/SettignsComponents/EmailFromInstacity/Security.jsx";
 import Search from "./Components/Search.jsx";
 import Notification from "./Components/Notification.jsx";
+import { ToastProvider } from "./ContextApis/ToastContext.jsx";
 
 const router = createBrowserRouter([
   {
@@ -52,86 +53,82 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/Search',
-        element : <Search/>
-
+        path: "/Search",
+        element: <Search />,
       },
       {
-        path : '/Notification',
-        element : <Notification/>
+        path: "/Notification",
+        element: <Notification />,
       },
       {
         path: "/Profile",
         element: <Profile />,
         children: [
           {
-            path: '/Profile/Post',
-            element: <Post />
+            path: "/Profile/Post",
+            element: <Post />,
           },
           {
-            path: '/Profile/Saved',
-            element: <Saved />
+            path: "/Profile/Saved",
+            element: <Saved />,
           },
           {
-            path: '/Profile/Tagged',
-            element: <Tagged />
+            path: "/Profile/Tagged",
+            element: <Tagged />,
           },
-
-
-        ]
+        ],
       },
       {
-        path: '/Settings',
+        path: "/Settings",
         element: <Settings />,
         children: [
           {
-            path: '/Settings/EditProfile',
-            element: <EditProfile />
+            path: "/Settings/EditProfile",
+            element: <EditProfile />,
           },
           {
-            path: '/Settings/Language',
-            element: <Language />
+            path: "/Settings/Language",
+            element: <Language />,
           },
           {
-            path: '/Settings/ChangePassword',
+            path: "/Settings/ChangePassword",
             element: <ChangePassword />,
           },
           {
-            path: '/Settings/EmailNotification',
-            element: <EmailNotification />
+            path: "/Settings/EmailNotification",
+            element: <EmailNotification />,
           },
           {
-            path: '/Settings/PushNotification',
-            element: <PushNotification />
+            path: "/Settings/PushNotification",
+            element: <PushNotification />,
           },
           {
-            path: '/Settings/Privacy',
-            element: <Privacy />
+            path: "/Settings/Privacy",
+            element: <Privacy />,
           },
           {
-            path: '/Settings/LoginActivity',
-            element: <LoginActivity />
+            path: "/Settings/LoginActivity",
+            element: <LoginActivity />,
           },
           {
-            path: '/Settings/Email_Sent',
+            path: "/Settings/Email_Sent",
             element: <EmailFromInstacity />,
             children: [
-
               {
-                path: '/Settings/Email_Sent/Other',
-                element: <Other />
+                path: "/Settings/Email_Sent/Other",
+                element: <Other />,
               },
               {
-                path: '/Settings/Email_Sent/Security',
-                element: <Security />
-              }
-            ]
+                path: "/Settings/Email_Sent/Security",
+                element: <Security />,
+              },
+            ],
           },
           {
-            path: '/Settings/Help',
-            element: <Help />
-          }
-        ]
+            path: "/Settings/Help",
+            element: <Help />,
+          },
+        ],
       },
     ],
   },
@@ -150,12 +147,12 @@ const router = createBrowserRouter([
   },
 ]);
 
-
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ApiContext>
-      <RouterProvider router={router} />
-    </ApiContext>
+    <ToastProvider>
+      <ApiContext>
+        <RouterProvider router={router} />
+      </ApiContext>
+    </ToastProvider>
   </React.StrictMode>
 );

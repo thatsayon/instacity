@@ -9,14 +9,18 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import { useToast } from "../../ContextApis/ToastContext";
+import { Toaster } from "react-hot-toast";
+import ReactLoading from "react-loading";
 
-function ReportProblem({ setReport, setClickMore }) {
+
+function ReportProblem({ onReport, onClickMore }) {
+  const { ErrorToast, SuccessToast } = useToast();
+  const [btnLoading, setbtnLoading] = useState(false);
   const [ReportText, setReportText] = useState("");
   const [Imagearray, setImagearray] = useState([]);
   const clickFile = useRef();
-  const { report, user } = useShareobj() || {}
-
-
+  const { report, user } = useShareobj() || {};
 
   const HandleAddFile = (e) => {
     if (e?.target?.files[0]) {
@@ -35,11 +39,7 @@ function ReportProblem({ setReport, setClickMore }) {
     }
   };
 
-
-
   const HandleDelete = (img, index) => {
-
-
     for (let i = 0; i < Imagearray?.length; i++) {
       if (Imagearray[i] == img && i == index) {
         Imagearray.pop();
@@ -49,22 +49,29 @@ function ReportProblem({ setReport, setClickMore }) {
     setImagearray([...Imagearray]);
   };
 
-  const submit = () => {
+  const submit = async () => {
+    setbtnLoading(true)
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const obj = {
+        report: ReportText,
+      };
 
-    const obj = {
-      "report": ReportText
-
+      report(obj)
+        .then((res) => {
+          if (res?.data) {
+            SuccessToast("Report successfully");
+            setReportText("");
+            setImagearray([]);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } finally {
+      setbtnLoading(false)
     }
-
-    report(obj)
-      .then((res) => {
-        if (res?.data) {
-        setReportText('')
-      } })
-      .catch((error) => { console.log(error) })
-
-
-  }
+  };
   return (
     <>
       <div
@@ -72,7 +79,7 @@ function ReportProblem({ setReport, setClickMore }) {
           if (e.target !== e.currentTarget) {
             return;
           }
-          setReport(false);
+          onReport();
         }}
         className=" fixed overflow-scroll right-0 top-0 z-50 left-0 bottom-0 justify-center items-center flex dropdown bg-[#00000080] "
       >
@@ -81,7 +88,7 @@ function ReportProblem({ setReport, setClickMore }) {
             <div>
               <button
                 onClick={() => {
-                  setClickMore(true), setReport(false);
+                  onClickMore(), onReport();
                 }}
                 className="text-[#000000] text-xl font-semibold dark:text-[#ffffff]"
               >
@@ -93,11 +100,10 @@ function ReportProblem({ setReport, setClickMore }) {
               <p className="text-base font-medium dark:text-[#ffffff] text-[#000000] ">
                 Report a problem
               </p>
-
             </div>
             <div>
               <button
-                onClick={() => setReport(false)}
+                onClick={() => onReport()}
                 className="text-[#000000] text-base font-semibold dark:text-[#ffffff]"
               >
                 <RxCross2 />
@@ -106,11 +112,34 @@ function ReportProblem({ setReport, setClickMore }) {
           </div>
           <div className="px-1 mt-2">
             <div>
-              <textarea onChange={(e) => { setReportText(e.target.value) }} name="report" id="report" value={ReportText} className="w-full min-h-[30vh] dark:text-white outline-none border-2 bg-[#ffffff] transition-all duration-500 dark:bg-[#262626] dark:border-[#555555] p-1 dark:focus:border-[#1b74e4] focus:border-[#1b74e4] rounded-md "></textarea>
+              <textarea
+                onChange={(e) => {
+                  setReportText(e.target.value);
+                }}
+                name="report"
+                id="report"
+                value={ReportText}
+                className="w-full min-h-[30vh] dark:text-white outline-none border-2 bg-[#ffffff] transition-all duration-500 dark:bg-[#262626] dark:border-[#555555] p-1 dark:focus:border-[#1b74e4] focus:border-[#1b74e4] rounded-md "
+              ></textarea>
             </div>
             <div className="my-2 flex items-center justify-between">
               <div>
-                <button disabled={!ReportText} onClick={submit} className="button-primary disabled:opacity-75">Send report</button>
+                <button
+                  disabled={!ReportText}
+                  onClick={submit}
+                  className="button-primary disabled:opacity-75"
+                >
+                   {btnLoading ? (
+                  <ReactLoading
+                    type="spokes"
+                    height="20px"
+                    width="20px"
+                    color="#fff"
+                  />
+                ) : (
+                  "Send report"
+                )}
+                </button>
               </div>
               <div>
                 <input
@@ -121,22 +150,25 @@ function ReportProblem({ setReport, setClickMore }) {
                   ref={clickFile}
                   onChange={HandleAddFile}
                 />
-                <button onClick={() => {
-                  clickFile?.current?.click();
-                }} className="dark:bg-[#363636] bg-[#efefef] py-[8px] text-[#000000] dark:text-[#ffffff] px-[10px] rounded-md text-[14px] font-medium hover:opacity-70 ">Add file</button>
+                <button
+                  onClick={() => {
+                    clickFile?.current?.click();
+                  }}
+                  className="dark:bg-[#363636] bg-[#efefef] py-[8px] text-[#000000] dark:text-[#ffffff] px-[10px] rounded-md text-[14px] font-medium hover:opacity-70 "
+                >
+                  Add file
+                </button>
               </div>
             </div>
           </div>
 
           <div className="w-full overflow-hidden px-4">
             {Imagearray.length > 0 && (
-
               <Swiper
                 modules={[Navigation, Pagination]}
                 spaceBetween={5}
                 slidesPerView={3}
-                navigation={true}
-
+                pagination={{ clickable: true }}
               >
                 {Imagearray.map((IMG, index) => (
                   <SwiperSlide
@@ -149,20 +181,19 @@ function ReportProblem({ setReport, setClickMore }) {
                     >
                       <FaXmark />
                     </p>
-                    <img
-                      src={IMG}
-                      alt="Report file"
-                      className="min-h-[70px]"
-                    />
+                    <img src={IMG} alt="Report file" className="min-h-[70px]" />
                   </SwiperSlide>
                 ))}
               </Swiper>
             )}
           </div>
 
-          <p className="gray-style text-center dark:text-white max-w-sm mx-auto">Your Instacity username and browser information will be automatically included in your report.</p>
+          <p className="gray-style text-center dark:text-white max-w-sm mx-auto">
+            Your Instacity username and browser information will be
+            automatically included in your report.
+          </p>
         </div>
-
+        <Toaster position="bottom-left" reverseOrder={true} />
       </div>
     </>
   );
