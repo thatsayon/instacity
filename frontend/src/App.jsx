@@ -38,7 +38,7 @@ function App() {
   const [isDicardPost, setDiscardPost] = useState(false);
   const [isSearch, setSearch] = useState(false);
 
-  const { LogoutLoading, user, image_url } = useShareobj();
+  const { logoutPopup, user, image_url } = useShareobj();
 
   useEffect(() => {
     setTimeout(() => {
@@ -57,6 +57,8 @@ function App() {
       setchecked(false);
     }
   }, [localStorage.getItem("Dark")]);
+
+  console.log(logoutPopup)
 
   return (
     <>
@@ -128,7 +130,7 @@ function App() {
           onClickMore={() => setClickMore(!clickMore)}
         />
       )}
-      {LogoutLoading && <LogoutModal />}
+      {logoutPopup && <LogoutModal />}
       {isDicardPost && (
         <DiscardPost setDiscardPost={setDiscardPost} setCreate={setCreate} />
       )}

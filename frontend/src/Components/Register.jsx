@@ -147,9 +147,9 @@ function Register() {
 
   return (
     <>
-      <div className="fixed right-0 top-0 overflow-scroll z-50 left-0 bottom-0 justify-center items-center flex">
+      <div className=" h-screen overflow-y-scroll justify-center items-center flex">
         <div
-          className=" min-h-[70vh] shadow-md z-10 border-[1px]  border-[#dbdbdb]  bg-white dark:bg-white  text-black dark:text-black font-normal
+          className=" min-h-[70vh] shadow-xl z-50 border-[1px]  border-[#dbdbdb]  bg-white dark:bg-white  text-black dark:text-black font-normal
                        max-w-sm mx-auto my-auto w-full px-8  py-4 rounded-md flex items-center justify-center flex-col gap-2"
         >
           <h1 className={`text-2xl font-bold  text-gray-700 `}>InstaCity</h1>

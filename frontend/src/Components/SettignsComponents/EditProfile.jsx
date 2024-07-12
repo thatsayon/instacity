@@ -4,49 +4,63 @@ import useShareobj from "../../CustomHooks/useShareobj";
 import anynomoususer from "../../assets/Anynomous.webp";
 import { Link } from "react-router-dom";
 import { RxCross2 } from "react-icons/rx";
+import "react-phone-number-input/style.css";
+import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
+import { useToast } from "../../ContextApis/ToastContext";
+import { Toaster } from "react-hot-toast";
+import ReactLoading from "react-loading";
 
 function EditProfile() {
-  const { user, image_url, update_user_info } = useShareobj() || '';
+  const { user, image_url, update_user_info } = useShareobj() || "";
   const [isOpen, setIsOpen] = useState();
   const [selectedGender, setSelectedGender] = useState("");
   const [word, setWord] = useState(0);
-  const [phone , setPhone ] = useState('+880')
+  const [phone, setPhone] = useState("");
+  const { ErrorToast } = useToast();
+  const [btnLoading, setbtnLoading] = useState(false);
 
-
-  const HandleUpdateInfo = (e) => {
+  const HandleUpdateInfo = async (e) => {
     e.preventDefault();
-
+    setbtnLoading(true);
     const data = new FormData(e.currentTarget);
-    const Name = data.get('Name');
-    const UserName = data.get('UserName');
-    const social_link = data.get('social-link');
-    const Bio = data.get('Bio');
-    const Email = data.get('Email');
-    const Phone = phone;
-    const Gender = data.get('Gender');
 
-    const obj = {
-      "bio": Bio || '',
-      "gender": Gender || '',
-      "phone_number": Phone || '',
-      "social_links": social_link || ''
+    try {
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1500);
+      });
+      if (phone && isValidPhoneNumber(phone) == false) {
+        ErrorToast("Please enter a valid phone number");
+
+        return; 
+      }
+      const Name = data.get("Name");
+      const UserName = data.get("UserName");
+      const social_link = data.get("social-link");
+      const Bio = data.get("Bio");
+      const Email = data.get("Email");
+      const Phone = phone;
+      const Gender = data.get("Gender");
+
+      const obj = {
+        bio: Bio || "",
+        gender: Gender || "",
+        phone_number: Phone || "",
+        social_links: social_link || "",
+      };
+
+      update_user_info(obj)
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((error) => console.log(error));
+    }finally {
+      setbtnLoading(false);
     }
-
-
-
-
-    update_user_info(obj)
-      .then(res => {
-      console.log(res.data)
-    })
-    .catch(error => console.log(error))
-
   };
-
 
   return (
     <>
-      <div className="max-w-lg mx-auto py-5 dark:text-white">
+      <div className="max-w-lg edit-profile mx-auto py-5 dark:text-white">
         <form onSubmit={HandleUpdateInfo}>
           <div className="E_D_P_flex">
             <div className="first-div">
@@ -120,7 +134,12 @@ function EditProfile() {
             </div>
 
             <div className="second-div">
-              <input id="social-link" name="social-link" placeholder="Social Link" type="text" />
+              <input
+                id="social-link"
+                name="social-link"
+                placeholder="Social Link"
+                type="text"
+              />
               <div>
                 <span>
                   Editing your links is only available on website. Visit the
@@ -138,12 +157,17 @@ function EditProfile() {
             <div className="second-div">
               <textarea
                 onKeyDown={(e) => {
-                  if (word >= 200 && e.key !== 'Backspace' && e.key !== 'Delete') {
+                  if (
+                    word >= 200 &&
+                    e.key !== "Backspace" &&
+                    e.key !== "Delete"
+                  ) {
                     e.preventDefault();
                   }
                 }}
-                onChange={(e) => { setWord(e?.target?.value?.length) }}
-
+                onChange={(e) => {
+                  setWord(e?.target?.value?.length);
+                }}
                 id="Bio"
                 name="Bio"
                 rows="5"
@@ -175,13 +199,26 @@ function EditProfile() {
               <label htmlFor="Phone">Phone number</label>
             </div>
             <div className="second-div">
-              <input
+              {/* <input
                 id="Phone"
                 name="Phone"
                 value={phone}
                 onChange={(e)=> setPhone(e.target.value)}
                 placeholder="Phone number"
                 type="text"
+              /> */}
+
+              <PhoneInput
+                international
+                defaultCountry="BD"
+                rules={{ required: true }}
+                className="flex-row-reverse gap-3"
+                withCountryCallingCode={true}
+                countryCallingCodeEditable={false}
+                placeholder="phone number"
+                value={phone}
+                onChange={setPhone}
+                autoComplete="on"
               />
             </div>
           </div>
@@ -215,7 +252,19 @@ function EditProfile() {
             <div className="second-div">
               <div className="flex flex-row justify-between">
                 <div>
-                  <button className="button-primary uppercase">Submit</button>
+                  <button className="button-primary uppercase">
+                    {btnLoading ? (
+                      <ReactLoading
+                        className="w-fit mx-auto"
+                        type="spokes"
+                        height="20px"
+                        width="20px"
+                        color="#fff"
+                      />
+                    ) : (
+                      "submit"
+                    )}
+                  </button>
                 </div>
 
                 <h1 className="text-xs text-medium text-[#0095f6] tracking-normal hover:text-gray-700 cursor-pointer hover:underline">
@@ -301,22 +350,25 @@ function EditProfile() {
             <div className="flex flex-col gap-4 px-5 mt-4">
               <button
                 onClick={() => setSelectedGender("Male")}
-                className={`py-2 px-4 rounded-lg dark:border-[#555555] border-[1px] ${selectedGender === "Male" ? "button-primary" : ""
-                  }`}
+                className={`py-2 px-4 rounded-lg dark:border-[#555555] border-[1px] ${
+                  selectedGender === "Male" ? "button-primary" : ""
+                }`}
               >
                 Male
               </button>
               <button
                 onClick={() => setSelectedGender("Female")}
-                className={`py-2 px-4 rounded-lg dark:border-[#555555] border-[1px] ${selectedGender === "Female" ? "button-primary" : ""
-                  }`}
+                className={`py-2 px-4 rounded-lg dark:border-[#555555] border-[1px] ${
+                  selectedGender === "Female" ? "button-primary" : ""
+                }`}
               >
                 Female
               </button>
               <button
                 onClick={() => setSelectedGender("Other")}
-                className={`py-2 px-4 dark:border-[#555555] rounded-lg border-[1px] ${selectedGender === "Other" ? "button-primary" : ""
-                  }`}
+                className={`py-2 px-4 dark:border-[#555555] rounded-lg border-[1px] ${
+                  selectedGender === "Other" ? "button-primary" : ""
+                }`}
               >
                 Other
               </button>
@@ -332,7 +384,9 @@ function EditProfile() {
               </button>
 
               <button
-                onClick={() => { setIsOpen(false) }}
+                onClick={() => {
+                  setIsOpen(false);
+                }}
                 className="dark:bg-[#363636] bg-[#efefef] py-[8px] text-[#000000] dark:text-[#ffffff] px-[10px] rounded-md text-[14px] font-medium hover:opacity-70 "
               >
                 Cancel
@@ -341,6 +395,8 @@ function EditProfile() {
           </div>
         </div>
       )}
+
+      <Toaster position="bottom-left" reverseOrder={true} />
     </>
   );
 }

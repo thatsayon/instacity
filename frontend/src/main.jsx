@@ -29,6 +29,7 @@ import Security from "./Components/SettignsComponents/EmailFromInstacity/Securit
 import Search from "./Components/Search.jsx";
 import Notification from "./Components/Notification.jsx";
 import { ToastProvider } from "./ContextApis/ToastContext.jsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const router = createBrowserRouter([
   {
@@ -147,12 +148,16 @@ const router = createBrowserRouter([
   },
 ]);
 
+const queryclient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ToastProvider>
-      <ApiContext>
-        <RouterProvider router={router} />
-      </ApiContext>
-    </ToastProvider>
+    <QueryClientProvider client={queryclient}>
+      <ToastProvider>
+        <ApiContext>
+          <RouterProvider router={router} />
+        </ApiContext>
+      </ToastProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );

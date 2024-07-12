@@ -3,7 +3,7 @@ import axios from 'axios'
 
 
 const axiosFetch = axios.create({
-    baseURL: 'http://127.0.0.1:8000/',
+    baseURL: 'http://127.0.0.1:8000',
     withCredentials : true ,
     method : ['GET','POST', 'PUT', 'PATCH', 'DELETE']
 
