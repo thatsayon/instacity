@@ -16,14 +16,10 @@ import DiscardPost from "./Components/Modals/DiscardPost";
 import Search from "./Components/Search";
 import Notification from "./Components/Notification";
 import { LuHome } from "react-icons/lu";
-import { IoSearchSharp } from "react-icons/io5";
-import { MdOutlineExplore } from "react-icons/md";
+import { IoCreateOutline, IoSearchSharp } from "react-icons/io5";
 import { BiMoviePlay } from "react-icons/bi";
-import { RiMessengerLine } from "react-icons/ri";
-import { IoHeartOutline } from "react-icons/io5";
-import { IoCreateOutline } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
-import { IoMenuSharp } from "react-icons/io5";
+import './CustomStyles/Sidebar.css';
 
 function App() {
   const navigation = useNavigation();
@@ -58,20 +54,18 @@ function App() {
     }
   }, [localStorage.getItem("Dark")]);
 
-  console.log(logoutPopup)
-
   return (
     <>
       {StartonLoad ? (
         <StartLoad />
       ) : (
-        <div className="flex md:flex-row flex-col gap-2 md:min-h-screen">
+        <div className="flex md:flex-row flex-col gap-2 md:min-h-screen ">
           <header
             className={`${
               isNotification || isSearch
                 ? "lg:max-w-[20vw]"
                 : "lg:min-w-[20vw] "
-            } dark:bg-black max-h-[17rem] overflow-y-auto sidebar-header md:min-h-[100vh] dark:border-[#262626] bg-white`}
+            } dark:bg-black  overflow-y-auto sidebar-header  dark:border-[#262626] bg-white`}
           >
             <SideNavBar
               setCreate={setCreate}
@@ -85,8 +79,8 @@ function App() {
             />
           </header>
           <main
-            style={{ maxHeight: "calc(0vh + 15rem)" }}
-            className="md:flex-1 overflow-y-scroll min-h-screen"
+          
+            className="md:flex-1 overflow-y-scroll h-fit"
           >
             {navigation.state == "idle" ? (
               <Private>
@@ -96,6 +90,51 @@ function App() {
               <LoadingOne />
             )}
           </main>
+          <footer className="md:hidden block">
+            
+              <ul
+                id="Mobile-nav"
+                className="flex flex-row justify-between px-[3%] py-2"
+              >
+                <li>
+                  <NavLink to={"/"}>
+                    <LuHome />
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={"/Search"}>
+                    <IoSearchSharp />
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink onClick={() => setCreate(!isCreate)}>
+                    <IoCreateOutline />
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={"/Reels"}>
+                    <BiMoviePlay />
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to={"/Profile"}>
+                    {user?.profile_pic ? (
+                      <img
+                        src={image_url + user?.profile_pic}
+                        alt="User Profile"
+                        className="w-6 h-6 rounded-full dark:border-2 border-white"
+                      />
+                    ) : (
+                      <div>
+                        <FaRegUserCircle />
+                      </div>
+                    )}
+                  </NavLink>
+                </li>
+              </ul>
+           
+          </footer>
+
         </div>
       )}
 

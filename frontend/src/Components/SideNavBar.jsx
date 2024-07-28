@@ -22,7 +22,7 @@ function SideNavBar({ setCreate, isCreate, clickMore, setClickMore, setNotificat
 
   return (
     <>
-      <nav className={`px-2 dark:text-[#ffffff] overflow-hidden md:block hidden`}>
+      <nav className={`px-2 dark:text-[#ffffff] overflow-hidden md:block hidden h-screen`}>
         <div onClick={() => { navigate('/') }} className=" py-4 cursor-pointer ">
           <h1 className={`text-2xl font-bold text-gray-700 dark:text-[#ffffff] transition-all duration-500 ${isNotification || isSearch ? "opacity-0 h-0 w-0" : 'opacity-0 h-0 w-0 lg:w-fit lg:h-fit lg:opacity-100'} `}>
             InstaCity
@@ -139,8 +139,8 @@ function SideNavBar({ setCreate, isCreate, clickMore, setClickMore, setNotificat
 
       <nav className="md:hidden block w-full dark:text-[#ffffff] ">
         <div className="px-[1%] pt-2 flex flex-row items-center justify-between">
-          <h1 className={`text-2xl text-[#0095f6] italic`}>
-            Instacity
+        <h1 className={`text-2xl font-bold text-gray-700 dark:text-[#ffffff] } `}>
+            InstaCity
           </h1>
           <div>
             <ul className="flex flex-row gap-3 items-center">

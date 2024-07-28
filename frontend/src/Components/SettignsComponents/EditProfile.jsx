@@ -9,15 +9,19 @@ import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 import { useToast } from "../../ContextApis/ToastContext";
 import { Toaster } from "react-hot-toast";
 import ReactLoading from "react-loading";
+import useFetch from "../../CustomHooks/useFetch";
 
 function EditProfile() {
-  const { user, image_url, update_user_info } = useShareobj() || "";
+  const { user, image_url, Token ,  refetch } = useShareobj() || "";
   const [isOpen, setIsOpen] = useState();
   const [selectedGender, setSelectedGender] = useState("");
   const [word, setWord] = useState(0);
   const [phone, setPhone] = useState("");
   const { ErrorToast } = useToast();
   const [btnLoading, setbtnLoading] = useState(false);
+  const axiosFetch = useFetch();
+
+  console.log(user)
 
   const HandleUpdateInfo = async (e) => {
     e.preventDefault();
@@ -31,7 +35,7 @@ function EditProfile() {
       if (phone && isValidPhoneNumber(phone) == false) {
         ErrorToast("Please enter a valid phone number");
 
-        return; 
+        return;
       }
       const Name = data.get("Name");
       const UserName = data.get("UserName");
@@ -48,12 +52,19 @@ function EditProfile() {
         social_links: social_link || "",
       };
 
-      update_user_info(obj)
+      const headers = {
+        Authorization: `Token ${Token}`,
+      };
+
+      axiosFetch
+        .post("/profile/profiles/", obj, {headers})
         .then((res) => {
           console.log(res.data);
+          refetch()
+        
         })
         .catch((error) => console.log(error));
-    }finally {
+    } finally {
       setbtnLoading(false);
     }
   };

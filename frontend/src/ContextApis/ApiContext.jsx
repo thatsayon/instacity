@@ -77,13 +77,6 @@ function ApiContext({ children }) {
 
     return axiosFetch.patch("/api/change-password/", obj, { headers });
   };
-  const update_user_info = (obj) => {
-    const headers = {
-      Authorization: `Token ${Token}`,
-    };
-
-    return axiosFetch.post("/profile/profiles/", obj, { headers });
-  };
 
   useEffect(() => {
     const storedToken = Cookies.get("userToken");
@@ -164,7 +157,6 @@ function ApiContext({ children }) {
 
   const shareobj = useMemo(
     () => ({
-      Token,
       user: user ?? {},
       refetch,
       image_url,
@@ -176,7 +168,9 @@ function ApiContext({ children }) {
       Logout,
       report,
       changePassword,
-      update_user_info,
+      Token ,
+      tokenLoading,
+      isLoading
     }),
     [user, isLoading, Token, tokenLoading, logoutPopup]
   );

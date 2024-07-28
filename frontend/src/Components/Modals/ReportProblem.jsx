@@ -3,16 +3,9 @@ import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { FaXmark } from "react-icons/fa6";
 import useShareobj from "../../CustomHooks/useShareobj";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
 import { useToast } from "../../ContextApis/ToastContext";
 import { Toaster } from "react-hot-toast";
 import ReactLoading from "react-loading";
-
 
 function ReportProblem({ onReport, onClickMore }) {
   const { ErrorToast, SuccessToast } = useToast();
@@ -37,6 +30,7 @@ function ReportProblem({ onReport, onClickMore }) {
         console.log(error);
       };
     }
+   
   };
 
   const HandleDelete = (img, index) => {
@@ -50,7 +44,7 @@ function ReportProblem({ onReport, onClickMore }) {
   };
 
   const submit = async () => {
-    setbtnLoading(true)
+    setbtnLoading(true);
     try {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       const obj = {
@@ -69,9 +63,10 @@ function ReportProblem({ onReport, onClickMore }) {
           console.log(error);
         });
     } finally {
-      setbtnLoading(false)
+      setbtnLoading(false);
     }
   };
+
   return (
     <>
       <div
@@ -129,16 +124,16 @@ function ReportProblem({ onReport, onClickMore }) {
                   onClick={submit}
                   className="button-primary disabled:opacity-75"
                 >
-                   {btnLoading ? (
-                  <ReactLoading
-                    type="spokes"
-                    height="20px"
-                    width="20px"
-                    color="#fff"
-                  />
-                ) : (
-                  "Send report"
-                )}
+                  {btnLoading ? (
+                    <ReactLoading
+                      type="spokes"
+                      height="20px"
+                      width="20px"
+                      color="#fff"
+                    />
+                  ) : (
+                    "Send report"
+                  )}
                 </button>
               </div>
               <div>
@@ -162,18 +157,15 @@ function ReportProblem({ onReport, onClickMore }) {
             </div>
           </div>
 
-          <div className="w-full overflow-hidden px-4">
-            {Imagearray.length > 0 && (
-              <Swiper
-                modules={[Navigation, Pagination]}
-                spaceBetween={5}
-                slidesPerView={3}
-                pagination={{ clickable: true }}
-              >
+          {Imagearray.length > 0 && (
+            <div className="w-full flex flex-row flex-wrap gap-2 px-1">
+              
+            
+            
                 {Imagearray.map((IMG, index) => (
-                  <SwiperSlide
+                  <div
                     key={index}
-                    className={` max-w-28 max-h-16 overflow-hidden relative`}
+                    className={` max-w-20 max-h-16 overflow-hidden relative`}
                   >
                     <p
                       onClick={() => HandleDelete(IMG, index)}
@@ -181,12 +173,13 @@ function ReportProblem({ onReport, onClickMore }) {
                     >
                       <FaXmark />
                     </p>
-                    <img src={IMG} alt="Report file" className="min-h-[70px]" />
-                  </SwiperSlide>
+                    <img src={IMG} alt="Report file" className="min-h-[60px]" />
+                  </div>
                 ))}
-              </Swiper>
-            )}
-          </div>
+          
+          
+            </div>
+          )}
 
           <p className="gray-style text-center dark:text-white max-w-sm mx-auto">
             Your Instacity username and browser information will be
